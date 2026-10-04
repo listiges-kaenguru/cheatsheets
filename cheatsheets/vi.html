@@ -1,0 +1,145 @@
+<section id="vi-grundlagen">
+  <h2>Modi, Speichern &amp; Beenden</h2>
+  <p class="note">Vi/Vim startet im <strong>Normalmodus</strong>. Mit <kbd>Esc</kbd> kehrt man aus jedem anderen Modus dorthin zurück. Befehle mit <code>:</code> werden im Normalmodus eingegeben und mit <kbd>Enter</kbd> bestätigt.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>vim datei</code></td><td>Datei öffnen (oder neu anlegen)</td></tr>
+      <tr><td><code>vim +42 datei</code></td><td>Datei öffnen und zu Zeile 42 springen</td></tr>
+      <tr><td><code>vimtutor</code></td><td>Interaktive Einführung (ca. 30 Minuten)</td></tr>
+      <tr><td><kbd>Esc</kbd></td><td>Zurück in den Normalmodus</td></tr>
+      <tr><td><code>i</code></td><td>Einfügen vor dem Cursor</td></tr>
+      <tr><td><code>a</code></td><td>Einfügen nach dem Cursor</td></tr>
+      <tr><td><code>I</code></td><td>Einfügen am Zeilenanfang</td></tr>
+      <tr><td><code>A</code></td><td>Einfügen am Zeilenende</td></tr>
+      <tr><td><code>o</code></td><td>Neue Zeile unterhalb öffnen und einfügen</td></tr>
+      <tr><td><code>O</code></td><td>Neue Zeile oberhalb öffnen und einfügen</td></tr>
+      <tr><td><code>v</code></td><td>Visueller Modus (zeichenweise markieren)</td></tr>
+      <tr><td><code>V</code></td><td>Visueller Modus (zeilenweise markieren)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>v</kbd></td><td>Visueller Blockmodus (Spalten markieren)</td></tr>
+      <tr><td><code>R</code></td><td>Überschreibmodus</td></tr>
+      <tr><td><code>:w</code></td><td>Speichern</td></tr>
+      <tr><td><code>:w datei</code></td><td>Unter neuem Namen speichern</td></tr>
+      <tr><td><code>:q</code></td><td>Beenden (nur ohne ungespeicherte Änderungen)</td></tr>
+      <tr><td><code>:q!</code></td><td>Beenden und Änderungen verwerfen</td></tr>
+      <tr><td><code>:wq</code> / <code>:x</code> / <code>ZZ</code></td><td>Speichern und beenden (<code>:x</code>/<code>ZZ</code> schreiben nur bei Änderungen)</td></tr>
+      <tr><td><code>:w !sudo tee %</code></td><td>Datei ohne Schreibrechte per sudo speichern (nur Vim, nicht Neovim)</td></tr>
+      <tr><td><code>:e datei</code></td><td>Andere Datei öffnen</td></tr>
+      <tr><td><code>:e!</code></td><td>Datei neu laden, Änderungen verwerfen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="vi-navigation">
+  <h2>Navigation</h2>
+  <table>
+    <thead><tr><th>Taste</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>h</code> / <code>j</code> / <code>k</code> / <code>l</code></td><td>Links / runter / hoch / rechts</td></tr>
+      <tr><td><code>w</code></td><td>Zum Anfang des nächsten Wortes</td></tr>
+      <tr><td><code>b</code></td><td>Zum Anfang des vorherigen Wortes</td></tr>
+      <tr><td><code>e</code></td><td>Zum Ende des Wortes</td></tr>
+      <tr><td><code>0</code></td><td>Zum Zeilenanfang</td></tr>
+      <tr><td><code>^</code></td><td>Zum ersten Nicht-Leerzeichen der Zeile</td></tr>
+      <tr><td><code>$</code></td><td>Zum Zeilenende</td></tr>
+      <tr><td><code>gg</code></td><td>Zum Dateianfang</td></tr>
+      <tr><td><code>G</code></td><td>Zum Dateiende</td></tr>
+      <tr><td><code>42G</code> / <code>:42</code></td><td>Zu Zeile 42</td></tr>
+      <tr><td><code>{</code> / <code>}</code></td><td>Zum vorherigen / nächsten Absatz</td></tr>
+      <tr><td><code>%</code></td><td>Zur passenden Klammer springen</td></tr>
+      <tr><td><code>H</code> / <code>M</code> / <code>L</code></td><td>Oben / Mitte / unten im sichtbaren Bereich</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>f</kbd></td><td>Eine Seite vorwärts</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd></td><td>Eine Seite zurück</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>d</kbd></td><td>Halbe Seite vorwärts</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>u</kbd></td><td>Halbe Seite zurück</td></tr>
+      <tr><td><code>f&lt;zeichen&gt;</code></td><td>Zum nächsten Vorkommen des Zeichens in der Zeile</td></tr>
+      <tr><td><code>zz</code></td><td>Aktuelle Zeile in die Bildschirmmitte scrollen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>o</kbd></td><td>Zur vorherigen Sprungposition zurück</td></tr>
+      <tr><td><code>ma</code> / <code>'a</code></td><td>Marke <code>a</code> setzen / zu Marke <code>a</code> springen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="vi-bearbeiten">
+  <h2>Text bearbeiten</h2>
+  <table>
+    <thead><tr><th>Taste</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>x</code></td><td>Zeichen unter dem Cursor löschen</td></tr>
+      <tr><td><code>dd</code></td><td>Zeile löschen (ausschneiden)</td></tr>
+      <tr><td><code>3dd</code></td><td>Drei Zeilen löschen</td></tr>
+      <tr><td><code>dw</code></td><td>Bis zum nächsten Wortanfang löschen</td></tr>
+      <tr><td><code>diw</code></td><td>Ganzes Wort unter dem Cursor löschen</td></tr>
+      <tr><td><code>D</code> / <code>d$</code></td><td>Bis Zeilenende löschen</td></tr>
+      <tr><td><code>dG</code></td><td>Bis Dateiende löschen</td></tr>
+      <tr><td><code>cw</code></td><td>Wort ändern (löschen und einfügen)</td></tr>
+      <tr><td><code>ci"</code></td><td>Inhalt zwischen Anführungszeichen ändern</td></tr>
+      <tr><td><code>cc</code></td><td>Ganze Zeile ändern</td></tr>
+      <tr><td><code>C</code> / <code>c$</code></td><td>Bis Zeilenende ändern</td></tr>
+      <tr><td><code>r&lt;zeichen&gt;</code></td><td>Ein Zeichen ersetzen</td></tr>
+      <tr><td><code>yy</code></td><td>Zeile kopieren (yank)</td></tr>
+      <tr><td><code>yw</code></td><td>Wort kopieren</td></tr>
+      <tr><td><code>y</code></td><td>Markierung kopieren (im visuellen Modus)</td></tr>
+      <tr><td><code>p</code></td><td>Nach dem Cursor / unter der Zeile einfügen</td></tr>
+      <tr><td><code>P</code></td><td>Vor dem Cursor / über der Zeile einfügen</td></tr>
+      <tr><td><code>u</code></td><td>Rückgängig</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>r</kbd></td><td>Wiederherstellen (Redo)</td></tr>
+      <tr><td><code>U</code></td><td>Alle Änderungen in der Zeile rückgängig</td></tr>
+      <tr><td><code>.</code></td><td>Letzte Änderung wiederholen</td></tr>
+      <tr><td><code>~</code></td><td>Groß-/Kleinschreibung umschalten</td></tr>
+      <tr><td><code>J</code></td><td>Nächste Zeile anhängen</td></tr>
+      <tr><td><code>&gt;&gt;</code> / <code>&lt;&lt;</code></td><td>Zeile ein-/ausrücken</td></tr>
+      <tr><td><code>"+y</code> / <code>"+p</code></td><td>System-Zwischenablage kopieren / einfügen (Vim mit +clipboard)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="vi-suchen">
+  <h2>Suchen &amp; Ersetzen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>/muster</code></td><td>Vorwärts suchen</td></tr>
+      <tr><td><code>?muster</code></td><td>Rückwärts suchen</td></tr>
+      <tr><td><code>n</code> / <code>N</code></td><td>Nächster / vorheriger Treffer</td></tr>
+      <tr><td><code>*</code> / <code>#</code></td><td>Wort unter dem Cursor vorwärts / rückwärts suchen</td></tr>
+      <tr><td><code>:noh</code></td><td>Suchhervorhebung ausblenden</td></tr>
+      <tr><td><code>:s/alt/neu/</code></td><td>Erstes Vorkommen in der Zeile ersetzen</td></tr>
+      <tr><td><code>:s/alt/neu/g</code></td><td>Alle Vorkommen in der Zeile ersetzen</td></tr>
+      <tr><td><code>:%s/alt/neu/g</code></td><td>Alle Vorkommen in der Datei ersetzen</td></tr>
+      <tr><td><code>:%s/alt/neu/gc</code></td><td>Alle ersetzen, jeweils mit Rückfrage</td></tr>
+      <tr><td><code>:10,20s/alt/neu/g</code></td><td>Nur in Zeilen 10 bis 20 ersetzen</td></tr>
+      <tr><td><code>:%s/\s\+$//e</code></td><td>Leerzeichen am Zeilenende entfernen</td></tr>
+      <tr><td><code>:g/muster/d</code></td><td>Alle Zeilen mit Muster löschen</td></tr>
+      <tr><td><code>:v/muster/d</code></td><td>Alle Zeilen ohne Muster löschen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="vi-erweitert">
+  <h2>Fenster, Puffer &amp; Einstellungen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>:sp datei</code> / <code>:vsp datei</code></td><td>Fenster horizontal / vertikal teilen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>w</kbd> <kbd>w</kbd></td><td>Zwischen Fenstern wechseln</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>w</kbd> <kbd>q</kbd></td><td>Aktuelles Fenster schließen</td></tr>
+      <tr><td><code>:ls</code></td><td>Offene Puffer anzeigen</td></tr>
+      <tr><td><code>:bn</code> / <code>:bp</code></td><td>Nächster / vorheriger Puffer</td></tr>
+      <tr><td><code>:tabnew datei</code> / <code>gt</code></td><td>Neuer Tab / nächster Tab</td></tr>
+      <tr><td><code>:set nu</code> / <code>:set nonu</code></td><td>Zeilennummern ein / aus</td></tr>
+      <tr><td><code>:set rnu</code></td><td>Relative Zeilennummern</td></tr>
+      <tr><td><code>:set paste</code></td><td>Einfügemodus ohne Auto-Einrückung (für eingefügten Text; ab Vim 8 meist unnötig)</td></tr>
+      <tr><td><code>:set list</code></td><td>Unsichtbare Zeichen (Tabs, Zeilenenden) anzeigen</td></tr>
+      <tr><td><code>:set ic</code> / <code>:set noic</code></td><td>Groß-/Kleinschreibung bei Suche ignorieren / beachten</td></tr>
+      <tr><td><code>:syntax on</code> / <code>:syntax off</code></td><td>Syntaxhervorhebung ein / aus</td></tr>
+      <tr><td><code>:set expandtab tabstop=4 shiftwidth=4</code></td><td>Tabs als 4 Leerzeichen</td></tr>
+      <tr><td><code>qa … q</code> / <code>@a</code></td><td>Makro in Register <code>a</code> aufnehmen / abspielen</td></tr>
+      <tr><td><code>:!befehl</code></td><td>Shell-Befehl ausführen</td></tr>
+      <tr><td><code>:r !befehl</code></td><td>Ausgabe eines Shell-Befehls einfügen</td></tr>
+      <tr><td><code>:r datei</code></td><td>Inhalt einer Datei einfügen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>z</kbd> / <code>fg</code></td><td>Vim in den Hintergrund / zurückholen</td></tr>
+      <tr><td><code>~/.vimrc</code></td><td>Persönliche Konfigurationsdatei</td></tr>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,85 @@
+<section id="jq-grundlagen">
+  <h2>Grundlagen</h2>
+  <p class="note">jq verarbeitet JSON zeilenweise über Filter. Beispiele mit jq 1.7. Filter immer in einfache Anführungszeichen setzen.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>jq . datei.json</code></td><td>JSON einlesen und lesbar ausgeben (formatieren)</td></tr>
+      <tr><td><code>curl -s url | jq .</code></td><td>Ausgabe eines Befehls formatieren</td></tr>
+      <tr><td><code>jq -c . datei.json</code></td><td>Kompakt, eine Zeile je Objekt</td></tr>
+      <tr><td><code>jq . datei.json &gt; neu.json</code></td><td>In Datei schreiben</td></tr>
+      <tr><td><code>jq -r '.name' datei.json</code></td><td>Rohausgabe ohne Anführungszeichen (für Skripte)</td></tr>
+      <tr><td><code>jq -e '.aktiv' datei.json</code></td><td>Exit-Code passend zum Ergebnis (false/null → 1)</td></tr>
+      <tr><td><code>jq -n '{a:1, b:2}'</code></td><td>JSON ohne Eingabe erzeugen</td></tr>
+      <tr><td><code>jq --arg name Max '.name=$name' datei.json</code></td><td>Shell-Variable sicher übergeben</td></tr>
+      <tr><td><code>jq --argjson n 5 '.anzahl=$n' datei.json</code></td><td>Zahl/JSON-Wert übergeben</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="jq-zugriff">
+  <h2>Werte auswählen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>.feld</code></td><td>Wert eines Feldes</td></tr>
+      <tr><td><code>.a.b.c</code></td><td>Verschachtelten Wert lesen</td></tr>
+      <tr><td><code>.["feld mit leer"]</code></td><td>Feld mit Sonderzeichen im Namen</td></tr>
+      <tr><td><code>.feld?</code></td><td>Kein Fehler, wenn das Feld fehlt</td></tr>
+      <tr><td><code>.array[0]</code></td><td>Erstes Element</td></tr>
+      <tr><td><code>.array[-1]</code></td><td>Letztes Element</td></tr>
+      <tr><td><code>.array[2:5]</code></td><td>Teilbereich (Index 2 bis 4)</td></tr>
+      <tr><td><code>.array[]</code></td><td>Alle Elemente einzeln ausgeben</td></tr>
+      <tr><td><code>.[]</code></td><td>Alle Werte eines Objekts oder Arrays</td></tr>
+      <tr><td><code>.a, .b</code></td><td>Mehrere Werte</td></tr>
+      <tr><td><code>.a // "Standard"</code></td><td>Ersatzwert, wenn null oder nicht vorhanden</td></tr>
+      <tr><td><code>..</code></td><td>Rekursiv durch alle Werte absteigen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="jq-transform">
+  <h2>Umformen &amp; filtern</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>map(.preis)</code></td><td>Feld aus jedem Array-Element</td></tr>
+      <tr><td><code>.array | map(.preis) | add</code></td><td>Werte summieren</td></tr>
+      <tr><td><code>map(select(.aktiv))</code></td><td>Nur Elemente behalten, bei denen aktiv wahr ist</td></tr>
+      <tr><td><code>.[] | select(.alter &gt; 18)</code></td><td>Nach Bedingung filtern</td></tr>
+      <tr><td><code>{name, email}</code></td><td>Neues Objekt mit nur diesen Feldern</td></tr>
+      <tr><td><code>{name: .n, id: .id}</code></td><td>Objekt mit umbenannten Feldern</td></tr>
+      <tr><td><code>.array | length</code></td><td>Anzahl der Elemente</td></tr>
+      <tr><td><code>keys</code> / <code>values</code></td><td>Schlüssel / Werte eines Objekts</td></tr>
+      <tr><td><code>.array | sort_by(.preis)</code></td><td>Nach Feld sortieren</td></tr>
+      <tr><td><code>.array | group_by(.kategorie)</code></td><td>Nach Feld gruppieren</td></tr>
+      <tr><td><code>.array | unique</code></td><td>Duplikate entfernen</td></tr>
+      <tr><td><code>.array | min_by(.preis)</code> / <code>max_by(.preis)</code></td><td>Kleinstes / größtes Element</td></tr>
+      <tr><td><code>to_entries | map({(.key): .value})</code></td><td>Objekt in Schlüssel/Wert-Paare umwandeln</td></tr>
+      <tr><td><code>add</code></td><td>Zahlen summieren bzw. Objekte/Arrays zusammenführen</td></tr>
+      <tr><td><code>.array | .[] | .name</code></td><td>Filter mit Pipe verketten</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="jq-format">
+  <h2>Ausgabe &amp; Typen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>@csv</code></td><td>Array-Zeile als CSV (mit <code>-r</code>)</td></tr>
+      <tr><td><code>@tsv</code></td><td>Als tabulatorgetrennt</td></tr>
+      <tr><td><code>@json</code></td><td>Als JSON-String kodieren</td></tr>
+      <tr><td><code>@base64</code> / <code>@base64d</code></td><td>Base64 kodieren / dekodieren</td></tr>
+      <tr><td><code>@sh</code></td><td>Für die Shell sicher zitieren</td></tr>
+      <tr><td><code>.array | map([.name, .preis]) | .[] | @csv</code></td><td>Tabelle als CSV ausgeben</td></tr>
+      <tr><td><code>tostring</code> / <code>tonumber</code></td><td>In Zeichenkette / Zahl umwandeln</td></tr>
+      <tr><td><code>ascii_downcase</code> / <code>ascii_upcase</code></td><td>Klein-/Großbuchstaben</td></tr>
+      <tr><td><code>split(",")</code> / <code>join(", ")</code></td><td>String teilen / Array verbinden</td></tr>
+      <tr><td><code>test("^a")</code> / <code>(.name | test("max"; "i"))</code></td><td>Regex-Prüfung (mit Flag „i“)</td></tr>
+      <tr><td><code>gsub("alt"; "neu")</code></td><td>Per Regex ersetzen</td></tr>
+      <tr><td><code>type</code> / <code>has("feld")</code></td><td>Typ ermitteln / Feld vorhanden?</td></tr>
+      <tr><td><code>paths</code></td><td>Alle Pfade im Dokument auflisten</td></tr>
+    </tbody>
+  </table>
+</section>

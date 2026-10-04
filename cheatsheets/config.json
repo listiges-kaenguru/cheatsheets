@@ -1,0 +1,1113 @@
+{
+  "categories": [
+    {
+      "name": "Editoren",
+      "cheatsheets": [
+        {
+          "id": "vi",
+          "title": "Vi / Vim",
+          "description": "Modaler Terminal-Editor: Modi, Navigation, Bearbeiten, Suchen & Ersetzen.",
+          "file": "vi.html",
+          "sections": [
+            {
+              "id": "vi-grundlagen",
+              "title": "Modi, Speichern & Beenden"
+            },
+            {
+              "id": "vi-navigation",
+              "title": "Navigation"
+            },
+            {
+              "id": "vi-bearbeiten",
+              "title": "Text bearbeiten"
+            },
+            {
+              "id": "vi-suchen",
+              "title": "Suchen & Ersetzen"
+            },
+            {
+              "id": "vi-erweitert",
+              "title": "Fenster, Puffer & Einstellungen"
+            }
+          ]
+        },
+        {
+          "id": "nano",
+          "title": "Nano",
+          "description": "Einsteigerfreundlicher Terminal-Editor mit Tastenkürzeln und nanorc.",
+          "file": "nano.html",
+          "sections": [
+            {
+              "id": "nano-grundlagen",
+              "title": "Grundlagen"
+            },
+            {
+              "id": "nano-navigation",
+              "title": "Navigation"
+            },
+            {
+              "id": "nano-bearbeiten",
+              "title": "Bearbeiten"
+            },
+            {
+              "id": "nano-suchen",
+              "title": "Suchen & Ersetzen"
+            },
+            {
+              "id": "nano-extras",
+              "title": "Extras & Konfiguration"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Terminal-Multiplexer",
+      "cheatsheets": [
+        {
+          "id": "tmux",
+          "title": "tmux",
+          "description": "Sitzungen, Fenster und Bereiche im Terminal – mit Präfix Strg+b.",
+          "file": "tmux.html",
+          "sections": [
+            {
+              "id": "tmux-sitzungen",
+              "title": "Sitzungen"
+            },
+            {
+              "id": "tmux-fenster",
+              "title": "Fenster"
+            },
+            {
+              "id": "tmux-panes",
+              "title": "Bereiche (Panes)"
+            },
+            {
+              "id": "tmux-extras",
+              "title": "Kopiermodus & Konfiguration"
+            }
+          ]
+        },
+        {
+          "id": "screen",
+          "title": "GNU Screen",
+          "description": "Persistente Terminal-Sitzungen mit dem Präfix Strg+a.",
+          "file": "screen.html",
+          "sections": [
+            {
+              "id": "screen-sitzungen",
+              "title": "Sitzungen"
+            },
+            {
+              "id": "screen-fenster",
+              "title": "Fenster & Bereiche"
+            },
+            {
+              "id": "screen-extras",
+              "title": "Kopiermodus & Extras"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Shell & System (Linux)",
+      "cheatsheets": [
+        {
+          "id": "bash",
+          "title": "Bash-Scripting",
+          "description": "Variablen, Bedingungen, Schleifen, Funktionen und Umleitungen.",
+          "file": "bash.html",
+          "sections": [
+            {
+              "id": "bash-grundlagen",
+              "title": "Grundlagen"
+            },
+            {
+              "id": "bash-variablen",
+              "title": "Variablen & Parameter"
+            },
+            {
+              "id": "bash-bedingungen",
+              "title": "Bedingungen & Tests"
+            },
+            {
+              "id": "bash-schleifen",
+              "title": "Schleifen & case"
+            },
+            {
+              "id": "bash-funktionen",
+              "title": "Funktionen"
+            },
+            {
+              "id": "bash-arrays",
+              "title": "Arrays"
+            },
+            {
+              "id": "bash-umleitung",
+              "title": "Ein-/Ausgabe & Umleitung"
+            }
+          ]
+        },
+        {
+          "id": "linux-basics",
+          "title": "Linux-Grundlagen",
+          "description": "Dateien, Rechte, Prozesse und Systeminfos auf der Kommandozeile.",
+          "file": "linux-basics.html",
+          "sections": [
+            {
+              "id": "linux-dateien",
+              "title": "Dateien & Verzeichnisse"
+            },
+            {
+              "id": "linux-rechte",
+              "title": "Rechte & Benutzer"
+            },
+            {
+              "id": "linux-prozesse",
+              "title": "Prozesse"
+            },
+            {
+              "id": "linux-system",
+              "title": "System & Hardware"
+            }
+          ]
+        },
+        {
+          "id": "systemd",
+          "title": "systemd & journalctl",
+          "description": "Dienste, Unit-Dateien, Timer, Logs und Systemsteuerung.",
+          "file": "systemd.html",
+          "sections": [
+            {
+              "id": "systemd-services",
+              "title": "Dienste steuern"
+            },
+            {
+              "id": "systemd-units",
+              "title": "Unit-Dateien"
+            },
+            {
+              "id": "systemd-timer",
+              "title": "Timer (Cron-Alternative)"
+            },
+            {
+              "id": "systemd-journal",
+              "title": "Logs (journalctl)"
+            },
+            {
+              "id": "systemd-system",
+              "title": "System"
+            }
+          ]
+        },
+        {
+          "id": "cron",
+          "title": "Cron",
+          "description": "Zeitgesteuerte Aufgaben: Crontab-Syntax, Befehle und Beispiele.",
+          "file": "cron.html",
+          "sections": [
+            {
+              "id": "cron-syntax",
+              "title": "Crontab-Syntax"
+            },
+            {
+              "id": "cron-befehle",
+              "title": "Befehle & Dateien"
+            },
+            {
+              "id": "cron-hinweise",
+              "title": "Umgebung & Stolperfallen"
+            },
+            {
+              "id": "cron-beispiele",
+              "title": "Beispiele"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Textverarbeitung",
+      "cheatsheets": [
+        {
+          "id": "grep-sed-awk",
+          "title": "grep / sed / awk",
+          "description": "Suchen, ersetzen und Spalten verarbeiten in Textströmen.",
+          "file": "grep-sed-awk.html",
+          "sections": [
+            {
+              "id": "grep",
+              "title": "grep"
+            },
+            {
+              "id": "sed",
+              "title": "sed"
+            },
+            {
+              "id": "awk",
+              "title": "awk"
+            }
+          ]
+        },
+        {
+          "id": "regex",
+          "title": "Reguläre Ausdrücke",
+          "description": "Zeichenklassen, Anker, Quantoren, Gruppen und Beispiele.",
+          "file": "regex.html",
+          "sections": [
+            {
+              "id": "regex-zeichen",
+              "title": "Zeichen & Klassen"
+            },
+            {
+              "id": "regex-anker",
+              "title": "Anker & Grenzen"
+            },
+            {
+              "id": "regex-quantoren",
+              "title": "Quantoren"
+            },
+            {
+              "id": "regex-gruppen",
+              "title": "Gruppen & Lookarounds"
+            },
+            {
+              "id": "regex-flags",
+              "title": "Flags"
+            },
+            {
+              "id": "regex-beispiele",
+              "title": "Beispiele"
+            }
+          ]
+        },
+        {
+          "id": "jq",
+          "title": "jq (JSON)",
+          "description": "JSON auf der Kommandozeile lesen, filtern und umformen.",
+          "file": "jq.html",
+          "sections": [
+            {
+              "id": "jq-grundlagen",
+              "title": "Grundlagen"
+            },
+            {
+              "id": "jq-zugriff",
+              "title": "Werte auswählen"
+            },
+            {
+              "id": "jq-transform",
+              "title": "Umformen & filtern"
+            },
+            {
+              "id": "jq-format",
+              "title": "Ausgabe & Typen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dateien & Archive",
+      "cheatsheets": [
+        {
+          "id": "find",
+          "title": "find",
+          "description": "Dateien nach Name, Zeit, Größe und Rechten finden und bearbeiten.",
+          "file": "find.html",
+          "sections": [
+            {
+              "id": "find-grundlagen",
+              "title": "Grundlagen"
+            },
+            {
+              "id": "find-tests",
+              "title": "Tests & Filter"
+            },
+            {
+              "id": "find-aktionen",
+              "title": "Aktionen"
+            }
+          ]
+        },
+        {
+          "id": "rsync",
+          "title": "rsync",
+          "description": "Effizient synchronisieren und sichern – lokal und über SSH.",
+          "file": "rsync.html",
+          "sections": [
+            {
+              "id": "rsync-grundlagen",
+              "title": "Grundlagen"
+            },
+            {
+              "id": "rsync-optionen",
+              "title": "Wichtige Optionen"
+            },
+            {
+              "id": "rsync-beispiele",
+              "title": "Beispiele"
+            }
+          ]
+        },
+        {
+          "id": "tar-zip",
+          "title": "tar, zip & Archive",
+          "description": "Archive erstellen und entpacken: tar, zip, xz, zstd, 7-Zip.",
+          "file": "tar-zip.html",
+          "sections": [
+            {
+              "id": "tar",
+              "title": "tar"
+            },
+            {
+              "id": "zip",
+              "title": "zip & unzip"
+            },
+            {
+              "id": "archive-andere",
+              "title": "gzip, xz, zstd & 7-Zip"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Paketverwaltung",
+      "cheatsheets": [
+        {
+          "id": "apt",
+          "title": "APT (Debian/Ubuntu)",
+          "description": "Pakete installieren, aktualisieren, suchen und Quellen verwalten.",
+          "file": "apt.html",
+          "sections": [
+            {
+              "id": "apt-grundlagen",
+              "title": "Installieren & Aktualisieren"
+            },
+            {
+              "id": "apt-info",
+              "title": "Pakete suchen & Informationen"
+            },
+            {
+              "id": "apt-quellen",
+              "title": "Paketquellen"
+            },
+            {
+              "id": "apt-wartung",
+              "title": "Wartung & Fehlerbehebung"
+            }
+          ]
+        },
+        {
+          "id": "dnf",
+          "title": "DNF (Fedora/RHEL)",
+          "description": "Paketverwaltung mit DNF/RPM inklusive Systemupgrades.",
+          "file": "dnf.html",
+          "sections": [
+            {
+              "id": "dnf-grundlagen",
+              "title": "Installieren & Aktualisieren"
+            },
+            {
+              "id": "dnf-info",
+              "title": "Suchen & Informationen"
+            },
+            {
+              "id": "dnf-quellen",
+              "title": "Paketquellen & Verlauf"
+            },
+            {
+              "id": "dnf-wartung",
+              "title": "Wartung & Systemupgrade"
+            }
+          ]
+        },
+        {
+          "id": "chocolatey",
+          "title": "Chocolatey (Windows)",
+          "description": "Windows-Software per Kommandozeile installieren und pflegen.",
+          "file": "chocolatey.html",
+          "sections": [
+            {
+              "id": "choco-grundlagen",
+              "title": "Grundlagen"
+            },
+            {
+              "id": "choco-pakete",
+              "title": "Pakete verwalten"
+            },
+            {
+              "id": "choco-erweitert",
+              "title": "Quellen, Konfiguration & Export"
+            }
+          ]
+        },
+        {
+          "id": "winget",
+          "title": "winget (Windows)",
+          "description": "Der Windows-Paketmanager: installieren, aktualisieren, exportieren.",
+          "file": "winget.html",
+          "sections": [
+            {
+              "id": "winget-grundlagen",
+              "title": "Suchen & Informationen"
+            },
+            {
+              "id": "winget-pakete",
+              "title": "Installieren & Aktualisieren"
+            },
+            {
+              "id": "winget-erweitert",
+              "title": "Export, Quellen & Einstellungen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Netzwerk & Sicherheit",
+      "cheatsheets": [
+        {
+          "id": "networking",
+          "title": "Netzwerk (Linux)",
+          "description": "ip, ss, dig, curl, tcpdump und Firewalls (ufw/firewalld).",
+          "file": "networking.html",
+          "sections": [
+            {
+              "id": "net-interface",
+              "title": "Schnittstellen & IP-Adressen"
+            },
+            {
+              "id": "net-routing",
+              "title": "Routing & Nachbarn"
+            },
+            {
+              "id": "net-diagnose",
+              "title": "Diagnose"
+            },
+            {
+              "id": "net-monitoring",
+              "title": "Mitschnitt & Monitoring"
+            },
+            {
+              "id": "net-firewall",
+              "title": "Firewall"
+            }
+          ]
+        },
+        {
+          "id": "ssh",
+          "title": "SSH",
+          "description": "Verbinden, Schlüssel, Tunnel, Dateiübertragung und Härtung.",
+          "file": "ssh.html",
+          "sections": [
+            {
+              "id": "ssh-verbindung",
+              "title": "Verbinden"
+            },
+            {
+              "id": "ssh-keys",
+              "title": "Schlüssel & Agent"
+            },
+            {
+              "id": "ssh-tunnel",
+              "title": "Tunnel & Port-Weiterleitung"
+            },
+            {
+              "id": "ssh-dateien",
+              "title": "Dateien übertragen"
+            },
+            {
+              "id": "ssh-config",
+              "title": "Client-Konfiguration (~/.ssh/config)"
+            },
+            {
+              "id": "ssh-server",
+              "title": "Server (sshd) absichern"
+            }
+          ]
+        },
+        {
+          "id": "openssl",
+          "title": "OpenSSL",
+          "description": "Schlüssel, Zertifikate, Formate, Krypto und Verbindungstests.",
+          "file": "openssl.html",
+          "sections": [
+            {
+              "id": "openssl-keys",
+              "title": "Schlüssel"
+            },
+            {
+              "id": "openssl-certs",
+              "title": "Zertifikate & CSRs"
+            },
+            {
+              "id": "openssl-convert",
+              "title": "Formate umwandeln"
+            },
+            {
+              "id": "openssl-crypto",
+              "title": "Verschlüsseln, Signieren & Hashen"
+            },
+            {
+              "id": "openssl-tests",
+              "title": "Verbindungen testen"
+            }
+          ]
+        },
+        {
+          "id": "fail2ban",
+          "title": "Fail2Ban",
+          "description": "Automatische Sperren gegen Brute-Force: Jails, Konfiguration, Debug.",
+          "file": "fail2ban.html",
+          "sections": [
+            {
+              "id": "f2b-grundlagen",
+              "title": "Status & Dienst"
+            },
+            {
+              "id": "f2b-jails",
+              "title": "Sperren verwalten"
+            },
+            {
+              "id": "f2b-dateien",
+              "title": "Dateien"
+            },
+            {
+              "id": "f2b-optionen",
+              "title": "Konfiguration (jail.local)"
+            },
+            {
+              "id": "f2b-debug",
+              "title": "Fehlersuche"
+            }
+          ]
+        },
+        {
+          "id": "nmap",
+          "title": "Nmap",
+          "description": "Netzwerk- und Port-Scanning zur autorisierten Sicherheitsanalyse.",
+          "file": "nmap.html",
+          "sections": [
+            {
+              "id": "nmap-ziele",
+              "title": "Hosts finden & Ziele"
+            },
+            {
+              "id": "nmap-ports",
+              "title": "Ports & Scan-Techniken"
+            },
+            {
+              "id": "nmap-erkennung",
+              "title": "Dienste, Betriebssystem & Skripte"
+            },
+            {
+              "id": "nmap-ausgabe",
+              "title": "Ausgabe"
+            }
+          ]
+        },
+        {
+          "id": "gpg",
+          "title": "GPG / GnuPG",
+          "description": "OpenPGP-Schlüssel, Verschlüsseln, Signieren und Prüfen.",
+          "file": "gpg.html",
+          "sections": [
+            {
+              "id": "gpg-schluessel",
+              "title": "Schlüssel erzeugen & anzeigen"
+            },
+            {
+              "id": "gpg-austausch",
+              "title": "Schlüssel austauschen"
+            },
+            {
+              "id": "gpg-krypto",
+              "title": "Verschlüsseln & Signieren"
+            },
+            {
+              "id": "gpg-verwaltung",
+              "title": "Agent, Vertrauen & Wartung"
+            }
+          ]
+        },
+        {
+          "id": "keytool",
+          "title": "Java Keytool",
+          "description": "Java-Keystores und Truststores: Schlüssel, CSRs, Zertifikate und Konvertierung.",
+          "file": "keytool.html",
+          "sections": [
+            {
+              "id": "keytool-grundlagen",
+              "title": "Grundlagen & Anzeigen"
+            },
+            {
+              "id": "keytool-erzeugen",
+              "title": "Schlüsselpaare & CSRs"
+            },
+            {
+              "id": "keytool-import-export",
+              "title": "Importieren & Exportieren"
+            },
+            {
+              "id": "keytool-truststore",
+              "title": "Truststore & cacerts"
+            },
+            {
+              "id": "keytool-verwalten",
+              "title": "Einträge & Passwörter verwalten"
+            },
+            {
+              "id": "keytool-konvertieren",
+              "title": "Formate konvertieren"
+            },
+            {
+              "id": "keytool-java",
+              "title": "Verwendung in Java & Fehlersuche"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Windows-Verwaltung",
+      "cheatsheets": [
+        {
+          "id": "cmd",
+          "title": "CMD",
+          "description": "Eingabeaufforderung: Dateien, Netzwerk, Prozesse und Dienste.",
+          "file": "cmd.html",
+          "sections": [
+            {
+              "id": "cmd-grundlagen",
+              "title": "Grundlagen"
+            },
+            {
+              "id": "cmd-dateisystem",
+              "title": "Dateisystem"
+            },
+            {
+              "id": "cmd-netzwerk",
+              "title": "Netzwerk"
+            },
+            {
+              "id": "cmd-system",
+              "title": "System & Prozesse"
+            }
+          ]
+        },
+        {
+          "id": "powershell",
+          "title": "PowerShell",
+          "description": "Objektbasierte Shell: Pipeline, System, Netzwerk und Remoting.",
+          "file": "powershell.html",
+          "sections": [
+            {
+              "id": "ps-grundlagen",
+              "title": "Grundlagen & Hilfe"
+            },
+            {
+              "id": "ps-dateisystem",
+              "title": "Dateisystem"
+            },
+            {
+              "id": "ps-variablen",
+              "title": "Variablen & Operatoren"
+            },
+            {
+              "id": "ps-pipeline",
+              "title": "Pipeline & Ausgabe"
+            },
+            {
+              "id": "ps-system",
+              "title": "System, Dienste & Netzwerk"
+            },
+            {
+              "id": "ps-remoting",
+              "title": "Remoting & Module"
+            }
+          ]
+        },
+        {
+          "id": "registry",
+          "title": "Windows-Registry",
+          "description": "Registry per reg.exe und PowerShell – mit wichtigen Schlüsseln.",
+          "file": "registry.html",
+          "sections": [
+            {
+              "id": "reg-grundlagen",
+              "title": "Grundlagen"
+            },
+            {
+              "id": "reg-cmd",
+              "title": "reg.exe (CMD)"
+            },
+            {
+              "id": "reg-powershell",
+              "title": "PowerShell"
+            },
+            {
+              "id": "reg-schluessel",
+              "title": "Wichtige Schlüssel"
+            }
+          ]
+        },
+        {
+          "id": "active-directory",
+          "title": "Active Directory",
+          "description": "Benutzer, Gruppen, Computer und OUs mit PowerShell verwalten.",
+          "file": "active-directory.html",
+          "sections": [
+            {
+              "id": "ad-grundlagen",
+              "title": "Grundlagen & Begriffe"
+            },
+            {
+              "id": "ad-benutzer",
+              "title": "Benutzer"
+            },
+            {
+              "id": "ad-gruppen",
+              "title": "Gruppen"
+            },
+            {
+              "id": "ad-computer",
+              "title": "Computer"
+            },
+            {
+              "id": "ad-ou",
+              "title": "OUs, Suche & Diagnose"
+            }
+          ]
+        },
+        {
+          "id": "windows-server",
+          "title": "Windows Server",
+          "description": "Rollen, AD DS, DNS, DHCP, IIS, Freigaben und Firewall.",
+          "file": "windows-server.html",
+          "sections": [
+            {
+              "id": "ws-rollen",
+              "title": "Rollen & Features"
+            },
+            {
+              "id": "ws-addc",
+              "title": "AD DS einrichten"
+            },
+            {
+              "id": "ws-dns",
+              "title": "DNS"
+            },
+            {
+              "id": "ws-dhcp",
+              "title": "DHCP"
+            },
+            {
+              "id": "ws-iis",
+              "title": "IIS (Webserver)"
+            },
+            {
+              "id": "ws-verwaltung",
+              "title": "Freigaben, Firewall & Updates"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Datenbanken",
+      "cheatsheets": [
+        {
+          "id": "mysql",
+          "title": "MySQL / MariaDB",
+          "description": "Verbinden, SQL, Benutzerrechte sowie Backup und Restore.",
+          "file": "mysql.html",
+          "sections": [
+            {
+              "id": "mysql-verbindung",
+              "title": "Verbindung & Serverstatus"
+            },
+            {
+              "id": "mysql-ddl",
+              "title": "Datenbanken & Tabellen"
+            },
+            {
+              "id": "mysql-dml",
+              "title": "Abfragen & Daten"
+            },
+            {
+              "id": "mysql-benutzer",
+              "title": "Benutzer & Rechte"
+            },
+            {
+              "id": "mysql-backup",
+              "title": "Backup & Wiederherstellung"
+            }
+          ]
+        },
+        {
+          "id": "postgresql",
+          "title": "PostgreSQL",
+          "description": "psql-Befehle, SQL, Rollen, Rechte und Administration.",
+          "file": "postgresql.html",
+          "sections": [
+            {
+              "id": "psql-verbindung",
+              "title": "Verbindung & Meta-Befehle"
+            },
+            {
+              "id": "psql-ddl",
+              "title": "Datenbanken & Tabellen"
+            },
+            {
+              "id": "psql-dml",
+              "title": "Abfragen & Daten"
+            },
+            {
+              "id": "psql-rollen",
+              "title": "Rollen & Rechte"
+            },
+            {
+              "id": "psql-admin",
+              "title": "Administration & Backup"
+            }
+          ]
+        },
+        {
+          "id": "sqlite",
+          "title": "SQLite",
+          "description": "Dateibasierte Datenbank: CLI, Tabellen, SQL, Import und Backup.",
+          "file": "sqlite.html",
+          "sections": [
+            {
+              "id": "sqlite-cli",
+              "title": "Kommandozeile & Meta-Befehle"
+            },
+            {
+              "id": "sqlite-tabellen",
+              "title": "Tabellen & Datentypen"
+            },
+            {
+              "id": "sqlite-daten",
+              "title": "Abfragen & Daten"
+            },
+            {
+              "id": "sqlite-wartung",
+              "title": "Import, Export & Wartung"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Container & Automation",
+      "cheatsheets": [
+        {
+          "id": "docker",
+          "title": "Docker",
+          "description": "Container, Images, Netzwerke, Volumes, Compose und Aufräumen.",
+          "file": "docker.html",
+          "sections": [
+            {
+              "id": "docker-container",
+              "title": "Container"
+            },
+            {
+              "id": "docker-images",
+              "title": "Images & Registry"
+            },
+            {
+              "id": "docker-daten",
+              "title": "Netzwerke & Volumes"
+            },
+            {
+              "id": "docker-compose",
+              "title": "Compose"
+            },
+            {
+              "id": "docker-wartung",
+              "title": "Wartung & Aufräumen"
+            }
+          ]
+        },
+        {
+          "id": "kubectl",
+          "title": "Kubernetes (kubectl)",
+          "description": "Cluster steuern: Ressourcen, Rollouts, Logs und Debugging.",
+          "file": "kubectl.html",
+          "sections": [
+            {
+              "id": "kubectl-kontext",
+              "title": "Kontext & Cluster"
+            },
+            {
+              "id": "kubectl-anzeigen",
+              "title": "Ressourcen anzeigen"
+            },
+            {
+              "id": "kubectl-verwalten",
+              "title": "Anwenden & Verwalten"
+            },
+            {
+              "id": "kubectl-debug",
+              "title": "Logs & Fehlersuche"
+            },
+            {
+              "id": "kubectl-config",
+              "title": "Konfiguration & Secrets"
+            }
+          ]
+        },
+        {
+          "id": "ansible",
+          "title": "Ansible",
+          "description": "Inventar, Ad-hoc-Befehle, Playbooks, Rollen und Vault.",
+          "file": "ansible.html",
+          "sections": [
+            {
+              "id": "ansible-grundlagen",
+              "title": "Grundlagen"
+            },
+            {
+              "id": "ansible-inventar",
+              "title": "Inventar & Konfiguration"
+            },
+            {
+              "id": "ansible-adhoc",
+              "title": "Ad-hoc-Befehle"
+            },
+            {
+              "id": "ansible-playbooks",
+              "title": "Playbooks & Rollen"
+            },
+            {
+              "id": "ansible-debug",
+              "title": "Fehlersuche"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Versionskontrolle",
+      "cheatsheets": [
+        {
+          "id": "git",
+          "title": "Git",
+          "description": "Commits, Branches, Remotes, Rückgängig-Machen, Stash und Tags.",
+          "file": "git.html",
+          "sections": [
+            {
+              "id": "git-grundlagen",
+              "title": "Grundlagen"
+            },
+            {
+              "id": "git-branch",
+              "title": "Branches & Merging"
+            },
+            {
+              "id": "git-remote",
+              "title": "Remotes & Synchronisieren"
+            },
+            {
+              "id": "git-undo",
+              "title": "Rückgängig & Reparieren"
+            },
+            {
+              "id": "git-stash",
+              "title": "Stash, Tags & Inspektion"
+            },
+            {
+              "id": "git-config",
+              "title": "Konfiguration & nützliche Aliase"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dokumentation",
+      "cheatsheets": [
+        {
+          "id": "markdown",
+          "title": "Markdown",
+          "description": "Formatierung, Listen, Links, Tabellen, Code und GitHub-Extras.",
+          "file": "markdown.html",
+          "sections": [
+            {
+              "id": "md-grundlagen",
+              "title": "Überschriften & Absätze"
+            },
+            {
+              "id": "md-format",
+              "title": "Textauszeichnung"
+            },
+            {
+              "id": "md-listen",
+              "title": "Listen"
+            },
+            {
+              "id": "md-links",
+              "title": "Links & Bilder"
+            },
+            {
+              "id": "md-code",
+              "title": "Code & Tabellen"
+            },
+            {
+              "id": "md-extra",
+              "title": "GitHub-Erweiterungen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Game-Server",
+      "cheatsheets": [
+        {
+          "id": "minecraft-paper",
+          "title": "Minecraft (Paper & FluffyLobby)",
+          "description": "Server-Console, Performance, Spieler, Welt und wichtige Dateien.",
+          "file": "minecraft-paper.html",
+          "sections": [
+            {
+              "id": "mc-hilfe",
+              "title": "Hilfe & Namespaces"
+            },
+            {
+              "id": "mc-start",
+              "title": "Server-Start & Console"
+            },
+            {
+              "id": "mc-paper",
+              "title": "Paper & Performance"
+            },
+            {
+              "id": "mc-fluffylobby",
+              "title": "FluffyLobby"
+            },
+            {
+              "id": "mc-spieler",
+              "title": "Spielerverwaltung"
+            },
+            {
+              "id": "mc-chat",
+              "title": "Chat & Anzeigen"
+            },
+            {
+              "id": "mc-welt",
+              "title": "Welt & Gameplay"
+            },
+            {
+              "id": "mc-dateien",
+              "title": "Wichtige Dateien & Ordner"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

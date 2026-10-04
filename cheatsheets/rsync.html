@@ -1,0 +1,63 @@
+<section id="rsync-grundlagen">
+  <h2>Grundlagen</h2>
+  <p class="warn">Der Schrägstrich am Ende der Quelle entscheidet: <code>rsync -a quelle/ ziel/</code> kopiert den <strong>Inhalt</strong> von quelle, <code>rsync -a quelle ziel/</code> legt <code>ziel/quelle/</code> an.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>rsync -a quelle/ ziel/</code></td><td>Archivmodus: rekursiv, mit Rechten, Zeiten, Symlinks</td></tr>
+      <tr><td><code>rsync -av quelle/ ziel/</code></td><td>Mit Ausgabe der übertragenen Dateien</td></tr>
+      <tr><td><code>rsync -avh --info=progress2 quelle/ ziel/</code></td><td>Gesamtfortschritt mit lesbaren Größen</td></tr>
+      <tr><td><code>rsync -avn quelle/ ziel/</code> / <code>rsync -av --dry-run quelle/ ziel/</code></td><td>Testlauf: zeigt nur, was passieren würde</td></tr>
+      <tr><td><code>rsync -av quelle/ benutzer@host:/ziel/</code></td><td>Auf Server übertragen (über SSH)</td></tr>
+      <tr><td><code>rsync -av benutzer@host:/quelle/ ziel/</code></td><td>Vom Server holen</td></tr>
+      <tr><td><code>rsync -av -e 'ssh -p 2222' quelle/ benutzer@host:/ziel/</code></td><td>SSH mit anderem Port</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="rsync-optionen">
+  <h2>Wichtige Optionen</h2>
+  <table>
+    <thead><tr><th>Option</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>-a, --archive</code></td><td>Entspricht <code>-rlptgoD</code></td></tr>
+      <tr><td><code>-v, --verbose</code></td><td>Ausführliche Ausgabe</td></tr>
+      <tr><td><code>-h, --human-readable</code></td><td>Lesbare Größen</td></tr>
+      <tr><td><code>-z, --compress</code></td><td>Komprimiert übertragen (nur bei langsamen Leitungen sinnvoll)</td></tr>
+      <tr><td><code>-P</code></td><td>Entspricht <code>--partial --progress</code>: Fortschritt, Abbrüche fortsetzbar</td></tr>
+      <tr><td><code>-n, --dry-run</code></td><td>Testlauf</td></tr>
+      <tr><td><code>-u, --update</code></td><td>Neuere Dateien im Ziel nicht überschreiben</td></tr>
+      <tr><td><code>-c, --checksum</code></td><td>Vergleich per Prüfsumme statt Größe/Zeit</td></tr>
+      <tr><td><code>-H -A -X</code></td><td>Hardlinks, ACLs und erweiterte Attribute erhalten</td></tr>
+      <tr><td><code>--delete</code></td><td>Im Ziel löschen, was in der Quelle fehlt (Spiegel)</td></tr>
+      <tr><td><code>--delete-delay</code> / <code>--delete-after</code></td><td>Löschen erst nach der Übertragung</td></tr>
+      <tr><td><code>--exclude='*.tmp'</code></td><td>Muster ausschließen</td></tr>
+      <tr><td><code>--exclude-from=datei</code></td><td>Ausschlüsse aus Datei lesen</td></tr>
+      <tr><td><code>--include='*/' --include='*.jpg' --exclude='*'</code></td><td>Nur bestimmte Dateitypen (Reihenfolge zählt)</td></tr>
+      <tr><td><code>--backup --backup-dir=../alt</code></td><td>Überschriebene Dateien sichern</td></tr>
+      <tr><td><code>--link-dest=../gestern</code></td><td>Unveränderte Dateien als Hardlink (inkrementelle Snapshots)</td></tr>
+      <tr><td><code>--remove-source-files</code></td><td>Quelldateien nach Übertragung löschen (verschieben)</td></tr>
+      <tr><td><code>--mkpath</code></td><td>Fehlende Zielpfade anlegen (ab rsync 3.2.3)</td></tr>
+      <tr><td><code>--bwlimit=5M</code></td><td>Bandbreite begrenzen (Zahl ohne Einheit = KiB/s)</td></tr>
+      <tr><td><code>--chown=benutzer:gruppe</code></td><td>Besitzer im Ziel setzen</td></tr>
+      <tr><td><code>-i, --itemize-changes</code></td><td>Änderungen je Datei auflisten</td></tr>
+      <tr><td><code>--log-file=datei</code></td><td>Protokoll schreiben</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="rsync-beispiele">
+  <h2>Beispiele</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>rsync -aAXH --info=progress2 /home/ /mnt/backup/home/</code></td><td>Vollständiges lokales Backup</td></tr>
+      <tr><td><code>rsync -a --delete /projekt/ /backup/projekt/</code></td><td>Exakter Spiegel</td></tr>
+      <tr><td><code>rsync -an --delete -i /projekt/ /backup/projekt/</code></td><td>Vorher prüfen, was gelöscht würde</td></tr>
+      <tr><td><code>rsync -a --exclude='node_modules/' --exclude='.git/' projekt/ server:/srv/projekt/</code></td><td>Deployment ohne Abhängigkeiten</td></tr>
+      <tr><td><code>rsync -aP grosse-datei.iso server:/tmp/</code></td><td>Große Datei, bei Abbruch fortsetzbar</td></tr>
+      <tr><td><code>rsync -a --link-dest=/backup/gestern /daten/ /backup/heute/</code></td><td>Platzsparender täglicher Snapshot</td></tr>
+      <tr><td><code>rsync -a --remove-source-files eingang/ archiv/</code></td><td>Dateien verschieben</td></tr>
+    </tbody>
+  </table>
+</section>

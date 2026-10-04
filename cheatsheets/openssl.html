@@ -1,0 +1,88 @@
+<section id="openssl-keys">
+  <h2>Schlüssel</h2>
+  <p class="note">Befehle für OpenSSL 3.x (<code>openssl version</code>). Die Option <code>-noenc</code> ersetzt das ältere <code>-nodes</code> (private Schlüssel unverschlüsselt speichern).</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>openssl genpkey -algorithm ed25519 -out key.pem</code></td><td>Ed25519-Schlüssel erzeugen</td></tr>
+      <tr><td><code>openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out key.pem</code></td><td>EC-Schlüssel (P-256)</td></tr>
+      <tr><td><code>openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out key.pem</code></td><td>RSA-Schlüssel mit 4096 Bit</td></tr>
+      <tr><td><code>openssl genpkey -algorithm RSA -aes-256-cbc -out key.pem</code></td><td>Schlüssel mit Passwort schützen</td></tr>
+      <tr><td><code>openssl pkey -in key.pem -pubout -out pub.pem</code></td><td>Öffentlichen Schlüssel extrahieren</td></tr>
+      <tr><td><code>openssl pkey -in key.pem -noout -text</code></td><td>Schlüssel anzeigen</td></tr>
+      <tr><td><code>openssl pkey -in key.pem -out key-offen.pem</code></td><td>Passwort vom Schlüssel entfernen</td></tr>
+      <tr><td><code>openssl pkey -pubout -in key.pem | openssl sha256</code></td><td>Prüfwert des Schlüssels (mit Zertifikat vergleichen, siehe unten)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="openssl-certs">
+  <h2>Zertifikate &amp; CSRs</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>openssl req -new -key key.pem -out anfrage.csr -subj "/CN=www.example.org"</code></td><td>CSR zu vorhandenem Schlüssel erzeugen</td></tr>
+      <tr><td><code>openssl req -new -newkey ec -pkeyopt ec_paramgen_curve:P-256 -noenc -keyout key.pem -out anfrage.csr -subj "/CN=www.example.org" -addext "subjectAltName=DNS:www.example.org,DNS:example.org"</code></td><td>Schlüssel und CSR mit SAN in einem Schritt</td></tr>
+      <tr><td><code>openssl req -x509 -newkey rsa:4096 -noenc -keyout key.pem -out cert.pem -days 365 -subj "/CN=server.local" -addext "subjectAltName=DNS:server.local"</code></td><td>Selbstsigniertes Zertifikat</td></tr>
+      <tr><td><code>openssl req -in anfrage.csr -noout -text -verify</code></td><td>CSR anzeigen und Signatur prüfen</td></tr>
+      <tr><td><code>openssl x509 -in cert.pem -noout -text</code></td><td>Zertifikat vollständig anzeigen</td></tr>
+      <tr><td><code>openssl x509 -in cert.pem -noout -subject -issuer -dates</code></td><td>Inhaber, Aussteller, Gültigkeit</td></tr>
+      <tr><td><code>openssl x509 -in cert.pem -noout -ext subjectAltName</code></td><td>Alternative Namen (SAN)</td></tr>
+      <tr><td><code>openssl x509 -in cert.pem -noout -fingerprint -sha256</code></td><td>Fingerabdruck</td></tr>
+      <tr><td><code>openssl x509 -in cert.pem -noout -checkend 2592000</code></td><td>Läuft in den nächsten 30 Tagen ab? (Exit-Code 1 = ja)</td></tr>
+      <tr><td><code>openssl x509 -in cert.pem -noout -pubkey | openssl sha256</code></td><td>Prüfwert des Zertifikats (muss zum Schlüssel passen)</td></tr>
+      <tr><td><code>openssl verify -CAfile ca-kette.pem cert.pem</code></td><td>Zertifikat gegen CA-Kette prüfen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="openssl-convert">
+  <h2>Formate umwandeln</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>openssl x509 -in cert.pem -outform der -out cert.der</code></td><td>PEM → DER</td></tr>
+      <tr><td><code>openssl x509 -in cert.der -inform der -out cert.pem</code></td><td>DER → PEM</td></tr>
+      <tr><td><code>openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -certfile kette.pem</code></td><td>PEM → PKCS#12 (.pfx/.p12)</td></tr>
+      <tr><td><code>openssl pkcs12 -in cert.pfx -noenc -out alles.pem</code></td><td>PKCS#12 → PEM (Schlüssel und Zertifikate)</td></tr>
+      <tr><td><code>openssl pkcs12 -in cert.pfx -nokeys -out cert.pem</code></td><td>Nur Zertifikate extrahieren</td></tr>
+      <tr><td><code>openssl pkcs12 -in alt.pfx -legacy -noenc -out alles.pem</code></td><td>Alte PKCS#12-Dateien (RC2/3DES) öffnen</td></tr>
+      <tr><td><code>openssl crl2pkcs7 -nocrl -certfile kette.pem | openssl pkcs7 -print_certs -noout</code></td><td>Alle Zertifikate einer Kette auflisten</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="openssl-crypto">
+  <h2>Verschlüsseln, Signieren &amp; Hashen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>openssl enc -aes-256-cbc -pbkdf2 -iter 600000 -salt -in datei -out datei.enc</code></td><td>Datei mit Passwort verschlüsseln</td></tr>
+      <tr><td><code>openssl enc -d -aes-256-cbc -pbkdf2 -iter 600000 -in datei.enc -out datei</code></td><td>Datei entschlüsseln</td></tr>
+      <tr><td><code>openssl dgst -sha256 datei</code></td><td>SHA-256-Hash</td></tr>
+      <tr><td><code>openssl dgst -sha256 -sign key.pem -out datei.sig datei</code></td><td>Datei signieren</td></tr>
+      <tr><td><code>openssl dgst -sha256 -verify pub.pem -signature datei.sig datei</code></td><td>Signatur prüfen</td></tr>
+      <tr><td><code>openssl rand -base64 32</code></td><td>Zufälliges Geheimnis (Base64)</td></tr>
+      <tr><td><code>openssl rand -hex 16</code></td><td>Zufallswert (Hex)</td></tr>
+      <tr><td><code>openssl base64 -in datei</code> / <code>openssl base64 -d -in datei.b64</code></td><td>Base64 kodieren / dekodieren</td></tr>
+      <tr><td><code>openssl passwd -6</code></td><td>Passwort-Hash (SHA-512-crypt) für <code>/etc/shadow</code> erzeugen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="openssl-tests">
+  <h2>Verbindungen testen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>openssl s_client -connect example.org:443 -servername example.org</code></td><td>TLS-Verbindung mit SNI aufbauen</td></tr>
+      <tr><td><code>openssl s_client -connect example.org:443 -servername example.org &lt;/dev/null 2&gt;/dev/null | openssl x509 -noout -dates</code></td><td>Gültigkeit des Server-Zertifikats</td></tr>
+      <tr><td><code>openssl s_client -connect example.org:443 -showcerts</code></td><td>Komplette Zertifikatskette anzeigen</td></tr>
+      <tr><td><code>openssl s_client -connect example.org:443 -tls1_3</code></td><td>Nur TLS 1.3 zulassen (Unterstützung testen)</td></tr>
+      <tr><td><code>openssl s_client -connect mail.example.org:587 -starttls smtp</code></td><td>STARTTLS testen (auch <code>imap</code>, <code>pop3</code>, <code>ftp</code>)</td></tr>
+      <tr><td><code>openssl s_client -connect example.org:443 -status</code></td><td>OCSP-Stapling prüfen</td></tr>
+      <tr><td><code>openssl ciphers -v 'HIGH:!aNULL'</code></td><td>Verfügbare Cipher-Suites</td></tr>
+      <tr><td><code>openssl version -a</code></td><td>Version und Konfigurationspfade</td></tr>
+    </tbody>
+  </table>
+</section>

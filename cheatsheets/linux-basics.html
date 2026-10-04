@@ -1,0 +1,97 @@
+<section id="linux-dateien">
+  <h2>Dateien &amp; Verzeichnisse</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>pwd</code></td><td>Aktuelles Verzeichnis anzeigen</td></tr>
+      <tr><td><code>ls -lah</code></td><td>Alle Dateien ausführlich mit lesbaren Größen</td></tr>
+      <tr><td><code>cd -</code></td><td>Ins vorherige Verzeichnis wechseln</td></tr>
+      <tr><td><code>mkdir -p a/b/c</code></td><td>Verzeichnisse inkl. Elternverzeichnisse anlegen</td></tr>
+      <tr><td><code>cp -a quelle ziel</code></td><td>Kopieren mit Rechten, Zeitstempeln und rekursiv</td></tr>
+      <tr><td><code>mv alt neu</code></td><td>Verschieben oder umbenennen</td></tr>
+      <tr><td><code>rm -r verzeichnis</code></td><td>Verzeichnis rekursiv löschen (<code>-i</code> fragt nach)</td></tr>
+      <tr><td><code>ln -s ziel linkname</code></td><td>Symbolischen Link anlegen</td></tr>
+      <tr><td><code>touch datei</code></td><td>Leere Datei anlegen bzw. Zeitstempel aktualisieren</td></tr>
+      <tr><td><code>cat</code> / <code>less</code> / <code>head -n 20</code> / <code>tail -n 20</code></td><td>Dateiinhalt anzeigen / seitenweise / Anfang / Ende</td></tr>
+      <tr><td><code>tail -f datei</code></td><td>Datei live verfolgen</td></tr>
+      <tr><td><code>wc -l datei</code></td><td>Zeilen zählen</td></tr>
+      <tr><td><code>file datei</code></td><td>Dateityp erkennen</td></tr>
+      <tr><td><code>stat datei</code></td><td>Metadaten (Rechte, Zeitstempel, Inode)</td></tr>
+      <tr><td><code>tree -L 2</code></td><td>Verzeichnisbaum bis Tiefe 2</td></tr>
+      <tr><td><code>sort</code> / <code>uniq -c</code> / <code>cut -d: -f1</code></td><td>Sortieren / Duplikate zählen / Spalten ausschneiden</td></tr>
+      <tr><td><code>diff -u alt neu</code></td><td>Unterschiede zweier Dateien</td></tr>
+      <tr><td><code>sha256sum datei</code></td><td>Prüfsumme berechnen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="linux-rechte">
+  <h2>Rechte &amp; Benutzer</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>chmod 644 datei</code></td><td>rw-r--r-- (Besitzer lesen/schreiben, Rest lesen)</td></tr>
+      <tr><td><code>chmod 755 skript</code></td><td>rwxr-xr-x (ausführbar für alle)</td></tr>
+      <tr><td><code>chmod u+x,g-w datei</code></td><td>Symbolisch: Besitzer +x, Gruppe −w</td></tr>
+      <tr><td><code>chmod -R u=rwX,go=rX verzeichnis</code></td><td>Rekursiv: Verzeichnisse durchsuchbar, Dateien nicht ausführbar</td></tr>
+      <tr><td><code>chown benutzer:gruppe datei</code></td><td>Besitzer und Gruppe ändern</td></tr>
+      <tr><td><code>chown -R benutzer: verzeichnis</code></td><td>Rekursiv, Gruppe = Standardgruppe des Benutzers</td></tr>
+      <tr><td><code>umask</code></td><td>Standardrechte für neue Dateien anzeigen</td></tr>
+      <tr><td><code>id</code> / <code>whoami</code></td><td>Eigene Benutzer-/Gruppen-IDs / Benutzername</td></tr>
+      <tr><td><code>sudo -i</code></td><td>Root-Shell</td></tr>
+      <tr><td><code>sudo -u benutzer befehl</code></td><td>Befehl als anderer Benutzer</td></tr>
+      <tr><td><code>useradd -m -s /bin/bash benutzer</code></td><td>Benutzer mit Home-Verzeichnis anlegen</td></tr>
+      <tr><td><code>usermod -aG gruppe benutzer</code></td><td>Benutzer zu Gruppe hinzufügen (<code>-a</code> nicht vergessen!)</td></tr>
+      <tr><td><code>passwd benutzer</code></td><td>Passwort setzen</td></tr>
+      <tr><td><code>visudo</code></td><td>sudoers sicher bearbeiten (mit Syntaxprüfung)</td></tr>
+      <tr><td><code>getfacl</code> / <code>setfacl -m u:benutzer:rw datei</code></td><td>ACLs anzeigen / setzen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="linux-prozesse">
+  <h2>Prozesse</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ps aux</code></td><td>Alle Prozesse</td></tr>
+      <tr><td><code>ps -ef --forest</code></td><td>Prozessbaum</td></tr>
+      <tr><td><code>pgrep -a name</code></td><td>Prozesse nach Namen suchen</td></tr>
+      <tr><td><code>top</code> / <code>htop</code></td><td>Interaktive Prozessübersicht</td></tr>
+      <tr><td><code>kill PID</code></td><td>Prozess beenden (SIGTERM)</td></tr>
+      <tr><td><code>kill -9 PID</code></td><td>Prozess hart beenden (SIGKILL, letzte Wahl)</td></tr>
+      <tr><td><code>pkill -f muster</code></td><td>Prozesse nach Befehlszeile beenden</td></tr>
+      <tr><td><code>nice -n 10 befehl</code> / <code>renice 10 -p PID</code></td><td>Priorität setzen / ändern</td></tr>
+      <tr><td><code>jobs</code> / <code>fg</code> / <code>bg</code></td><td>Shell-Jobs anzeigen / Vordergrund / Hintergrund</td></tr>
+      <tr><td><code>lsof -i :80</code></td><td>Welcher Prozess nutzt Port 80?</td></tr>
+      <tr><td><code>lsof +D /pfad</code></td><td>Offene Dateien in einem Verzeichnis</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="linux-system">
+  <h2>System &amp; Hardware</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>uname -a</code></td><td>Kernel und Architektur</td></tr>
+      <tr><td><code>cat /etc/os-release</code></td><td>Distribution und Version</td></tr>
+      <tr><td><code>hostnamectl</code></td><td>Hostname und Systeminfos</td></tr>
+      <tr><td><code>uptime</code></td><td>Laufzeit und Last</td></tr>
+      <tr><td><code>free -h</code></td><td>Arbeitsspeicher</td></tr>
+      <tr><td><code>df -h</code></td><td>Belegung der Dateisysteme</td></tr>
+      <tr><td><code>du -sh *</code> / <code>du -h --max-depth=1</code></td><td>Größe von Ordnern</td></tr>
+      <tr><td><code>ncdu</code></td><td>Interaktive Speicherplatzanalyse</td></tr>
+      <tr><td><code>lsblk -f</code></td><td>Blockgeräte mit Dateisystemen</td></tr>
+      <tr><td><code>blkid</code></td><td>UUIDs der Partitionen</td></tr>
+      <tr><td><code>mount</code> / <code>findmnt</code></td><td>Eingehängte Dateisysteme</td></tr>
+      <tr><td><code>mount /dev/sdb1 /mnt</code> / <code>umount /mnt</code></td><td>Einhängen / aushängen</td></tr>
+      <tr><td><code>lscpu</code> / <code>lspci</code> / <code>lsusb</code></td><td>CPU / PCI-Geräte / USB-Geräte</td></tr>
+      <tr><td><code>dmesg -T</code></td><td>Kernel-Meldungen mit Uhrzeit</td></tr>
+      <tr><td><code>last</code> / <code>w</code></td><td>Letzte Anmeldungen / angemeldete Benutzer</td></tr>
+      <tr><td><code>history</code> / <code>!!</code> / <code>!$</code></td><td>Befehlsverlauf / letzter Befehl / letztes Argument</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>r</kbd></td><td>Rückwärtssuche im Befehlsverlauf</td></tr>
+      <tr><td><code>man befehl</code> / <code>befehl --help</code> / <code>tldr befehl</code></td><td>Hilfe</td></tr>
+    </tbody>
+  </table>
+</section>

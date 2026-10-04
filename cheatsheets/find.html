@@ -1,0 +1,66 @@
+<section id="find-grundlagen">
+  <h2>Grundlagen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>find /pfad</code></td><td>Alles unterhalb von /pfad auflisten</td></tr>
+      <tr><td><code>find . -name '*.txt'</code></td><td>Nach Namen suchen (Muster immer quoten)</td></tr>
+      <tr><td><code>find . -iname '*.jpg'</code></td><td>Name ohne Groß-/Kleinschreibung</td></tr>
+      <tr><td><code>find . -path '*/src/*.js'</code></td><td>Muster auf den ganzen Pfad anwenden</td></tr>
+      <tr><td><code>find . -regex '.*\.\(jpg\|png\)'</code></td><td>Regex auf den ganzen Pfad</td></tr>
+      <tr><td><code>find . -type f</code> / <code>-type d</code> / <code>-type l</code></td><td>Nur Dateien / Verzeichnisse / Symlinks</td></tr>
+      <tr><td><code>find . -maxdepth 1</code></td><td>Nicht in Unterverzeichnisse absteigen</td></tr>
+      <tr><td><code>find . -mindepth 2</code></td><td>Erst ab Tiefe 2</td></tr>
+      <tr><td><code>find / -xdev -name 'datei'</code></td><td>Auf einem Dateisystem bleiben</td></tr>
+      <tr><td><code>find / -name 'datei' 2&gt;/dev/null</code></td><td>„Permission denied“-Meldungen ausblenden</td></tr>
+      <tr><td><code>find . -name node_modules -prune -o -name '*.js' -print</code></td><td>Verzeichnis überspringen</td></tr>
+      <tr><td><code>locate datei</code></td><td>Schnelle Suche in Datenbank (<code>updatedb</code> aktualisiert sie)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="find-tests">
+  <h2>Tests &amp; Filter</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>find . -size +100M</code></td><td>Größer als 100 MiB</td></tr>
+      <tr><td><code>find . -size -1M</code></td><td>Kleiner als 1 MiB (Achtung: Einheiten werden aufgerundet, <code>-1M</code> findet nur leere Dateien – besser <code>-size -1024k</code>)</td></tr>
+      <tr><td><code>find . -empty</code></td><td>Leere Dateien und Verzeichnisse</td></tr>
+      <tr><td><code>find . -mtime -7</code></td><td>Inhalt in den letzten 7 Tagen geändert</td></tr>
+      <tr><td><code>find . -mtime +30</code></td><td>Vor mehr als 30 Tagen geändert</td></tr>
+      <tr><td><code>find . -mmin -60</code></td><td>In den letzten 60 Minuten geändert</td></tr>
+      <tr><td><code>find . -newer referenz</code></td><td>Neuer als Referenzdatei</td></tr>
+      <tr><td><code>find . -newermt '2026-01-01'</code></td><td>Nach einem Datum geändert</td></tr>
+      <tr><td><code>find . -atime -7</code> / <code>-ctime -7</code></td><td>Zugriff / Statusänderung in den letzten 7 Tagen</td></tr>
+      <tr><td><code>find . -user name</code> / <code>-group name</code></td><td>Nach Besitzer / Gruppe</td></tr>
+      <tr><td><code>find . -nouser</code></td><td>Dateien ohne gültigen Besitzer</td></tr>
+      <tr><td><code>find . -perm 644</code></td><td>Genau diese Rechte</td></tr>
+      <tr><td><code>find . -perm -644</code></td><td>Mindestens diese Rechte</td></tr>
+      <tr><td><code>find . -perm /u+x</code></td><td>Irgendeines der Bits gesetzt</td></tr>
+      <tr><td><code>find / -perm -4000 -type f 2&gt;/dev/null</code></td><td>SUID-Dateien finden (Sicherheitsprüfung)</td></tr>
+      <tr><td><code>find . -name '*.log' -o -name '*.txt'</code></td><td>ODER</td></tr>
+      <tr><td><code>find . \( -name '*.log' -o -name '*.txt' \) -mtime +7</code></td><td>ODER mit Klammern kombinieren</td></tr>
+      <tr><td><code>find . -name '*.txt' ! -name 'backup*'</code></td><td>NICHT</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="find-aktionen">
+  <h2>Aktionen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>find . -name '*.tmp' -print</code></td><td>Pfade ausgeben (Standard)</td></tr>
+      <tr><td><code>find . -name '*.tmp' -delete</code></td><td>Treffer löschen (vorher ohne <code>-delete</code> testen!)</td></tr>
+      <tr><td><code>find . -name '*.txt' -exec grep -H 'muster' {} +</code></td><td>Befehl mit vielen Dateien auf einmal (schnell)</td></tr>
+      <tr><td><code>find . -type f -exec chmod 644 {} \;</code></td><td>Befehl je Datei einzeln</td></tr>
+      <tr><td><code>find . -type d -exec chmod 755 {} +</code></td><td>Rechte für alle Verzeichnisse</td></tr>
+      <tr><td><code>find . -name '*.log' -exec mv -t /backup/ {} +</code></td><td>Dateien verschieben</td></tr>
+      <tr><td><code>find . -name '*.txt' -ok rm {} \;</code></td><td>Vor jedem Befehl nachfragen</td></tr>
+      <tr><td><code>find . -name '*.log' -print0 | xargs -0 rm</code></td><td>Mit xargs, sicher bei Leerzeichen im Namen</td></tr>
+      <tr><td><code>find . -type f -printf '%s %p\n' | sort -n | tail</code></td><td>Größte Dateien (GNU find)</td></tr>
+      <tr><td><code>find . -type f -mtime +30 -name '*.gz' -ls</code></td><td>Treffer mit Details anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>

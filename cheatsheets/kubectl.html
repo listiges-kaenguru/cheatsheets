@@ -1,0 +1,95 @@
+<section id="kubectl-kontext">
+  <h2>Kontext &amp; Cluster</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>kubectl version</code></td><td>Client- und Serverversion</td></tr>
+      <tr><td><code>kubectl cluster-info</code></td><td>Adressen der Cluster-Dienste</td></tr>
+      <tr><td><code>kubectl config get-contexts</code></td><td>Verfügbare Kontexte</td></tr>
+      <tr><td><code>kubectl config use-context name</code></td><td>Kontext wechseln</td></tr>
+      <tr><td><code>kubectl config set-context --current --namespace=team-a</code></td><td>Standard-Namespace setzen</td></tr>
+      <tr><td><code>kubectl get namespaces</code></td><td>Namespaces auflisten</td></tr>
+      <tr><td><code>kubectl get nodes -o wide</code></td><td>Knoten mit IPs und Version</td></tr>
+      <tr><td><code>kubectl api-resources</code></td><td>Alle Ressourcentypen mit Kurznamen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="kubectl-anzeigen">
+  <h2>Ressourcen anzeigen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>kubectl get pods</code></td><td>Pods im aktuellen Namespace</td></tr>
+      <tr><td><code>kubectl get pods -A</code></td><td>Pods in allen Namespaces</td></tr>
+      <tr><td><code>kubectl get pods -o wide</code></td><td>Mit Knoten und IP</td></tr>
+      <tr><td><code>kubectl get pods -w</code></td><td>Änderungen live verfolgen</td></tr>
+      <tr><td><code>kubectl get all</code></td><td>Gängige Ressourcen des Namespace</td></tr>
+      <tr><td><code>kubectl get pods -l app=web</code></td><td>Nach Label filtern</td></tr>
+      <tr><td><code>kubectl describe pod name</code></td><td>Details und Ereignisse eines Pods</td></tr>
+      <tr><td><code>kubectl get events --sort-by=.lastTimestamp</code></td><td>Ereignisse chronologisch</td></tr>
+      <tr><td><code>kubectl get pod name -o yaml</code></td><td>Vollständige Definition als YAML</td></tr>
+      <tr><td><code>kubectl get pods -o jsonpath='{.items[*].metadata.name}'</code></td><td>Gezielt Felder ausgeben</td></tr>
+      <tr><td><code>kubectl top pods</code> / <code>kubectl top nodes</code></td><td>CPU-/RAM-Verbrauch (Metrics Server nötig)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="kubectl-verwalten">
+  <h2>Anwenden &amp; Verwalten</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>kubectl apply -f manifest.yaml</code></td><td>Ressourcen aus Datei erstellen/aktualisieren (deklarativ)</td></tr>
+      <tr><td><code>kubectl apply -f verzeichnis/</code></td><td>Alle Manifeste eines Verzeichnisses</td></tr>
+      <tr><td><code>kubectl diff -f manifest.yaml</code></td><td>Unterschied zum Cluster anzeigen</td></tr>
+      <tr><td><code>kubectl delete -f manifest.yaml</code></td><td>Ressourcen aus Datei entfernen</td></tr>
+      <tr><td><code>kubectl delete pod name</code></td><td>Pod löschen (Deployment startet ihn neu)</td></tr>
+      <tr><td><code>kubectl scale deployment web --replicas=3</code></td><td>Anzahl der Repliken ändern</td></tr>
+      <tr><td><code>kubectl rollout status deployment web</code></td><td>Fortschritt eines Rollouts</td></tr>
+      <tr><td><code>kubectl rollout restart deployment web</code></td><td>Neustart erzwingen (z. B. für neue Config)</td></tr>
+      <tr><td><code>kubectl rollout undo deployment web</code></td><td>Auf vorherige Version zurückrollen</td></tr>
+      <tr><td><code>kubectl set image deployment/web app=image:2.0</code></td><td>Image einer Anwendung aktualisieren</td></tr>
+      <tr><td><code>kubectl edit deployment web</code></td><td>Ressource direkt im Editor ändern</td></tr>
+      <tr><td><code>kubectl label pod name umgebung=test</code></td><td>Label setzen</td></tr>
+      <tr><td><code>kubectl annotate pod name hinweis="..."</code></td><td>Annotation setzen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="kubectl-debug">
+  <h2>Logs &amp; Fehlersuche</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>kubectl logs pod</code></td><td>Logs eines Pods</td></tr>
+      <tr><td><code>kubectl logs pod -f --tail=100</code></td><td>Live verfolgen, letzte 100 Zeilen</td></tr>
+      <tr><td><code>kubectl logs pod -c container</code></td><td>Bestimmten Container wählen</td></tr>
+      <tr><td><code>kubectl logs pod --previous</code></td><td>Logs des vorherigen (abgestürzten) Containers</td></tr>
+      <tr><td><code>kubectl exec -it pod -- sh</code></td><td>Shell im Pod öffnen</td></tr>
+      <tr><td><code>kubectl exec pod -- env</code></td><td>Einzelnen Befehl im Pod ausführen</td></tr>
+      <tr><td><code>kubectl port-forward pod 8080:80</code></td><td>Lokalen Port auf einen Pod weiterleiten</td></tr>
+      <tr><td><code>kubectl port-forward svc/web 8080:80</code></td><td>Auf einen Service weiterleiten</td></tr>
+      <tr><td><code>kubectl cp pod:/pfad/datei ./datei</code></td><td>Datei aus Pod kopieren</td></tr>
+      <tr><td><code>kubectl debug -it pod --image=busybox --target=container</code></td><td>Debug-Container an Pod anhängen</td></tr>
+      <tr><td><code>kubectl get pod name -o jsonpath='{.status.containerStatuses[*].state}'</code></td><td>Container-Status (z. B. bei CrashLoopBackOff)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="kubectl-config">
+  <h2>Konfiguration &amp; Secrets</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>kubectl create namespace team-a</code></td><td>Namespace anlegen</td></tr>
+      <tr><td><code>kubectl create configmap app-cfg --from-file=app.conf</code></td><td>ConfigMap aus Datei</td></tr>
+      <tr><td><code>kubectl create secret generic db --from-literal=pass=geheim</code></td><td>Secret anlegen</td></tr>
+      <tr><td><code>kubectl get secret db -o jsonpath='{.data.pass}' | base64 -d</code></td><td>Secret-Wert auslesen</td></tr>
+      <tr><td><code>kubectl get configmap app-cfg -o yaml</code></td><td>ConfigMap anzeigen</td></tr>
+      <tr><td><code>kubectl create deployment web --image=nginx --dry-run=client -o yaml &gt; web.yaml</code></td><td>Manifest-Vorlage erzeugen</td></tr>
+      <tr><td><code>kubectl explain pod.spec.containers</code></td><td>Feld-Dokumentation einer Ressource</td></tr>
+      <tr><td><code>kubectl auth can-i create pods</code></td><td>Eigene Berechtigung prüfen</td></tr>
+    </tbody>
+  </table>
+</section>

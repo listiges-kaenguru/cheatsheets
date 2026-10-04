@@ -1,0 +1,73 @@
+<section id="gpg-schluessel">
+  <h2>Schlüssel erzeugen &amp; anzeigen</h2>
+  <p class="note">GnuPG (<code>gpg</code>) für OpenPGP-Schlüssel. Beispiele mit GnuPG 2.2+. Ein Schlüssel wird über seinen Fingerabdruck oder eine E-Mail angesprochen.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>gpg --full-generate-key</code></td><td>Schlüssel interaktiv erzeugen (Typ „ECC“/Ed25519 wählen)</td></tr>
+      <tr><td><code>gpg --quick-generate-key "Max &lt;max@example.org&gt;" ed25519 sign,cert 2y</code></td><td>Schlüssel ohne Rückfragen (2 Jahre gültig)</td></tr>
+      <tr><td><code>gpg --list-keys</code></td><td>Öffentliche Schlüssel auflisten</td></tr>
+      <tr><td><code>gpg --list-secret-keys --keyid-format long</code></td><td>Private Schlüssel mit langer ID</td></tr>
+      <tr><td><code>gpg --fingerprint max@example.org</code></td><td>Fingerabdruck anzeigen (zum Abgleich)</td></tr>
+      <tr><td><code>gpg --edit-key max@example.org</code></td><td>Schlüssel bearbeiten (Unterschlüssel, Ablauf, Vertrauen)</td></tr>
+      <tr><td><code>gpg --gen-revoke max@example.org &gt; widerruf.asc</code></td><td>Widerrufszertifikat erzeugen (sicher aufbewahren!)</td></tr>
+      <tr><td><code>gpg --import widerruf.asc</code></td><td>Schlüssel widerrufen (Zertifikat importieren)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="gpg-austausch">
+  <h2>Schlüssel austauschen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>gpg --armor --export max@example.org &gt; public.asc</code></td><td>Öffentlichen Schlüssel als Textdatei exportieren</td></tr>
+      <tr><td><code>gpg --armor --export-secret-keys max@example.org &gt; private.asc</code></td><td>Privaten Schlüssel sichern (streng vertraulich!)</td></tr>
+      <tr><td><code>gpg --import public.asc</code></td><td>Schlüssel importieren</td></tr>
+      <tr><td><code>gpg --export-ssh-key max@example.org</code></td><td>Als SSH-Public-Key ausgeben</td></tr>
+      <tr><td><code>gpg --keyserver hkps://keys.openpgp.org --send-keys FINGERABDRUCK</code></td><td>Auf Keyserver hochladen</td></tr>
+      <tr><td><code>gpg --keyserver hkps://keys.openpgp.org --search-keys max@example.org</code></td><td>Auf Keyserver suchen</td></tr>
+      <tr><td><code>gpg --recv-keys FINGERABDRUCK</code></td><td>Schlüssel per ID vom Keyserver holen</td></tr>
+      <tr><td><code>gpg --lsign-key max@example.org</code></td><td>Schlüssel lokal beglaubigen (Vertrauen setzen)</td></tr>
+      <tr><td><code>gpg --delete-key max@example.org</code> / <code>gpg --delete-secret-key max@example.org</code></td><td>Öffentlichen / privaten Schlüssel löschen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="gpg-krypto">
+  <h2>Verschlüsseln &amp; Signieren</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>gpg -e -r max@example.org datei</code></td><td>Für einen Empfänger verschlüsseln (erzeugt <code>datei.gpg</code>)</td></tr>
+      <tr><td><code>gpg -e -r a@x -r b@y datei</code></td><td>Für mehrere Empfänger verschlüsseln</td></tr>
+      <tr><td><code>gpg -d datei.gpg &gt; datei</code></td><td>Entschlüsseln</td></tr>
+      <tr><td><code>gpg -c datei</code></td><td>Symmetrisch mit Passwort verschlüsseln (ohne Schlüsselpaar)</td></tr>
+      <tr><td><code>gpg -s datei</code></td><td>Signieren (binär, komprimiert)</td></tr>
+      <tr><td><code>gpg --clearsign datei.txt</code></td><td>Textdatei mit lesbarer Signatur signieren</td></tr>
+      <tr><td><code>gpg --detach-sign --armor datei</code></td><td>Getrennte Signatur (<code>datei.asc</code>) erzeugen</td></tr>
+      <tr><td><code>gpg --verify datei.asc datei</code></td><td>Getrennte Signatur prüfen</td></tr>
+      <tr><td><code>gpg --verify datei.sig</code></td><td>Signierte Datei prüfen</td></tr>
+      <tr><td><code>gpg -se -r max@example.org datei</code></td><td>Signieren und verschlüsseln in einem Schritt</td></tr>
+      <tr><td><code>gpg --armor -e -r max@example.org datei</code></td><td>Verschlüsselte Ausgabe als Text (<code>.asc</code>)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="gpg-verwaltung">
+  <h2>Agent, Vertrauen &amp; Wartung</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>gpg -k --keyid-format long</code></td><td>Schlüssel-IDs für Konfigurationen ermitteln</td></tr>
+      <tr><td><code>gpg --edit-key max@example.org trust</code></td><td>Vertrauensstufe eines Schlüssels setzen</td></tr>
+      <tr><td><code>gpg --list-signatures max@example.org</code></td><td>Beglaubigungen (Signaturen) eines Schlüssels</td></tr>
+      <tr><td><code>gpg-connect-agent reloadagent /bye</code></td><td>gpg-agent neu laden</td></tr>
+      <tr><td><code>gpg-connect-agent "keyinfo --list" /bye</code></td><td>Vom Agent verwaltete Schlüssel anzeigen</td></tr>
+      <tr><td><code>echo "test" | gpg --clearsign</code></td><td>Prüfen, ob Signieren (Passphrase-Abfrage) funktioniert</td></tr>
+      <tr><td><code>export GPG_TTY=$(tty)</code></td><td>In <code>.bashrc</code>: nötig, damit die Passphrase-Abfrage im Terminal erscheint</td></tr>
+      <tr><td><code>git config --global user.signingkey FINGERABDRUCK</code></td><td>GPG-Schlüssel für signierte Git-Commits hinterlegen</td></tr>
+      <tr><td><code>~/.gnupg/</code></td><td>Verzeichnis mit Schlüsseln und Konfiguration (Rechte: nur eigener Benutzer)</td></tr>
+    </tbody>
+  </table>
+</section>

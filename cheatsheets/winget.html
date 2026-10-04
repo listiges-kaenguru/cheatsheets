@@ -1,0 +1,50 @@
+<section id="winget-grundlagen">
+  <h2>Suchen &amp; Informationen</h2>
+  <p class="note">winget ist in Windows 10/11 und Windows Server 2025 über den „App Installer“ enthalten. Mit <code>--id … -e</code> wird genau ein Paket ausgewählt.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>winget search begriff</code></td><td>Pakete suchen</td></tr>
+      <tr><td><code>winget show --id Git.Git</code></td><td>Details zu einem Paket</td></tr>
+      <tr><td><code>winget list</code></td><td>Installierte Programme (auch nicht über winget installierte)</td></tr>
+      <tr><td><code>winget list --upgrade-available</code></td><td>Programme mit verfügbarem Update</td></tr>
+      <tr><td><code>winget --info</code></td><td>Version, Pfade und Richtlinien anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="winget-pakete">
+  <h2>Installieren &amp; Aktualisieren</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>winget install --id Git.Git -e</code></td><td>Paket anhand der exakten ID installieren</td></tr>
+      <tr><td><code>winget install --id Git.Git -e --silent</code></td><td>Ohne Installationsdialog</td></tr>
+      <tr><td><code>winget install --id Git.Git -e --scope machine</code></td><td>Für alle Benutzer installieren</td></tr>
+      <tr><td><code>winget install --id Git.Git -e --version 2.50.0</code></td><td>Bestimmte Version installieren</td></tr>
+      <tr><td><code>winget install --id Git.Git -e --accept-package-agreements --accept-source-agreements</code></td><td>Lizenzen automatisch akzeptieren (Skripte)</td></tr>
+      <tr><td><code>winget upgrade</code></td><td>Verfügbare Updates anzeigen</td></tr>
+      <tr><td><code>winget upgrade --id Git.Git -e</code></td><td>Ein Paket aktualisieren</td></tr>
+      <tr><td><code>winget upgrade --all</code></td><td>Alle Pakete aktualisieren</td></tr>
+      <tr><td><code>winget uninstall --id Git.Git -e</code></td><td>Paket deinstallieren</td></tr>
+      <tr><td><code>winget pin add --id Git.Git</code></td><td>Paket von Updates ausnehmen</td></tr>
+      <tr><td><code>winget pin list</code> / <code>winget pin remove --id Git.Git</code></td><td>Pins anzeigen / entfernen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="winget-erweitert">
+  <h2>Export, Quellen &amp; Einstellungen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>winget export -o apps.json</code></td><td>Installierte Pakete exportieren</td></tr>
+      <tr><td><code>winget import -i apps.json</code></td><td>Pakete aus Exportdatei installieren</td></tr>
+      <tr><td><code>winget configure -f konfiguration.winget</code></td><td>Rechner per Konfigurationsdatei (DSC) einrichten</td></tr>
+      <tr><td><code>winget source list</code></td><td>Paketquellen anzeigen</td></tr>
+      <tr><td><code>winget source update</code></td><td>Quellen aktualisieren</td></tr>
+      <tr><td><code>winget source reset --force</code></td><td>Quellen zurücksetzen (bei Fehlern)</td></tr>
+      <tr><td><code>winget settings</code></td><td>Einstellungsdatei öffnen</td></tr>
+    </tbody>
+  </table>
+</section>

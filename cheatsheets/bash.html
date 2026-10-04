@@ -1,0 +1,157 @@
+<section id="bash-grundlagen">
+  <h2>Grundlagen</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>#!/usr/bin/env bash</code></td><td>Shebang: Skript mit Bash ausführen</td></tr>
+      <tr><td><code>set -euo pipefail</code></td><td>Strikter Modus: Abbruch bei Fehlern, undefinierten Variablen und Fehlern in Pipes</td></tr>
+      <tr><td><code># Kommentar</code></td><td>Kommentar bis Zeilenende</td></tr>
+      <tr><td><code>chmod +x skript.sh</code></td><td>Skript ausführbar machen</td></tr>
+      <tr><td><code>./skript.sh</code> / <code>bash skript.sh</code></td><td>Skript ausführen</td></tr>
+      <tr><td><code>bash -n skript.sh</code></td><td>Nur Syntax prüfen</td></tr>
+      <tr><td><code>bash -x skript.sh</code> / <code>set -x</code></td><td>Jeden Befehl vor der Ausführung anzeigen (Debugging)</td></tr>
+      <tr><td><code>shellcheck skript.sh</code></td><td>Statische Analyse auf typische Fehler (Paket <code>shellcheck</code>)</td></tr>
+      <tr><td><code>echo "Text"</code> / <code>printf '%s\n' "$var"</code></td><td>Ausgabe (<code>printf</code> ist portabler und genauer)</td></tr>
+      <tr><td><code>read -r var</code></td><td>Eingabe lesen (<code>-r</code>: Backslashes nicht interpretieren)</td></tr>
+      <tr><td><code>read -rp "Frage: " var</code></td><td>Eingabe mit Prompt lesen</td></tr>
+      <tr><td><code>read -rsp "Passwort: " pw</code></td><td>Eingabe ohne Anzeige lesen</td></tr>
+      <tr><td><code>exit 0</code></td><td>Skript mit Exit-Code beenden (0 = Erfolg)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="bash-variablen">
+  <h2>Variablen &amp; Parameter</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>var="Wert"</code></td><td>Variable setzen (keine Leerzeichen um <code>=</code>)</td></tr>
+      <tr><td><code>"$var"</code> / <code>"${var}"</code></td><td>Variable verwenden – immer in Anführungszeichen</td></tr>
+      <tr><td><code>export VAR="Wert"</code></td><td>Umgebungsvariable für Kindprozesse</td></tr>
+      <tr><td><code>readonly VAR="Wert"</code></td><td>Konstante</td></tr>
+      <tr><td><code>$(befehl)</code></td><td>Befehlsausgabe einsetzen (statt veralteter Backticks)</td></tr>
+      <tr><td><code>$((a + b * 2))</code></td><td>Arithmetik (nur Ganzzahlen)</td></tr>
+      <tr><td><code>$0</code></td><td>Name des Skripts</td></tr>
+      <tr><td><code>$1</code> / <code>$2</code> / <code>${10}</code></td><td>Positionsparameter</td></tr>
+      <tr><td><code>$#</code></td><td>Anzahl der Parameter</td></tr>
+      <tr><td><code>"$@"</code></td><td>Alle Parameter, jeweils einzeln gequotet (fast immer die richtige Wahl)</td></tr>
+      <tr><td><code>"$*"</code></td><td>Alle Parameter als ein einziger String</td></tr>
+      <tr><td><code>$?</code></td><td>Exit-Code des letzten Befehls</td></tr>
+      <tr><td><code>$$</code></td><td>PID der aktuellen Shell</td></tr>
+      <tr><td><code>$!</code></td><td>PID des letzten Hintergrundprozesses</td></tr>
+      <tr><td><code>shift</code></td><td>Positionsparameter um eins nach links schieben</td></tr>
+      <tr><td><code>${var:-standard}</code></td><td>Standardwert, wenn var leer oder nicht gesetzt</td></tr>
+      <tr><td><code>${var:=standard}</code></td><td>Standardwert setzen und verwenden</td></tr>
+      <tr><td><code>${var:?Fehlermeldung}</code></td><td>Abbruch mit Meldung, wenn var leer</td></tr>
+      <tr><td><code>${#var}</code></td><td>Länge des Strings</td></tr>
+      <tr><td><code>${var:2:5}</code></td><td>Teilstring ab Position 2, Länge 5</td></tr>
+      <tr><td><code>${var#muster}</code> / <code>${var##muster}</code></td><td>Präfix entfernen (kürzester / längster Treffer)</td></tr>
+      <tr><td><code>${var%muster}</code> / <code>${var%%muster}</code></td><td>Suffix entfernen, z. B. <code>${datei%.txt}</code></td></tr>
+      <tr><td><code>${var/alt/neu}</code> / <code>${var//alt/neu}</code></td><td>Erstes / alle Vorkommen ersetzen</td></tr>
+      <tr><td><code>${var^^}</code> / <code>${var,,}</code></td><td>In Groß- / Kleinbuchstaben</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="bash-bedingungen">
+  <h2>Bedingungen &amp; Tests</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>if [[ bedingung ]]; then …; elif …; else …; fi</code></td><td>Verzweigung (<code>[[ ]]</code> ist die Bash-Variante von <code>[ ]</code>)</td></tr>
+      <tr><td><code>[[ "$a" == "$b" ]]</code> / <code>[[ "$a" != "$b" ]]</code></td><td>Strings gleich / ungleich</td></tr>
+      <tr><td><code>[[ "$a" == *.txt ]]</code></td><td>Mustervergleich (Glob, rechte Seite nicht quoten)</td></tr>
+      <tr><td><code>[[ "$a" =~ ^[0-9]+$ ]]</code></td><td>Regex-Vergleich, Gruppen in <code>BASH_REMATCH</code></td></tr>
+      <tr><td><code>[[ -z "$var" ]]</code> / <code>[[ -n "$var" ]]</code></td><td>String leer / nicht leer</td></tr>
+      <tr><td><code>(( a == b ))</code> / <code>(( a &lt; b ))</code></td><td>Zahlenvergleich in arithmetischem Kontext</td></tr>
+      <tr><td><code>[ "$a" -eq "$b" ]</code></td><td>Zahlen gleich (auch <code>-ne</code>, <code>-lt</code>, <code>-le</code>, <code>-gt</code>, <code>-ge</code>)</td></tr>
+      <tr><td><code>[[ -e pfad ]]</code></td><td>Existiert</td></tr>
+      <tr><td><code>[[ -f pfad ]]</code> / <code>[[ -d pfad ]]</code></td><td>Reguläre Datei / Verzeichnis</td></tr>
+      <tr><td><code>[[ -L pfad ]]</code></td><td>Symbolischer Link</td></tr>
+      <tr><td><code>[[ -r pfad ]]</code> / <code>[[ -w pfad ]]</code> / <code>[[ -x pfad ]]</code></td><td>Lesbar / schreibbar / ausführbar</td></tr>
+      <tr><td><code>[[ -s pfad ]]</code></td><td>Datei existiert und ist nicht leer</td></tr>
+      <tr><td><code>[[ a -nt b ]]</code></td><td>Datei a ist neuer als b</td></tr>
+      <tr><td><code>[[ bed1 &amp;&amp; bed2 ]]</code> / <code>[[ bed1 || bed2 ]]</code></td><td>Logisches UND / ODER</td></tr>
+      <tr><td><code>[[ ! bedingung ]]</code></td><td>Negation</td></tr>
+      <tr><td><code>befehl &amp;&amp; echo ok || echo fehler</code></td><td>Kurzform, abhängig vom Exit-Code</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="bash-schleifen">
+  <h2>Schleifen &amp; case</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>for i in 1 2 3; do …; done</code></td><td>Über Liste iterieren</td></tr>
+      <tr><td><code>for i in {1..10}; do …; done</code></td><td>Über Zahlenbereich iterieren</td></tr>
+      <tr><td><code>for ((i = 0; i &lt; 10; i++)); do …; done</code></td><td>Schleife im C-Stil</td></tr>
+      <tr><td><code>for f in *.log; do …; done</code></td><td>Über Dateien iterieren (nie über <code>$(ls)</code>)</td></tr>
+      <tr><td><code>while read -r zeile; do …; done &lt; datei</code></td><td>Datei zeilenweise lesen</td></tr>
+      <tr><td><code>while [[ bedingung ]]; do …; done</code></td><td>While-Schleife</td></tr>
+      <tr><td><code>until [[ bedingung ]]; do …; done</code></td><td>Schleife bis Bedingung wahr</td></tr>
+      <tr><td><code>break</code> / <code>continue</code></td><td>Schleife verlassen / nächster Durchlauf</td></tr>
+      <tr><td><code>case "$var" in start) …;; stop|halt) …;; *) …;; esac</code></td><td>Mehrfachverzweigung mit Mustern</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="bash-funktionen">
+  <h2>Funktionen</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>name() { …; }</code></td><td>Funktion definieren (portabel)</td></tr>
+      <tr><td><code>name arg1 arg2</code></td><td>Funktion aufrufen, Argumente in <code>$1</code>, <code>$2</code> …</td></tr>
+      <tr><td><code>local var="Wert"</code></td><td>Lokale Variable</td></tr>
+      <tr><td><code>return 1</code></td><td>Funktion mit Exit-Code verlassen</td></tr>
+      <tr><td><code>ergebnis=$(name)</code></td><td>Rückgabewert über stdout auffangen</td></tr>
+      <tr><td><code>trap 'aufraeumen' EXIT</code></td><td>Funktion beim Beenden immer ausführen</td></tr>
+      <tr><td><code>trap 'echo "Fehler in Zeile $LINENO"' ERR</code></td><td>Bei Fehlern reagieren</td></tr>
+      <tr><td><code>tmp=$(mktemp)</code></td><td>Sichere temporäre Datei anlegen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="bash-arrays">
+  <h2>Arrays</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>arr=(eins zwei drei)</code></td><td>Array definieren</td></tr>
+      <tr><td><code>"${arr[0]}"</code></td><td>Element lesen</td></tr>
+      <tr><td><code>"${arr[@]}"</code></td><td>Alle Elemente (einzeln gequotet)</td></tr>
+      <tr><td><code>${#arr[@]}</code></td><td>Anzahl der Elemente</td></tr>
+      <tr><td><code>"${!arr[@]}"</code></td><td>Alle Indizes</td></tr>
+      <tr><td><code>arr+=(vier)</code></td><td>Element anhängen</td></tr>
+      <tr><td><code>unset 'arr[1]'</code></td><td>Element entfernen</td></tr>
+      <tr><td><code>"${arr[@]:1:2}"</code></td><td>Teilbereich (ab Index 1, zwei Elemente)</td></tr>
+      <tr><td><code>declare -A map=([key]=wert)</code></td><td>Assoziatives Array</td></tr>
+      <tr><td><code>"${map[key]}"</code></td><td>Wert eines Schlüssels</td></tr>
+      <tr><td><code>mapfile -t zeilen &lt; datei</code></td><td>Datei zeilenweise in Array einlesen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="bash-umleitung">
+  <h2>Ein-/Ausgabe &amp; Umleitung</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>befehl &gt; datei</code></td><td>stdout in Datei (überschreiben)</td></tr>
+      <tr><td><code>befehl &gt;&gt; datei</code></td><td>stdout an Datei anhängen</td></tr>
+      <tr><td><code>befehl 2&gt; fehler.log</code></td><td>stderr in Datei</td></tr>
+      <tr><td><code>befehl &gt; datei 2&gt;&amp;1</code> / <code>befehl &amp;&gt; datei</code></td><td>stdout und stderr in Datei</td></tr>
+      <tr><td><code>befehl 2&gt;/dev/null</code></td><td>Fehlermeldungen verwerfen</td></tr>
+      <tr><td><code>befehl &lt; datei</code></td><td>Datei als Eingabe</td></tr>
+      <tr><td><code>befehl1 | befehl2</code></td><td>Pipe: Ausgabe weiterreichen</td></tr>
+      <tr><td><code>befehl | tee datei</code></td><td>Ausgabe anzeigen und in Datei schreiben</td></tr>
+      <tr><td><code>cat &lt;&lt;'EOF' … EOF</code></td><td>Here-Document (mit <code>'EOF'</code> ohne Variablenersetzung)</td></tr>
+      <tr><td><code>befehl &lt;&lt;&lt; "$var"</code></td><td>Here-String</td></tr>
+      <tr><td><code>diff &lt;(befehl1) &lt;(befehl2)</code></td><td>Prozesssubstitution</td></tr>
+      <tr><td><code>befehl &amp;</code></td><td>Im Hintergrund starten</td></tr>
+      <tr><td><code>wait</code></td><td>Auf Hintergrundprozesse warten</td></tr>
+      <tr><td><code>nohup befehl &amp;</code></td><td>Weiterlaufen lassen nach Abmelden</td></tr>
+    </tbody>
+  </table>
+</section>

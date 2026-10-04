@@ -1,0 +1,107 @@
+<section id="net-interface">
+  <h2>Schnittstellen &amp; IP-Adressen</h2>
+  <p class="note">Linux mit iproute2. Die alten Befehle <code>ifconfig</code>, <code>route</code>, <code>netstat</code> und <code>arp</code> (net-tools) sind veraltet und oft nicht mehr installiert.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ip -br a</code></td><td>Kurzübersicht aller Adressen</td></tr>
+      <tr><td><code>ip a show eth0</code></td><td>Details einer Schnittstelle</td></tr>
+      <tr><td><code>ip -br link</code></td><td>Schnittstellen mit Status und MAC</td></tr>
+      <tr><td><code>sudo ip link set eth0 up</code> / <code>sudo ip link set eth0 down</code></td><td>Schnittstelle aktivieren / deaktivieren</td></tr>
+      <tr><td><code>sudo ip addr add 192.168.1.10/24 dev eth0</code></td><td>Adresse hinzufügen (nicht dauerhaft)</td></tr>
+      <tr><td><code>sudo ip addr del 192.168.1.10/24 dev eth0</code></td><td>Adresse entfernen</td></tr>
+      <tr><td><code>hostname -I</code></td><td>Alle eigenen IP-Adressen</td></tr>
+      <tr><td><code>ethtool eth0</code></td><td>Linkgeschwindigkeit und Duplex</td></tr>
+      <tr class="sub"><th colspan="2">NetworkManager (dauerhaft)</th></tr>
+      <tr><td><code>nmcli device status</code></td><td>Geräte und Verbindungen</td></tr>
+      <tr><td><code>nmcli connection show</code></td><td>Gespeicherte Verbindungen</td></tr>
+      <tr><td><code>sudo nmcli con mod "LAN" ipv4.method manual ipv4.addresses 192.168.1.10/24 ipv4.gateway 192.168.1.1 ipv4.dns 192.168.1.1</code></td><td>Statische IPv4-Konfiguration</td></tr>
+      <tr><td><code>sudo nmcli con up "LAN"</code></td><td>Verbindung (neu) aktivieren</td></tr>
+      <tr><td><code>nmcli device wifi list</code> / <code>nmcli device wifi connect SSID --ask</code></td><td>WLANs anzeigen / verbinden</td></tr>
+      <tr><td><code>nmtui</code></td><td>Textoberfläche für NetworkManager</td></tr>
+      <tr><td><code>/etc/netplan/*.yaml</code> / <code>sudo netplan try</code></td><td>Netzwerkkonfiguration auf Ubuntu-Servern / testweise anwenden</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="net-routing">
+  <h2>Routing &amp; Nachbarn</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ip route</code></td><td>Routing-Tabelle</td></tr>
+      <tr><td><code>ip -6 route</code></td><td>IPv6-Routing-Tabelle</td></tr>
+      <tr><td><code>ip route get 1.1.1.1</code></td><td>Welche Route und Quelladresse wird genutzt?</td></tr>
+      <tr><td><code>sudo ip route add default via 192.168.1.1</code></td><td>Standard-Gateway setzen</td></tr>
+      <tr><td><code>sudo ip route add 10.0.0.0/8 via 192.168.1.254 dev eth0</code></td><td>Statische Route</td></tr>
+      <tr><td><code>sudo ip route del 10.0.0.0/8</code></td><td>Route löschen</td></tr>
+      <tr><td><code>ip neigh</code></td><td>ARP-/NDP-Tabelle (Nachbarn)</td></tr>
+      <tr><td><code>sudo sysctl -w net.ipv4.ip_forward=1</code></td><td>IP-Weiterleitung aktivieren (Router)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="net-diagnose">
+  <h2>Diagnose</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ping -c 4 host</code></td><td>Erreichbarkeit prüfen (4 Pakete)</td></tr>
+      <tr><td><code>ping -6 host</code></td><td>Über IPv6</td></tr>
+      <tr><td><code>tracepath host</code> / <code>traceroute host</code></td><td>Route verfolgen</td></tr>
+      <tr><td><code>mtr host</code></td><td>Traceroute und Ping kombiniert, fortlaufend</td></tr>
+      <tr><td><code>ss -tulpn</code></td><td>Offene TCP/UDP-Ports mit Prozess (ersetzt <code>netstat</code>)</td></tr>
+      <tr><td><code>ss -tn state established</code></td><td>Bestehende TCP-Verbindungen</td></tr>
+      <tr><td><code>dig example.org</code></td><td>DNS-Abfrage</td></tr>
+      <tr><td><code>dig +short example.org MX</code></td><td>Nur Ergebnisse eines Typs (A, AAAA, MX, TXT …)</td></tr>
+      <tr><td><code>dig @1.1.1.1 example.org</code></td><td>Bestimmten DNS-Server fragen</td></tr>
+      <tr><td><code>dig -x 1.1.1.1</code></td><td>Reverse Lookup</td></tr>
+      <tr><td><code>dig +trace example.org</code></td><td>Auflösung ab den Root-Servern verfolgen</td></tr>
+      <tr><td><code>resolvectl query example.org</code></td><td>Auflösung wie das System (systemd-resolved)</td></tr>
+      <tr><td><code>nc -zv host 22</code></td><td>Ist ein TCP-Port offen?</td></tr>
+      <tr><td><code>nc -l 1234</code></td><td>Auf Port lauschen (Testserver)</td></tr>
+      <tr><td><code>curl -I https://example.org</code></td><td>Nur HTTP-Header</td></tr>
+      <tr><td><code>curl -v https://example.org</code></td><td>Verbindung, TLS und Header im Detail</td></tr>
+      <tr><td><code>curl -o datei https://example.org/datei</code></td><td>Herunterladen</td></tr>
+      <tr><td><code>curl -sS -X POST -H 'Content-Type: application/json' -d '{"a":1}' https://api.example.org</code></td><td>JSON-POST</td></tr>
+      <tr><td><code>curl --resolve example.org:443:10.0.0.5 https://example.org</code></td><td>Anfrage an bestimmte IP ohne DNS-Änderung</td></tr>
+      <tr><td><code>wget -c https://example.org/datei.iso</code></td><td>Download (fortsetzbar)</td></tr>
+      <tr><td><code>whois example.org</code></td><td>Domain- bzw. IP-Registrierungsdaten</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="net-monitoring">
+  <h2>Mitschnitt &amp; Monitoring</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sudo tcpdump -i eth0</code></td><td>Pakete auf Schnittstelle anzeigen</td></tr>
+      <tr><td><code>sudo tcpdump -i any -nn port 53</code></td><td>DNS-Verkehr ohne Namensauflösung</td></tr>
+      <tr><td><code>sudo tcpdump -i eth0 host 10.0.0.5 and tcp port 443</code></td><td>Filter kombinieren</td></tr>
+      <tr><td><code>sudo tcpdump -i eth0 -w mitschnitt.pcap</code></td><td>In Datei schreiben (für Wireshark)</td></tr>
+      <tr><td><code>sudo iftop -i eth0</code></td><td>Bandbreite je Verbindung</td></tr>
+      <tr><td><code>sudo nethogs</code></td><td>Bandbreite je Prozess</td></tr>
+      <tr><td><code>ip -s link</code></td><td>Paket- und Fehlerzähler</td></tr>
+      <tr><td><code>iperf3 -s</code> / <code>iperf3 -c server</code></td><td>Durchsatztest: Server / Client</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="net-firewall">
+  <h2>Firewall</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sudo firewall-cmd --list-all</code></td><td>firewalld: aktive Zone und Regeln (Fedora, RHEL)</td></tr>
+      <tr><td><code>sudo firewall-cmd --add-service=https --permanent</code></td><td>Dienst dauerhaft freigeben</td></tr>
+      <tr><td><code>sudo firewall-cmd --add-port=8080/tcp --permanent</code></td><td>Port dauerhaft freigeben</td></tr>
+      <tr><td><code>sudo firewall-cmd --reload</code></td><td>Dauerhafte Regeln übernehmen</td></tr>
+      <tr><td><code>sudo ufw status verbose</code></td><td>ufw: Status (Ubuntu)</td></tr>
+      <tr><td><code>sudo ufw allow OpenSSH</code> / <code>sudo ufw allow 443/tcp</code></td><td>Dienst / Port freigeben</td></tr>
+      <tr><td><code>sudo ufw enable</code></td><td>Firewall aktivieren (vorher SSH freigeben!)</td></tr>
+      <tr><td><code>sudo ufw delete allow 443/tcp</code></td><td>Regel entfernen</td></tr>
+      <tr><td><code>sudo nft list ruleset</code></td><td>nftables: alle Regeln anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>

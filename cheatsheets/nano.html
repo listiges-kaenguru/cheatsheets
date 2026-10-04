@@ -1,0 +1,90 @@
+<section id="nano-grundlagen">
+  <h2>Grundlagen</h2>
+  <p class="note">In der Hilfezeile steht <code>^</code> für <kbd>Ctrl</kbd> und <code>M-</code> für <kbd>Alt</kbd> (Meta). Die Kürzel gelten für nano ab Version 5.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>nano datei</code></td><td>Datei öffnen (oder neu anlegen)</td></tr>
+      <tr><td><code>nano +42 datei</code></td><td>Datei öffnen, Cursor in Zeile 42</td></tr>
+      <tr><td><code>nano -l datei</code></td><td>Mit Zeilennummern öffnen</td></tr>
+      <tr><td><code>nano -v datei</code></td><td>Nur lesend öffnen</td></tr>
+      <tr><td><code>sudo -e datei</code> / <code>sudoedit datei</code></td><td>Systemdatei sicher bearbeiten (Editor läuft ohne root-Rechte)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>s</kbd></td><td>Speichern</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>o</kbd></td><td>Speichern unter (Dateiname abfragen)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>x</kbd></td><td>Beenden (fragt bei Änderungen nach)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>r</kbd></td><td>Andere Datei an der Cursorposition einfügen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>g</kbd></td><td>Hilfe anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="nano-navigation">
+  <h2>Navigation</h2>
+  <table>
+    <thead><tr><th>Tastenkürzel</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> / <kbd>Ctrl</kbd>+<kbd>e</kbd></td><td>Zeilenanfang / Zeilenende</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>y</kbd> / <kbd>Ctrl</kbd>+<kbd>v</kbd></td><td>Eine Seite zurück / vor</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>\</kbd></td><td>Zum Dateianfang</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>/</kbd></td><td>Zum Dateiende</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>_</kbd></td><td>Zu Zeile (und Spalte) springen</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>]</kbd></td><td>Zur passenden Klammer</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>c</kbd></td><td>Cursorposition anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="nano-bearbeiten">
+  <h2>Bearbeiten</h2>
+  <table>
+    <thead><tr><th>Tastenkürzel</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Alt</kbd>+<kbd>a</kbd></td><td>Markierung beginnen/beenden (danach mit Pfeiltasten markieren)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>k</kbd></td><td>Zeile bzw. Markierung ausschneiden</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>6</kbd></td><td>Zeile bzw. Markierung kopieren</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>u</kbd></td><td>Einfügen</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>u</kbd></td><td>Rückgängig (Undo)</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>e</kbd></td><td>Wiederherstellen (Redo)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Del</kbd></td><td>Wort rechts löschen</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>3</kbd></td><td>Zeile bzw. Markierung aus-/einkommentieren</td></tr>
+      <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Markierung ein-/ausrücken</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>j</kbd></td><td>Absatz umbrechen (Justify)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="nano-suchen">
+  <h2>Suchen &amp; Ersetzen</h2>
+  <table>
+    <thead><tr><th>Tastenkürzel</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>w</kbd></td><td>Vorwärts suchen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>q</kbd></td><td>Rückwärts suchen</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>w</kbd> / <kbd>Alt</kbd>+<kbd>q</kbd></td><td>Nächster / vorheriger Treffer</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>\</kbd></td><td>Suchen und ersetzen</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>r</kbd></td><td>Im Suchdialog: reguläre Ausdrücke umschalten</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>c</kbd></td><td>Im Suchdialog: Groß-/Kleinschreibung beachten</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="nano-extras">
+  <h2>Extras &amp; Konfiguration</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Alt</kbd>+<kbd>n</kbd></td><td>Zeilennummern ein-/ausblenden</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>p</kbd></td><td>Leerzeichen/Tabs sichtbar machen</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>s</kbd></td><td>Weiches Scrollen ein/aus</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>t</kbd></td><td>Externen Befehl ausführen (Ausgabe wird eingefügt)</td></tr>
+      <tr><td><kbd>F12</kbd></td><td>Rechtschreibprüfung (benötigt <code>spell</code>/<code>hunspell</code>)</td></tr>
+      <tr><td><code>~/.config/nano/nanorc</code> / <code>~/.nanorc</code></td><td>Persönliche Konfigurationsdatei</td></tr>
+      <tr><td><code>set linenumbers</code></td><td>nanorc: Zeilennummern immer anzeigen</td></tr>
+      <tr><td><code>set tabsize 4</code></td><td>nanorc: Tabbreite 4</td></tr>
+      <tr><td><code>set tabstospaces</code></td><td>nanorc: Tabs als Leerzeichen einfügen</td></tr>
+      <tr><td><code>set autoindent</code></td><td>nanorc: Automatisch einrücken</td></tr>
+      <tr><td><code>set mouse</code></td><td>nanorc: Mausunterstützung aktivieren</td></tr>
+      <tr><td><code>include "/usr/share/nano/*.nanorc"</code></td><td>nanorc: Syntaxhervorhebung für alle mitgelieferten Sprachen</td></tr>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,118 @@
+<section id="git-grundlagen">
+  <h2>Grundlagen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>git init</code></td><td>Neues Repository anlegen</td></tr>
+      <tr><td><code>git clone url</code></td><td>Repository klonen</td></tr>
+      <tr><td><code>git clone --depth 1 url</code></td><td>Nur letzten Stand klonen (flach, schnell)</td></tr>
+      <tr><td><code>git status</code> / <code>git status -sb</code></td><td>Status anzeigen / kompakt mit Branch</td></tr>
+      <tr><td><code>git add datei</code> / <code>git add .</code></td><td>Datei / alle Änderungen zum Commit vormerken</td></tr>
+      <tr><td><code>git add -p</code></td><td>Änderungen abschnittsweise auswählen</td></tr>
+      <tr><td><code>git restore --staged datei</code></td><td>Datei aus der Staging-Area nehmen (nicht mehr <code>git reset</code>)</td></tr>
+      <tr><td><code>git commit -m "Nachricht"</code></td><td>Änderungen committen</td></tr>
+      <tr><td><code>git commit -am "Nachricht"</code></td><td>Verfolgte Dateien hinzufügen und committen</td></tr>
+      <tr><td><code>git commit --amend</code></td><td>Letzten Commit ändern (nur wenn noch nicht gepusht)</td></tr>
+      <tr><td><code>git diff</code> / <code>git diff --staged</code></td><td>Änderungen im Arbeitsverzeichnis / in der Staging-Area</td></tr>
+      <tr><td><code>git log --oneline --graph --all</code></td><td>Kompakte, grafische Historie</td></tr>
+      <tr><td><code>git show commit</code></td><td>Details eines Commits</td></tr>
+      <tr><td><code>git config --global user.name "Name"</code> / <code>user.email "mail"</code></td><td>Identität setzen</td></tr>
+      <tr><td><code>.gitignore</code></td><td>Datei mit Mustern für ignorierte Dateien</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="git-branch">
+  <h2>Branches &amp; Merging</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>git branch</code> / <code>git branch -a</code></td><td>Lokale / alle Branches</td></tr>
+      <tr><td><code>git switch branch</code></td><td>Branch wechseln (modern, statt <code>git checkout</code>)</td></tr>
+      <tr><td><code>git switch -c neuer-branch</code></td><td>Branch anlegen und wechseln</td></tr>
+      <tr><td><code>git branch -d branch</code> / <code>git branch -D branch</code></td><td>Branch löschen / erzwingen</td></tr>
+      <tr><td><code>git branch -m alt neu</code></td><td>Branch umbenennen</td></tr>
+      <tr><td><code>git merge branch</code></td><td>Branch in den aktuellen mergen</td></tr>
+      <tr><td><code>git merge --no-ff branch</code></td><td>Merge immer mit Merge-Commit</td></tr>
+      <tr><td><code>git merge --abort</code></td><td>Merge bei Konflikten abbrechen</td></tr>
+      <tr><td><code>git rebase main</code></td><td>Aktuelle Commits auf main neu aufsetzen (saubere Historie)</td></tr>
+      <tr><td><code>git rebase -i HEAD~3</code></td><td>Letzte 3 Commits interaktiv bearbeiten (zusammenfassen, umsortieren)</td></tr>
+      <tr><td><code>git rebase --continue</code> / <code>--abort</code></td><td>Rebase fortsetzen / abbrechen</td></tr>
+      <tr><td><code>git cherry-pick commit</code></td><td>Einzelnen Commit übernehmen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="git-remote">
+  <h2>Remotes &amp; Synchronisieren</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>git remote -v</code></td><td>Remotes mit URLs anzeigen</td></tr>
+      <tr><td><code>git remote add origin url</code></td><td>Remote hinzufügen</td></tr>
+      <tr><td><code>git remote set-url origin url</code></td><td>URL eines Remotes ändern</td></tr>
+      <tr><td><code>git fetch</code> / <code>git fetch --prune</code></td><td>Änderungen holen / gelöschte Remote-Branches entfernen</td></tr>
+      <tr><td><code>git pull</code></td><td>Holen und mergen</td></tr>
+      <tr><td><code>git pull --rebase</code></td><td>Holen und lokale Commits obendrauf setzen (vermeidet Merge-Commits)</td></tr>
+      <tr><td><code>git push</code></td><td>Commits hochladen</td></tr>
+      <tr><td><code>git push -u origin branch</code></td><td>Branch pushen und Upstream verknüpfen</td></tr>
+      <tr><td><code>git push --force-with-lease</code></td><td>Sicherer erzwungener Push (nur wenn niemand anderes gepusht hat)</td></tr>
+      <tr><td><code>git push origin --delete branch</code></td><td>Remote-Branch löschen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="git-undo">
+  <h2>Rückgängig &amp; Reparieren</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>git restore datei</code></td><td>Änderungen an Datei verwerfen (statt <code>git checkout -- datei</code>)</td></tr>
+      <tr><td><code>git restore --source=HEAD~2 datei</code></td><td>Datei aus älterem Commit holen</td></tr>
+      <tr><td><code>git reset --soft HEAD~1</code></td><td>Letzten Commit lösen, Änderungen bleiben staged</td></tr>
+      <tr><td><code>git reset --mixed HEAD~1</code></td><td>Letzten Commit lösen, Änderungen bleiben unstaged (Standard)</td></tr>
+      <tr><td><code>git reset --hard HEAD~1</code></td><td>Letzten Commit und alle Änderungen verwerfen (Vorsicht!)</td></tr>
+      <tr><td><code>git revert commit</code></td><td>Commit durch Gegen-Commit rückgängig machen (sicher für geteilte Historie)</td></tr>
+      <tr><td><code>git reflog</code></td><td>Verlauf aller HEAD-Bewegungen – Rettungsanker für verlorene Commits</td></tr>
+      <tr><td><code>git reset --hard origin/main</code></td><td>Lokalen Branch exakt auf den Remote-Stand setzen</td></tr>
+      <tr><td><code>git clean -nd</code> / <code>git clean -fd</code></td><td>Unverfolgte Dateien anzeigen / löschen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="git-stash">
+  <h2>Stash, Tags &amp; Inspektion</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>git stash push -m "Nachricht"</code></td><td>Änderungen zwischenlagern</td></tr>
+      <tr><td><code>git stash -u</code></td><td>Auch unverfolgte Dateien einbeziehen</td></tr>
+      <tr><td><code>git stash list</code></td><td>Alle Stashes</td></tr>
+      <tr><td><code>git stash pop</code> / <code>git stash apply</code></td><td>Anwenden und entfernen / nur anwenden</td></tr>
+      <tr><td><code>git stash drop</code> / <code>git stash clear</code></td><td>Einen / alle Stashes löschen</td></tr>
+      <tr><td><code>git tag -a v1.0.0 -m "Release 1.0.0"</code></td><td>Annotierten Tag setzen</td></tr>
+      <tr><td><code>git push origin v1.0.0</code> / <code>git push --tags</code></td><td>Einzelnen / alle Tags pushen</td></tr>
+      <tr><td><code>git blame datei</code></td><td>Zeigt, wer welche Zeile zuletzt geändert hat</td></tr>
+      <tr><td><code>git log -p -- datei</code></td><td>Änderungsverlauf einer Datei</td></tr>
+      <tr><td><code>git log --oneline --grep="Fehler"</code></td><td>Commit-Nachrichten durchsuchen</td></tr>
+      <tr><td><code>git bisect start</code></td><td>Binäre Suche nach dem Commit, der einen Fehler einführte</td></tr>
+      <tr><td><code>git worktree add ../zweig branch</code></td><td>Weiteren Branch parallel auschecken</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="git-config">
+  <h2>Konfiguration &amp; nützliche Aliase</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>git config --global init.defaultBranch main</code></td><td>Standard-Branchname für neue Repos</td></tr>
+      <tr><td><code>git config --global pull.rebase true</code></td><td><code>git pull</code> standardmäßig mit Rebase</td></tr>
+      <tr><td><code>git config --global alias.lg "log --oneline --graph --all"</code></td><td>Alias <code>git lg</code> anlegen</td></tr>
+      <tr><td><code>git config --global core.editor "nano"</code></td><td>Standard-Editor setzen</td></tr>
+      <tr><td><code>git config --list --show-origin</code></td><td>Alle Einstellungen mit Herkunft</td></tr>
+      <tr><td><code>git commit -S</code> / <code>git tag -s</code></td><td>Commit / Tag mit GPG signieren</td></tr>
+      <tr><td><code>git config --global credential.helper cache</code></td><td>Zugangsdaten zwischenspeichern</td></tr>
+    </tbody>
+  </table>
+</section>

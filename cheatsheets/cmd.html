@@ -1,0 +1,109 @@
+<section id="cmd-grundlagen">
+  <h2>Grundlagen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>befehl /?</code></td><td>Hilfe zu einem Befehl</td></tr>
+      <tr><td><code>help</code></td><td>Liste der eingebauten Befehle</td></tr>
+      <tr><td><code>cls</code></td><td>Bildschirm leeren</td></tr>
+      <tr><td><code>echo Text</code></td><td>Text ausgeben</td></tr>
+      <tr><td><code>set</code></td><td>Umgebungsvariablen anzeigen</td></tr>
+      <tr><td><code>set NAME=Wert</code></td><td>Variable für die aktuelle Sitzung setzen</td></tr>
+      <tr><td><code>setx NAME "Wert"</code></td><td>Variable dauerhaft setzen (wirkt erst in neuen Fenstern)</td></tr>
+      <tr><td><code>echo %PATH%</code></td><td>Variable ausgeben</td></tr>
+      <tr><td><code>where programm</code></td><td>Pfad eines Programms finden</td></tr>
+      <tr><td><code>doskey /history</code></td><td>Befehlsverlauf</td></tr>
+      <tr><td><kbd>F7</kbd></td><td>Verlauf als Auswahlliste</td></tr>
+      <tr><td><code>befehl &gt; datei.txt 2&gt;&amp;1</code></td><td>Ausgabe und Fehler in Datei umleiten</td></tr>
+      <tr><td><code>befehl1 &amp;&amp; befehl2</code> / <code>befehl1 || befehl2</code></td><td>Zweiten Befehl nur bei Erfolg / nur bei Fehler</td></tr>
+      <tr><td><code>echo %ERRORLEVEL%</code></td><td>Exit-Code des letzten Befehls</td></tr>
+      <tr><td><code>runas /user:DOMAIN\admin cmd</code></td><td>Eingabeaufforderung als anderer Benutzer</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="cmd-dateisystem">
+  <h2>Dateisystem</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>dir</code></td><td>Inhalt des Verzeichnisses</td></tr>
+      <tr><td><code>dir /a /s *.log</code></td><td>Rekursiv inkl. versteckter Dateien suchen</td></tr>
+      <tr><td><code>cd pfad</code> / <code>cd ..</code></td><td>Verzeichnis wechseln / eine Ebene hoch</td></tr>
+      <tr><td><code>cd /d D:\ordner</code></td><td>Laufwerk und Verzeichnis wechseln</td></tr>
+      <tr><td><code>tree /f</code></td><td>Verzeichnisbaum mit Dateien</td></tr>
+      <tr><td><code>mkdir ordner</code></td><td>Ordner anlegen (inkl. Zwischenordner)</td></tr>
+      <tr><td><code>copy quelle ziel</code></td><td>Datei kopieren</td></tr>
+      <tr><td><code>move quelle ziel</code></td><td>Verschieben oder umbenennen</td></tr>
+      <tr><td><code>ren alt neu</code></td><td>Umbenennen</td></tr>
+      <tr><td><code>del datei</code></td><td>Datei löschen</td></tr>
+      <tr><td><code>del /s /q *.tmp</code></td><td>Rekursiv und ohne Rückfrage löschen</td></tr>
+      <tr><td><code>rmdir /s /q ordner</code></td><td>Ordner samt Inhalt löschen</td></tr>
+      <tr><td><code>robocopy quelle ziel /e</code></td><td>Verzeichnisse robust kopieren (ersetzt <code>xcopy</code>)</td></tr>
+      <tr><td><code>robocopy quelle ziel /mir /r:2 /w:5 /log:kopie.log</code></td><td>Spiegeln mit Wiederholungen und Protokoll (<strong>löscht</strong> im Ziel)</td></tr>
+      <tr><td><code>type datei</code></td><td>Dateiinhalt anzeigen</td></tr>
+      <tr><td><code>more datei</code></td><td>Seitenweise anzeigen</td></tr>
+      <tr><td><code>findstr /i /s "text" *.txt</code></td><td>Text in Dateien suchen (rekursiv, ohne Groß-/Kleinschreibung)</td></tr>
+      <tr><td><code>fc datei1 datei2</code></td><td>Dateien vergleichen</td></tr>
+      <tr><td><code>attrib +h datei</code></td><td>Datei verstecken (Attribute ändern)</td></tr>
+      <tr><td><code>icacls ordner</code></td><td>Berechtigungen anzeigen</td></tr>
+      <tr><td><code>icacls ordner /grant Benutzer:(OI)(CI)M</code></td><td>Ändern-Recht vererbbar vergeben</td></tr>
+      <tr><td><code>takeown /f datei /r</code></td><td>Besitz übernehmen</td></tr>
+      <tr><td><code>mklink /d link ziel</code></td><td>Symbolischen Link auf Ordner anlegen</td></tr>
+      <tr><td><code>certutil -hashfile datei SHA256</code></td><td>Prüfsumme berechnen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="cmd-netzwerk">
+  <h2>Netzwerk</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ipconfig</code> / <code>ipconfig /all</code></td><td>IP-Konfiguration kurz / ausführlich</td></tr>
+      <tr><td><code>ipconfig /release</code> / <code>ipconfig /renew</code></td><td>DHCP-Adresse freigeben / neu anfordern</td></tr>
+      <tr><td><code>ipconfig /flushdns</code></td><td>DNS-Cache leeren</td></tr>
+      <tr><td><code>ping -n 4 host</code></td><td>Erreichbarkeit prüfen</td></tr>
+      <tr><td><code>tracert host</code></td><td>Route verfolgen</td></tr>
+      <tr><td><code>pathping host</code></td><td>Route mit Paketverlust je Hop</td></tr>
+      <tr><td><code>nslookup name</code> / <code>nslookup name 1.1.1.1</code></td><td>DNS abfragen (optional bestimmter Server)</td></tr>
+      <tr><td><code>netstat -ano</code></td><td>Verbindungen und offene Ports mit PID</td></tr>
+      <tr><td><code>netstat -ano | findstr :443</code></td><td>Wer nutzt Port 443?</td></tr>
+      <tr><td><code>arp -a</code></td><td>ARP-Tabelle</td></tr>
+      <tr><td><code>route print</code></td><td>Routing-Tabelle</td></tr>
+      <tr><td><code>netsh wlan show profiles</code></td><td>Gespeicherte WLAN-Profile</td></tr>
+      <tr><td><code>net use Z: \\server\freigabe /persistent:yes</code></td><td>Netzlaufwerk verbinden</td></tr>
+      <tr><td><code>net use Z: /delete</code></td><td>Netzlaufwerk trennen</td></tr>
+      <tr><td><code>curl -I https://example.org</code></td><td>HTTP-Header abrufen (ab Windows 10 enthalten)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="cmd-system">
+  <h2>System &amp; Prozesse</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>systeminfo</code></td><td>Systeminformationen</td></tr>
+      <tr><td><code>hostname</code> / <code>whoami /all</code></td><td>Rechnername / Benutzer mit Gruppen und Rechten</td></tr>
+      <tr><td><code>ver</code></td><td>Windows-Version</td></tr>
+      <tr><td><code>tasklist</code></td><td>Laufende Prozesse</td></tr>
+      <tr><td><code>tasklist /svc</code></td><td>Prozesse mit zugehörigen Diensten</td></tr>
+      <tr><td><code>taskkill /im prozess.exe /f</code></td><td>Prozess nach Namen beenden</td></tr>
+      <tr><td><code>taskkill /pid 1234 /t /f</code></td><td>Prozess samt Unterprozessen beenden</td></tr>
+      <tr><td><code>sc query</code> / <code>sc query dienst</code></td><td>Dienste / einen Dienst anzeigen</td></tr>
+      <tr><td><code>sc config dienst start= auto</code></td><td>Starttyp setzen (Leerzeichen nach <code>=</code> ist Pflicht)</td></tr>
+      <tr><td><code>net start dienst</code> / <code>net stop dienst</code></td><td>Dienst starten / stoppen</td></tr>
+      <tr><td><code>net user</code> / <code>net localgroup administratoren</code></td><td>Lokale Benutzer / Mitglieder der Administratoren</td></tr>
+      <tr><td><code>gpupdate /force</code></td><td>Gruppenrichtlinien neu anwenden</td></tr>
+      <tr><td><code>gpresult /r</code></td><td>Angewendete Gruppenrichtlinien</td></tr>
+      <tr><td><code>shutdown /r /t 0</code></td><td>Sofort neu starten</td></tr>
+      <tr><td><code>shutdown /s /t 60</code> / <code>shutdown /a</code></td><td>In 60 s herunterfahren / abbrechen</td></tr>
+      <tr><td><code>sfc /scannow</code></td><td>Systemdateien prüfen und reparieren</td></tr>
+      <tr><td><code>DISM /Online /Cleanup-Image /RestoreHealth</code></td><td>Windows-Abbild reparieren (vor <code>sfc</code>)</td></tr>
+      <tr><td><code>chkdsk C: /f</code></td><td>Dateisystem prüfen und reparieren (beim nächsten Neustart)</td></tr>
+      <tr><td><code>powercfg /batteryreport</code></td><td>Akkubericht als HTML erzeugen</td></tr>
+      <tr><td><code>wmic</code></td><td>Veraltet und in neuen Windows-Versionen entfernt – PowerShell <code>Get-CimInstance</code> nutzen</td></tr>
+    </tbody>
+  </table>
+</section>

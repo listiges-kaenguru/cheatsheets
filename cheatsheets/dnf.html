@@ -1,0 +1,74 @@
+<section id="dnf-grundlagen">
+  <h2>Installieren &amp; Aktualisieren</h2>
+  <p class="note">Fedora nutzt seit Version 41 DNF5. Die meisten Befehle sind mit DNF4 (RHEL, Rocky, Alma) identisch; Abweichungen sind vermerkt.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sudo dnf upgrade --refresh</code></td><td>Paketlisten neu laden und alles aktualisieren</td></tr>
+      <tr><td><code>sudo dnf check-upgrade</code></td><td>Verfügbare Updates anzeigen</td></tr>
+      <tr><td><code>sudo dnf install paket</code></td><td>Paket installieren</td></tr>
+      <tr><td><code>sudo dnf install ./paket.rpm</code></td><td>Lokale RPM-Datei inkl. Abhängigkeiten installieren</td></tr>
+      <tr><td><code>sudo dnf reinstall paket</code></td><td>Paket neu installieren</td></tr>
+      <tr><td><code>sudo dnf downgrade paket</code></td><td>Auf ältere Version zurückgehen</td></tr>
+      <tr><td><code>sudo dnf remove paket</code></td><td>Paket entfernen</td></tr>
+      <tr><td><code>sudo dnf autoremove</code></td><td>Nicht mehr benötigte Abhängigkeiten entfernen</td></tr>
+      <tr><td><code>sudo dnf group list</code> / <code>sudo dnf group install name</code></td><td>Paketgruppen anzeigen / installieren</td></tr>
+      <tr><td><code>sudo dnf upgrade --security</code></td><td>Nur Sicherheitsupdates einspielen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="dnf-info">
+  <h2>Suchen &amp; Informationen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>dnf search begriff</code></td><td>Pakete suchen</td></tr>
+      <tr><td><code>dnf info paket</code></td><td>Details zu einem Paket</td></tr>
+      <tr><td><code>dnf provides /usr/bin/befehl</code></td><td>Welches Paket liefert eine Datei?</td></tr>
+      <tr><td><code>dnf list --installed</code></td><td>Installierte Pakete (DNF4: <code>dnf list installed</code>)</td></tr>
+      <tr><td><code>dnf repoquery -l paket</code></td><td>Dateien eines Pakets</td></tr>
+      <tr><td><code>dnf repoquery --whatrequires paket</code></td><td>Pakete, die davon abhängen</td></tr>
+      <tr><td><code>rpm -qa</code></td><td>Alle installierten RPMs</td></tr>
+      <tr><td><code>rpm -qi paket</code></td><td>Informationen zu einem installierten Paket</td></tr>
+      <tr><td><code>rpm -ql paket</code></td><td>Dateien eines installierten Pakets</td></tr>
+      <tr><td><code>rpm -qf /pfad/zur/datei</code></td><td>Zu welchem Paket gehört eine Datei?</td></tr>
+      <tr><td><code>rpm -V paket</code></td><td>Installierte Dateien gegen das Paket prüfen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="dnf-quellen">
+  <h2>Paketquellen &amp; Verlauf</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>dnf repolist --all</code></td><td>Alle Paketquellen mit Status</td></tr>
+      <tr><td><code>sudo dnf config-manager addrepo --from-repofile=URL</code></td><td>Paketquelle hinzufügen (DNF4: <code>--add-repo URL</code>)</td></tr>
+      <tr><td><code>sudo dnf config-manager setopt name.enabled=0</code></td><td>Quelle deaktivieren (DNF4: <code>--set-disabled name</code>)</td></tr>
+      <tr><td><code>sudo dnf copr enable benutzer/projekt</code></td><td>COPR-Repository aktivieren (Fedora)</td></tr>
+      <tr><td><code>sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm</code></td><td>RPM Fusion (free) einrichten</td></tr>
+      <tr><td><code>/etc/yum.repos.d/</code></td><td>Konfigurationsdateien der Paketquellen</td></tr>
+      <tr><td><code>dnf history list</code></td><td>Transaktionsverlauf</td></tr>
+      <tr><td><code>dnf history info ID</code></td><td>Details einer Transaktion</td></tr>
+      <tr><td><code>sudo dnf history undo ID</code></td><td>Transaktion rückgängig machen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="dnf-wartung">
+  <h2>Wartung &amp; Systemupgrade</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sudo dnf clean all</code></td><td>Caches leeren</td></tr>
+      <tr><td><code>sudo dnf makecache</code></td><td>Metadaten-Cache neu aufbauen</td></tr>
+      <tr><td><code>sudo dnf versionlock add paket</code></td><td>Version festhalten (DNF4: Plugin <code>python3-dnf-plugin-versionlock</code> nötig)</td></tr>
+      <tr><td><code>sudo dnf mark user paket</code></td><td>Paket als manuell installiert markieren (DNF4: <code>dnf mark install</code>)</td></tr>
+      <tr><td><code>sudo dnf distro-sync</code></td><td>Pakete an die Versionen der Quellen angleichen</td></tr>
+      <tr><td><code>sudo dnf system-upgrade download --releasever=45</code></td><td>Fedora-Versionsupgrade vorbereiten</td></tr>
+      <tr><td><code>sudo dnf offline reboot</code></td><td>Neustarten und vorbereitetes Upgrade einspielen (DNF4: <code>dnf system-upgrade reboot</code>)</td></tr>
+      <tr><td><code>sudo rpm --rebuilddb</code></td><td>Beschädigte RPM-Datenbank neu aufbauen</td></tr>
+    </tbody>
+  </table>
+</section>

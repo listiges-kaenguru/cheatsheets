@@ -1,0 +1,102 @@
+<section id="docker-container">
+  <h2>Container</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>docker run image</code></td><td>Container aus Image starten</td></tr>
+      <tr><td><code>docker run -d --name web -p 8080:80 nginx</code></td><td>Im Hintergrund, benannt, Port 8080 → 80</td></tr>
+      <tr><td><code>docker run -it --rm ubuntu bash</code></td><td>Interaktiv, nach Ende automatisch entfernen</td></tr>
+      <tr><td><code>docker run -e KEY=wert -v $(pwd):/app -w /app image</code></td><td>Umgebungsvariable, Bind-Mount, Arbeitsverzeichnis</td></tr>
+      <tr><td><code>docker run --restart=unless-stopped image</code></td><td>Neustartverhalten setzen</td></tr>
+      <tr><td><code>docker ps</code> / <code>docker ps -a</code></td><td>Laufende / alle Container</td></tr>
+      <tr><td><code>docker stop web</code> / <code>docker start web</code> / <code>docker restart web</code></td><td>Container steuern</td></tr>
+      <tr><td><code>docker rm web</code> / <code>docker rm -f web</code></td><td>Container entfernen (<code>-f</code> auch laufende)</td></tr>
+      <tr><td><code>docker logs -f --tail 100 web</code></td><td>Logs live verfolgen</td></tr>
+      <tr><td><code>docker exec -it web bash</code></td><td>Shell in laufendem Container öffnen</td></tr>
+      <tr><td><code>docker exec -it web sh</code></td><td>Falls keine bash vorhanden (Alpine)</td></tr>
+      <tr><td><code>docker inspect web</code></td><td>Detailinfos als JSON</td></tr>
+      <tr><td><code>docker stats</code></td><td>Ressourcenverbrauch live</td></tr>
+      <tr><td><code>docker top web</code></td><td>Prozesse im Container</td></tr>
+      <tr><td><code>docker cp web:/pfad/datei .</code></td><td>Datei aus Container kopieren</td></tr>
+      <tr><td><code>docker port web</code></td><td>Portzuordnungen anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="docker-images">
+  <h2>Images &amp; Registry</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>docker images</code></td><td>Lokale Images</td></tr>
+      <tr><td><code>docker pull image:tag</code></td><td>Image herunterladen</td></tr>
+      <tr><td><code>docker build -t name:tag .</code></td><td>Image aus Dockerfile im aktuellen Verzeichnis bauen</td></tr>
+      <tr><td><code>docker build --no-cache -t name .</code></td><td>Ohne Cache neu bauen</td></tr>
+      <tr><td><code>docker tag name:tag registry.example.org/name:tag</code></td><td>Image für eine Registry benennen</td></tr>
+      <tr><td><code>docker login registry.example.org</code></td><td>An Registry anmelden</td></tr>
+      <tr><td><code>docker push registry.example.org/name:tag</code></td><td>Image hochladen</td></tr>
+      <tr><td><code>docker history image</code></td><td>Ebenen (Layer) eines Images</td></tr>
+      <tr><td><code>docker image inspect image</code></td><td>Metadaten eines Images</td></tr>
+      <tr><td><code>docker rmi image</code></td><td>Image löschen</td></tr>
+      <tr><td><code>docker save -o image.tar image</code> / <code>docker load -i image.tar</code></td><td>Image exportieren / importieren</td></tr>
+      <tr><td><code>docker scout cves image</code></td><td>Image auf bekannte Schwachstellen prüfen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="docker-daten">
+  <h2>Netzwerke &amp; Volumes</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>docker network ls</code></td><td>Netzwerke auflisten</td></tr>
+      <tr><td><code>docker network create netz</code></td><td>Bridge-Netzwerk anlegen</td></tr>
+      <tr><td><code>docker network connect netz web</code></td><td>Container mit Netzwerk verbinden</td></tr>
+      <tr><td><code>docker run --network netz …</code></td><td>Container in bestimmtem Netzwerk starten (Container erreichen sich per Name)</td></tr>
+      <tr><td><code>docker volume ls</code></td><td>Volumes auflisten</td></tr>
+      <tr><td><code>docker volume create daten</code></td><td>Volume anlegen</td></tr>
+      <tr><td><code>docker run -v daten:/var/lib/mysql …</code></td><td>Named Volume einhängen</td></tr>
+      <tr><td><code>docker run -v /host/pfad:/container/pfad:ro …</code></td><td>Host-Verzeichnis nur lesend einhängen</td></tr>
+      <tr><td><code>docker volume inspect daten</code></td><td>Details eines Volumes</td></tr>
+      <tr><td><code>docker volume rm daten</code></td><td>Volume löschen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="docker-compose">
+  <h2>Compose</h2>
+  <p class="note">Aktuell heißt der Befehl <code>docker compose</code> (Plugin). Das alte <code>docker-compose</code> (mit Bindestrich) ist die abgekündigte v1.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>docker compose up -d</code></td><td>Dienste aus compose.yaml im Hintergrund starten</td></tr>
+      <tr><td><code>docker compose up -d --build</code></td><td>Vor dem Start neu bauen</td></tr>
+      <tr><td><code>docker compose down</code></td><td>Dienste stoppen und Container/Netzwerke entfernen</td></tr>
+      <tr><td><code>docker compose down -v</code></td><td>Zusätzlich Volumes entfernen</td></tr>
+      <tr><td><code>docker compose ps</code></td><td>Status der Dienste</td></tr>
+      <tr><td><code>docker compose logs -f dienst</code></td><td>Logs eines Dienstes verfolgen</td></tr>
+      <tr><td><code>docker compose exec dienst sh</code></td><td>Shell in einem Dienst öffnen</td></tr>
+      <tr><td><code>docker compose pull</code></td><td>Images aller Dienste aktualisieren</td></tr>
+      <tr><td><code>docker compose restart dienst</code></td><td>Einzelnen Dienst neu starten</td></tr>
+      <tr><td><code>docker compose config</code></td><td>Zusammengeführte Konfiguration prüfen</td></tr>
+      <tr><td><code>docker compose run --rm dienst befehl</code></td><td>Einmaligen Befehl ausführen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="docker-wartung">
+  <h2>Wartung &amp; Aufräumen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>docker system df</code></td><td>Belegten Speicher anzeigen</td></tr>
+      <tr><td><code>docker system prune</code></td><td>Gestoppte Container, ungenutzte Netzwerke und Dangling-Images löschen</td></tr>
+      <tr><td><code>docker system prune -a --volumes</code></td><td>Zusätzlich alle ungenutzten Images und Volumes (Vorsicht!)</td></tr>
+      <tr><td><code>docker image prune</code> / <code>docker container prune</code> / <code>docker volume prune</code></td><td>Gezielt aufräumen</td></tr>
+      <tr><td><code>docker builder prune</code></td><td>Build-Cache leeren</td></tr>
+      <tr><td><code>docker events</code></td><td>Ereignisse des Daemons live</td></tr>
+      <tr><td><code>docker context ls</code></td><td>Verfügbare Kontexte (z. B. Remote-Hosts)</td></tr>
+      <tr><td><code>docker version</code> / <code>docker info</code></td><td>Client-/Server-Version / Systeminfos</td></tr>
+    </tbody>
+  </table>
+</section>

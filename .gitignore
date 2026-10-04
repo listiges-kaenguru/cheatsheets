@@ -1,0 +1,15 @@
+# Lokale Sicherungen – nicht ins Repository
+backup/
+*.bak
+*.orig
+*~
+
+# Editor- und Systemdateien
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Lokale Claude-Code-Einstellungen
+.claude/settings.local.json

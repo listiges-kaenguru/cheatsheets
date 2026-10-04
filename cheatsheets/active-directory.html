@@ -1,0 +1,89 @@
+<section id="ad-grundlagen">
+  <h2>Grundlagen &amp; Begriffe</h2>
+  <p class="note">Die Cmdlets stammen aus dem Modul <strong>ActiveDirectory</strong> (RSAT: <code>Add-WindowsCapability -Online -Name Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0</code>, auf Servern <code>Install-WindowsFeature RSAT-AD-PowerShell</code>).</p>
+  <table>
+    <thead><tr><th>Begriff / Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Domain Controller (DC)</code></td><td>Server, der das Verzeichnis und die Anmeldung bereitstellt</td></tr>
+      <tr><td><code>Organizational Unit (OU)</code></td><td>Container zum Strukturieren von Objekten und Verknüpfen von GPOs</td></tr>
+      <tr><td><code>Forest / Domain / Trust</code></td><td>Gesamtstruktur / Verwaltungsgrenze / Vertrauensstellung zwischen Domänen</td></tr>
+      <tr><td><code>FSMO-Rollen</code></td><td>Fünf Sonderrollen, die jeweils nur ein DC innehat</td></tr>
+      <tr><td><code>Distinguished Name (DN)</code></td><td>Eindeutiger Pfad, z. B. <code>CN=Max,OU=Vertrieb,DC=firma,DC=local</code></td></tr>
+      <tr><td><code>Import-Module ActiveDirectory</code></td><td>Modul laden (geschieht meist automatisch)</td></tr>
+      <tr><td><code>Get-ADDomain</code> / <code>Get-ADForest</code></td><td>Informationen zu Domäne / Gesamtstruktur</td></tr>
+      <tr><td><code>Get-ADDomainController -Filter *</code></td><td>Alle Domain Controller</td></tr>
+      <tr><td><code>netdom query fsmo</code></td><td>FSMO-Rolleninhaber anzeigen</td></tr>
+      <tr><td><code>dsa.msc</code> / <code>gpmc.msc</code> / <code>dssite.msc</code></td><td>Konsolen: Benutzer &amp; Computer / Gruppenrichtlinien / Standorte</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ad-benutzer">
+  <h2>Benutzer</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Get-ADUser -Identity mmuster -Properties *</code></td><td>Benutzer mit allen Attributen</td></tr>
+      <tr><td><code>Get-ADUser -Filter "Surname -like 'Mu*'"</code></td><td>Benutzer per Filter suchen</td></tr>
+      <tr><td><code>Get-ADUser -Filter * -SearchBase "OU=Vertrieb,DC=firma,DC=local"</code></td><td>Alle Benutzer einer OU</td></tr>
+      <tr><td><code>New-ADUser -Name "Max Muster" -SamAccountName mmuster -UserPrincipalName mmuster@firma.local -Path "OU=Vertrieb,DC=firma,DC=local" -AccountPassword (Read-Host -AsSecureString "Passwort") -Enabled $true</code></td><td>Benutzer anlegen</td></tr>
+      <tr><td><code>Set-ADUser mmuster -Department "Vertrieb" -Title "Berater"</code></td><td>Attribute ändern</td></tr>
+      <tr><td><code>Set-ADAccountPassword mmuster -Reset -NewPassword (Read-Host -AsSecureString)</code></td><td>Passwort zurücksetzen</td></tr>
+      <tr><td><code>Set-ADUser mmuster -ChangePasswordAtLogon $true</code></td><td>Passwortänderung bei nächster Anmeldung erzwingen</td></tr>
+      <tr><td><code>Unlock-ADAccount mmuster</code></td><td>Gesperrtes Konto entsperren</td></tr>
+      <tr><td><code>Search-ADAccount -LockedOut</code></td><td>Gesperrte Konten finden</td></tr>
+      <tr><td><code>Search-ADAccount -AccountInactive -TimeSpan 90.00:00:00 -UsersOnly</code></td><td>Seit 90 Tagen inaktive Benutzer</td></tr>
+      <tr><td><code>Disable-ADAccount mmuster</code> / <code>Enable-ADAccount mmuster</code></td><td>Konto deaktivieren / aktivieren</td></tr>
+      <tr><td><code>Remove-ADUser mmuster</code></td><td>Benutzer löschen</td></tr>
+      <tr><td><code>Get-ADPrincipalGroupMembership mmuster</code></td><td>Gruppenmitgliedschaften eines Benutzers</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ad-gruppen">
+  <h2>Gruppen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Get-ADGroup -Filter "Name -like 'GG_*'"</code></td><td>Gruppen suchen</td></tr>
+      <tr><td><code>Get-ADGroupMember "GG_Vertrieb" -Recursive</code></td><td>Mitglieder inkl. verschachtelter Gruppen</td></tr>
+      <tr><td><code>New-ADGroup -Name "GG_Vertrieb" -GroupScope Global -GroupCategory Security -Path "OU=Gruppen,DC=firma,DC=local"</code></td><td>Sicherheitsgruppe anlegen</td></tr>
+      <tr><td><code>Add-ADGroupMember "GG_Vertrieb" -Members mmuster, eberg</code></td><td>Mitglieder hinzufügen</td></tr>
+      <tr><td><code>Remove-ADGroupMember "GG_Vertrieb" -Members mmuster</code></td><td>Mitglied entfernen</td></tr>
+      <tr><td><code>Global</code> / <code>DomainLocal</code> / <code>Universal</code></td><td>Gruppenbereiche (Empfehlung AGDLP: Konten → globale → domänenlokale Gruppen → Berechtigungen)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ad-computer">
+  <h2>Computer</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Get-ADComputer -Filter * -Properties OperatingSystem</code></td><td>Computer mit Betriebssystem</td></tr>
+      <tr><td><code>Search-ADAccount -AccountInactive -TimeSpan 90.00:00:00 -ComputersOnly</code></td><td>Seit 90 Tagen inaktive Computerkonten</td></tr>
+      <tr><td><code>Add-Computer -DomainName firma.local -Restart</code></td><td>Rechner in Domäne aufnehmen (auf dem Client)</td></tr>
+      <tr><td><code>Test-ComputerSecureChannel -Repair</code></td><td>Vertrauensstellung zur Domäne reparieren</td></tr>
+      <tr><td><code>Remove-ADComputer PC01</code></td><td>Computerkonto löschen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ad-ou">
+  <h2>OUs, Suche &amp; Diagnose</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Get-ADOrganizationalUnit -Filter * | Select-Object DistinguishedName</code></td><td>Alle OUs</td></tr>
+      <tr><td><code>New-ADOrganizationalUnit -Name "Vertrieb" -Path "DC=firma,DC=local"</code></td><td>OU anlegen (standardmäßig vor Löschen geschützt)</td></tr>
+      <tr><td><code>Set-ADOrganizationalUnit "OU=Vertrieb,DC=firma,DC=local" -ProtectedFromAccidentalDeletion $false</code></td><td>Löschschutz aufheben</td></tr>
+      <tr><td><code>Move-ADObject "CN=Max Muster,OU=Alt,DC=firma,DC=local" -TargetPath "OU=Vertrieb,DC=firma,DC=local"</code></td><td>Objekt verschieben</td></tr>
+      <tr><td><code>Get-ADObject -Filter * -IncludeDeletedObjects -SearchBase (Get-ADDomain).DeletedObjectsContainer</code></td><td>Gelöschte Objekte (AD-Papierkorb)</td></tr>
+      <tr><td><code>Restore-ADObject -Identity GUID</code></td><td>Gelöschtes Objekt wiederherstellen</td></tr>
+      <tr><td><code>repadmin /replsummary</code></td><td>Replikationsstatus aller DCs</td></tr>
+      <tr><td><code>repadmin /syncall /AdeP</code></td><td>Replikation anstoßen</td></tr>
+      <tr><td><code>dcdiag /v</code></td><td>Diagnose eines Domain Controllers</td></tr>
+      <tr><td><code>nltest /dsgetdc:firma.local</code></td><td>Zuständigen DC ermitteln</td></tr>
+    </tbody>
+  </table>
+</section>

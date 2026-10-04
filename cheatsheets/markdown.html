@@ -1,0 +1,89 @@
+<section id="md-grundlagen">
+  <h2>Überschriften &amp; Absätze</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Ergebnis / Hinweis</th></tr></thead>
+    <tbody>
+      <tr><td><code># Überschrift 1</code></td><td>Größte Überschrift (ein <code>#</code>)</td></tr>
+      <tr><td><code>## Überschrift 2</code></td><td>Zweite Ebene (bis zu sechs <code>#</code>)</td></tr>
+      <tr><td><code>Text mit Leerzeile davor und danach</code></td><td>Absatz</td></tr>
+      <tr><td><code>Zeile 1, dann zwei Leerzeichen am Ende</code></td><td>Erzwungener Zeilenumbruch</td></tr>
+      <tr><td><code>---</code></td><td>Horizontale Trennlinie (eigene Zeile)</td></tr>
+      <tr><td><code>\* nicht kursiv \*</code></td><td>Sonderzeichen mit Backslash escapen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="md-format">
+  <h2>Textauszeichnung</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Ergebnis</th></tr></thead>
+    <tbody>
+      <tr><td><code>**fett**</code></td><td><strong>fett</strong></td></tr>
+      <tr><td><code>*kursiv*</code></td><td>*kursiv*</td></tr>
+      <tr><td><code>***fett kursiv***</code></td><td>*<strong>fett kursiv</strong>*</td></tr>
+      <tr><td><code>~~durchgestrichen~~</code></td><td>durchgestrichen (GitHub)</td></tr>
+      <tr><td><code>`Code`</code></td><td>Inline-Code</td></tr>
+      <tr><td><code>&gt; Zitat</code></td><td>Zitatblock (auch verschachtelt mit <code>&gt;&gt;</code>)</td></tr>
+      <tr><td><code>Fußnote[^1] … [^1]: Text</code></td><td>Fußnote (GitHub, viele Renderer)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="md-listen">
+  <h2>Listen</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Ergebnis</th></tr></thead>
+    <tbody>
+      <tr><td><code>- Punkt</code></td><td>Aufzählung (auch <code>*</code> oder <code>+</code>)</td></tr>
+      <tr><td><code>1. Punkt</code></td><td>Nummerierte Liste</td></tr>
+      <tr><td><code>  - Unterpunkt</code></td><td>Verschachteln durch Einrücken (2 Leerzeichen)</td></tr>
+      <tr><td><code>- [ ] offen</code></td><td>Aufgabenliste, offen (GitHub)</td></tr>
+      <tr><td><code>- [x] erledigt</code></td><td>Aufgabenliste, erledigt</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="md-links">
+  <h2>Links &amp; Bilder</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Ergebnis</th></tr></thead>
+    <tbody>
+      <tr><td><code>[Text](https://example.org)</code></td><td>Link</td></tr>
+      <tr><td><code>[Text](https://example.org "Titel")</code></td><td>Link mit Tooltip</td></tr>
+      <tr><td><code>&lt;https://example.org&gt;</code></td><td>Automatischer Link</td></tr>
+      <tr><td><code>[Text][ref] … [ref]: https://example.org</code></td><td>Referenzlink (URL am Dokumentende)</td></tr>
+      <tr><td><code>![Alt-Text](bild.png)</code></td><td>Bild einbinden (Alt-Text nicht vergessen – Barrierefreiheit)</td></tr>
+      <tr><td><code>[![Alt](bild.png)](https://example.org)</code></td><td>Verlinktes Bild</td></tr>
+      <tr><td><code>[Abschnitt](#md-links)</code></td><td>Sprungmarke zu einer Überschrift</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="md-code">
+  <h2>Code &amp; Tabellen</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Ergebnis / Hinweis</th></tr></thead>
+    <tbody>
+      <tr><td><code>```sprache … ```</code></td><td>Codeblock mit Syntaxhervorhebung (z. B. ```python)</td></tr>
+      <tr><td><code>Vier Leerzeichen Einrückung</code></td><td>Codeblock ohne Sprachangabe</td></tr>
+      <tr><td><code>| A | B |</code></td><td>Tabellenkopf (Spalten mit <code>|</code> trennen)</td></tr>
+      <tr><td><code>| --- | :--: |</code></td><td>Trennzeile: Ausrichtung links / zentriert / rechts (<code>:--</code>, <code>:-:</code>, <code>--:</code>)</td></tr>
+      <tr><td><code>| 1 | 2 |</code></td><td>Datenzeile</td></tr>
+      <tr><td><code>Leerzeile vor der Tabelle</code></td><td>Nötig, damit die Tabelle erkannt wird</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="md-extra">
+  <h2>GitHub-Erweiterungen</h2>
+  <table>
+    <thead><tr><th>Syntax</th><th>Hinweis</th></tr></thead>
+    <tbody>
+      <tr><td><code>```mermaid … ```</code></td><td>Diagramme aus Text (GitHub, GitLab)</td></tr>
+      <tr><td><code>&gt; [!NOTE] / [!WARNING] / [!TIP]</code></td><td>Hervorgehobene Hinweisboxen (GitHub)</td></tr>
+      <tr><td><code>:rocket:</code></td><td>Emoji per Kürzel (GitHub)</td></tr>
+      <tr><td><code>@benutzer</code> / <code>#123</code></td><td>Erwähnung / Verweis auf Issue oder PR (GitHub)</td></tr>
+      <tr><td><code>&lt;details&gt;&lt;summary&gt;Titel&lt;/summary&gt; … &lt;/details&gt;</code></td><td>Aufklappbarer Bereich (HTML, wird von vielen Renderern unterstützt)</td></tr>
+    </tbody>
+  </table>
+</section>

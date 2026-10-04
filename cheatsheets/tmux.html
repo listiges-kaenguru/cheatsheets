@@ -1,0 +1,74 @@
+<section id="tmux-sitzungen">
+  <h2>Sitzungen</h2>
+  <p class="note">Tastenkürzel beginnen mit dem Präfix <kbd>Ctrl</kbd>+<kbd>b</kbd>, danach die zweite Taste drücken.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>tmux</code></td><td>Neue Sitzung starten</td></tr>
+      <tr><td><code>tmux new -s name</code></td><td>Benannte Sitzung starten</td></tr>
+      <tr><td><code>tmux ls</code></td><td>Sitzungen auflisten</td></tr>
+      <tr><td><code>tmux attach -t name</code> / <code>tmux a -t name</code></td><td>An Sitzung anhängen</td></tr>
+      <tr><td><code>tmux new -A -s name</code></td><td>Anhängen, falls vorhanden, sonst neu anlegen</td></tr>
+      <tr><td><code>tmux kill-session -t name</code></td><td>Sitzung beenden</td></tr>
+      <tr><td><code>tmux kill-server</code></td><td>Alle Sitzungen beenden</td></tr>
+      <tr><td><code>tmux new -d -s name 'befehl'</code></td><td>Sitzung im Hintergrund mit Befehl starten</td></tr>
+      <tr><td><code>tmux send-keys -t name 'befehl' Enter</code></td><td>Befehl in eine laufende Sitzung schicken</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>d</kbd></td><td>Sitzung trennen (Detach)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>s</kbd></td><td>Sitzungen auswählen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>$</kbd></td><td>Sitzung umbenennen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="tmux-fenster">
+  <h2>Fenster</h2>
+  <table>
+    <thead><tr><th>Tastenkürzel</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>c</kbd></td><td>Neues Fenster</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>n</kbd> / <kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>p</kbd></td><td>Nächstes / vorheriges Fenster</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>0</kbd></td><td>Zu Fenster 0 wechseln (0–9)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>w</kbd></td><td>Fenster- und Sitzungsübersicht</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>,</kbd></td><td>Fenster umbenennen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>&amp;</kbd></td><td>Fenster schließen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="tmux-panes">
+  <h2>Bereiche (Panes)</h2>
+  <table>
+    <thead><tr><th>Tastenkürzel</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>%</kbd></td><td>Vertikal teilen (links/rechts)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>&quot;</kbd></td><td>Horizontal teilen (oben/unten)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>←</kbd></td><td>Zu Bereich in Pfeilrichtung wechseln</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>o</kbd></td><td>Zum nächsten Bereich</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>z</kbd></td><td>Bereich maximieren / wiederherstellen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>x</kbd></td><td>Bereich schließen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>Space</kbd></td><td>Layout wechseln</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>{</kbd> / <kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>}</kbd></td><td>Bereich nach links / rechts tauschen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>!</kbd></td><td>Bereich in eigenes Fenster verschieben</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>q</kbd></td><td>Bereichsnummern anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="tmux-extras">
+  <h2>Kopiermodus &amp; Konfiguration</h2>
+  <table>
+    <thead><tr><th>Tastenkürzel</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>[</kbd></td><td>Kopier-/Scrollmodus (<kbd>q</kbd> beendet)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>]</kbd></td><td>Puffer einfügen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>:</kbd></td><td>tmux-Befehlszeile</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>?</kbd></td><td>Alle Tastenkürzel anzeigen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>b</kbd> <kbd>t</kbd></td><td>Uhr anzeigen</td></tr>
+      <tr><td><code>~/.tmux.conf</code> / <code>~/.config/tmux/tmux.conf</code></td><td>Konfigurationsdatei</td></tr>
+      <tr><td><code>set -g mouse on</code></td><td>Maus (Scrollen, Bereiche anklicken) aktivieren</td></tr>
+      <tr><td><code>set -g history-limit 50000</code></td><td>Größerer Scrollpuffer</td></tr>
+      <tr><td><code>set -g base-index 1</code></td><td>Fensternummern ab 1</td></tr>
+      <tr><td><code>tmux source-file ~/.tmux.conf</code></td><td>Konfiguration neu laden</td></tr>
+    </tbody>
+  </table>
+</section>

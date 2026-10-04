@@ -1,0 +1,105 @@
+<section id="ws-rollen">
+  <h2>Rollen &amp; Features</h2>
+  <p class="note">Alle Befehle in einer PowerShell als Administrator. Gilt für Windows Server 2019/2022/2025.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Get-WindowsFeature</code></td><td>Alle Rollen und Features mit Status</td></tr>
+      <tr><td><code>Get-WindowsFeature | Where-Object Installed</code></td><td>Nur installierte</td></tr>
+      <tr><td><code>Install-WindowsFeature Web-Server -IncludeManagementTools</code></td><td>Rolle inkl. Verwaltungstools installieren</td></tr>
+      <tr><td><code>Uninstall-WindowsFeature Web-Server</code></td><td>Rolle entfernen</td></tr>
+      <tr><td><code>sconfig</code></td><td>Menü für die Grundkonfiguration (v. a. Server Core)</td></tr>
+      <tr><td><code>Rename-Computer -NewName SRV01 -Restart</code></td><td>Server umbenennen</td></tr>
+      <tr><td><code>Get-ScheduledTask | Where-Object State -eq Ready</code></td><td>Geplante Aufgaben</td></tr>
+      <tr><td><code>ServerManager.exe</code></td><td>Server-Manager öffnen (Alternative: Windows Admin Center im Browser)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ws-addc">
+  <h2>AD DS einrichten</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Install-WindowsFeature AD-Domain-Services -IncludeManagementTools</code></td><td>AD-DS-Rolle installieren</td></tr>
+      <tr><td><code>Install-ADDSForest -DomainName firma.local -InstallDns</code></td><td>Neue Gesamtstruktur (erster DC)</td></tr>
+      <tr><td><code>Install-ADDSDomainController -DomainName firma.local -InstallDns -Credential (Get-Credential)</code></td><td>Weiteren DC hinzufügen</td></tr>
+      <tr><td><code>Test-ADDSDomainControllerInstallation -DomainName firma.local</code></td><td>Voraussetzungen prüfen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ws-dns">
+  <h2>DNS</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Install-WindowsFeature DNS -IncludeManagementTools</code></td><td>DNS-Rolle installieren</td></tr>
+      <tr><td><code>Get-DnsServerZone</code></td><td>Zonen anzeigen</td></tr>
+      <tr><td><code>Add-DnsServerPrimaryZone -Name firma.local -ReplicationScope Domain</code></td><td>AD-integrierte Zone anlegen</td></tr>
+      <tr><td><code>Add-DnsServerPrimaryZone -NetworkId 192.168.10.0/24 -ReplicationScope Domain</code></td><td>Reverse-Lookup-Zone anlegen</td></tr>
+      <tr><td><code>Add-DnsServerResourceRecordA -ZoneName firma.local -Name web -IPv4Address 192.168.10.20 -CreatePtr</code></td><td>A-Record mit PTR</td></tr>
+      <tr><td><code>Add-DnsServerResourceRecordCName -ZoneName firma.local -Name www -HostNameAlias web.firma.local</code></td><td>CNAME anlegen</td></tr>
+      <tr><td><code>Get-DnsServerResourceRecord -ZoneName firma.local</code></td><td>Einträge einer Zone</td></tr>
+      <tr><td><code>Remove-DnsServerResourceRecord -ZoneName firma.local -Name web -RRType A</code></td><td>Eintrag löschen</td></tr>
+      <tr><td><code>Set-DnsServerForwarder -IPAddress 1.1.1.1, 9.9.9.9</code></td><td>Weiterleitungen setzen</td></tr>
+      <tr><td><code>Clear-DnsServerCache</code></td><td>Server-Cache leeren</td></tr>
+      <tr><td><code>Clear-DnsClientCache</code></td><td>Client-Cache leeren (wie <code>ipconfig /flushdns</code>)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ws-dhcp">
+  <h2>DHCP</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Install-WindowsFeature DHCP -IncludeManagementTools</code></td><td>DHCP-Rolle installieren</td></tr>
+      <tr><td><code>Add-DhcpServerInDC -DnsName srv01.firma.local -IPAddress 192.168.10.5</code></td><td>DHCP-Server im AD autorisieren</td></tr>
+      <tr><td><code>Add-DhcpServerv4Scope -Name "LAN" -StartRange 192.168.10.100 -EndRange 192.168.10.200 -SubnetMask 255.255.255.0</code></td><td>Bereich anlegen</td></tr>
+      <tr><td><code>Set-DhcpServerv4OptionValue -ScopeId 192.168.10.0 -Router 192.168.10.1 -DnsServer 192.168.10.5 -DnsDomain firma.local</code></td><td>Gateway und DNS verteilen</td></tr>
+      <tr><td><code>Add-DhcpServerv4Reservation -ScopeId 192.168.10.0 -IPAddress 192.168.10.50 -ClientId "00-11-22-33-44-55"</code></td><td>Reservierung anlegen</td></tr>
+      <tr><td><code>Get-DhcpServerv4Scope</code></td><td>Bereiche anzeigen</td></tr>
+      <tr><td><code>Get-DhcpServerv4Lease -ScopeId 192.168.10.0</code></td><td>Vergebene Adressen</td></tr>
+      <tr><td><code>Add-DhcpServerv4Failover -Name "FO" -PartnerServer srv02 -ScopeId 192.168.10.0 -SharedSecret "Geheim"</code></td><td>Failover mit Partnerserver</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ws-iis">
+  <h2>IIS (Webserver)</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Install-WindowsFeature Web-Server -IncludeManagementTools</code></td><td>IIS installieren</td></tr>
+      <tr><td><code>Import-Module WebAdministration</code></td><td>Modul für IIS-Verwaltung laden (alternativ <code>IISAdministration</code>)</td></tr>
+      <tr><td><code>Get-Website</code></td><td>Websites anzeigen</td></tr>
+      <tr><td><code>New-Website -Name "Intranet" -Port 80 -HostHeader intranet.firma.local -PhysicalPath C:\inetpub\intranet</code></td><td>Website anlegen</td></tr>
+      <tr><td><code>New-WebAppPool -Name "IntranetPool"</code></td><td>Anwendungspool anlegen</td></tr>
+      <tr><td><code>Start-Website</code> / <code>Stop-Website -Name "Intranet"</code></td><td>Website starten / stoppen</td></tr>
+      <tr><td><code>Restart-WebAppPool -Name "IntranetPool"</code></td><td>Anwendungspool neu starten</td></tr>
+      <tr><td><code>New-WebBinding -Name "Intranet" -Protocol https -Port 443 -HostHeader intranet.firma.local -SslFlags 1</code></td><td>HTTPS-Bindung (SNI) hinzufügen</td></tr>
+      <tr><td><code>iisreset</code></td><td>IIS komplett neu starten</td></tr>
+      <tr><td><code>C:\inetpub\logs\LogFiles</code></td><td>Standardpfad der Zugriffsprotokolle</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ws-verwaltung">
+  <h2>Freigaben, Firewall &amp; Updates</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>New-SmbShare -Name Daten -Path D:\Daten -FullAccess "FIRMA\GG_IT" -ChangeAccess "FIRMA\GG_Vertrieb"</code></td><td>Freigabe anlegen</td></tr>
+      <tr><td><code>Get-SmbShare</code> / <code>Get-SmbSession</code></td><td>Freigaben / verbundene Clients</td></tr>
+      <tr><td><code>Get-NetFirewallRule -Enabled True | Select-Object DisplayName, Direction, Action</code></td><td>Aktive Firewallregeln</td></tr>
+      <tr><td><code>New-NetFirewallRule -DisplayName "HTTPS" -Direction Inbound -Protocol TCP -LocalPort 443 -Action Allow</code></td><td>Eingehende Regel anlegen</td></tr>
+      <tr><td><code>Enable-NetFirewallRule -DisplayGroup "Remotedesktop"</code></td><td>Vordefinierte Regelgruppe aktivieren (Gruppenname ist sprachabhängig, englisch „Remote Desktop“)</td></tr>
+      <tr><td><code>Set-ItemProperty 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name fDenyTSConnections -Value 0</code></td><td>Remotedesktop erlauben</td></tr>
+      <tr><td><code>Get-HotFix | Sort-Object InstalledOn -Descending</code></td><td>Installierte Updates</td></tr>
+      <tr><td><code>wbadmin start backup -backupTarget:E: -include:C: -allCritical -quiet</code></td><td>Sicherung mit Windows Server-Sicherung</td></tr>
+      <tr><td><code>Get-WinEvent -LogName Security -MaxEvents 50</code></td><td>Sicherheitsprotokoll</td></tr>
+      <tr><td><code>eventvwr.msc</code> / <code>compmgmt.msc</code> / <code>services.msc</code></td><td>Ereignisanzeige / Computerverwaltung / Dienste</td></tr>
+    </tbody>
+  </table>
+</section>

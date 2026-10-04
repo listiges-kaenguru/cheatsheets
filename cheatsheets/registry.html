@@ -1,0 +1,81 @@
+<section id="reg-grundlagen">
+  <h2>Grundlagen</h2>
+  <p class="warn">Vor Änderungen den betroffenen Schlüssel exportieren (<code>reg export</code>). Fehlerhafte Einträge können das System unbrauchbar machen.</p>
+  <table>
+    <thead><tr><th>Begriff</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>regedit</code></td><td>Grafischer Registrierungs-Editor</td></tr>
+      <tr><td><code>HKEY_LOCAL_MACHINE</code> / <code>HKLM</code></td><td>Systemweite Einstellungen (Software, Dienste, Hardware)</td></tr>
+      <tr><td><code>HKEY_CURRENT_USER</code> / <code>HKCU</code></td><td>Einstellungen des angemeldeten Benutzers</td></tr>
+      <tr><td><code>HKEY_USERS</code> / <code>HKU</code></td><td>Profile aller geladenen Benutzer</td></tr>
+      <tr><td><code>HKEY_CLASSES_ROOT</code> / <code>HKCR</code></td><td>Dateizuordnungen und COM-Klassen (Zusammenführung aus HKLM und HKCU)</td></tr>
+      <tr><td><code>HKEY_CURRENT_CONFIG</code> / <code>HKCC</code></td><td>Aktuelles Hardwareprofil</td></tr>
+      <tr class="sub"><th colspan="2">Datentypen</th></tr>
+      <tr><td><code>REG_SZ</code></td><td>Zeichenkette</td></tr>
+      <tr><td><code>REG_EXPAND_SZ</code></td><td>Zeichenkette mit Umgebungsvariablen wie <code>%SystemRoot%</code></td></tr>
+      <tr><td><code>REG_MULTI_SZ</code></td><td>Liste von Zeichenketten</td></tr>
+      <tr><td><code>REG_DWORD</code> / <code>REG_QWORD</code></td><td>32- / 64-Bit-Zahl</td></tr>
+      <tr><td><code>REG_BINARY</code></td><td>Binärdaten</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="reg-cmd">
+  <h2>reg.exe (CMD)</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion</code></td><td>Schlüssel mit Werten anzeigen</td></tr>
+      <tr><td><code>reg query HKCU\Software /s /f "suchbegriff"</code></td><td>Rekursiv suchen</td></tr>
+      <tr><td><code>reg query HKLM\SOFTWARE\Programm /v Wertname</code></td><td>Einzelnen Wert anzeigen</td></tr>
+      <tr><td><code>reg add HKCU\Software\Programm /v Wertname /t REG_SZ /d "Daten" /f</code></td><td>Wert anlegen oder ändern</td></tr>
+      <tr><td><code>reg add HKCU\Software\Programm /v Aktiv /t REG_DWORD /d 1 /f</code></td><td>DWORD-Wert setzen</td></tr>
+      <tr><td><code>reg delete HKCU\Software\Programm /v Wertname /f</code></td><td>Wert löschen</td></tr>
+      <tr><td><code>reg delete HKCU\Software\Programm /f</code></td><td>Schlüssel samt Inhalt löschen</td></tr>
+      <tr><td><code>reg export HKCU\Software\Programm sicherung.reg /y</code></td><td>Schlüssel in .reg-Datei exportieren</td></tr>
+      <tr><td><code>reg import sicherung.reg</code></td><td>.reg-Datei importieren</td></tr>
+      <tr><td><code>reg copy HKCU\Software\Alt HKCU\Software\Neu /s</code></td><td>Schlüssel kopieren</td></tr>
+      <tr><td><code>reg save HKLM\SOFTWARE sw.hiv</code></td><td>Zweig als Hive-Datei sichern</td></tr>
+      <tr><td><code>reg load HKU\Offline C:\Users\name\NTUSER.DAT</code></td><td>Hive eines anderen Benutzers laden</td></tr>
+      <tr><td><code>reg unload HKU\Offline</code></td><td>Geladenen Hive wieder entladen</td></tr>
+      <tr><td><code>reg query \\PC01\HKLM\SOFTWARE</code></td><td>Registry eines Remote-Rechners (Dienst „Remoteregistrierung“ nötig)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="reg-powershell">
+  <h2>PowerShell</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Get-ChildItem HKCU:\Software</code></td><td>Unterschlüssel auflisten</td></tr>
+      <tr><td><code>Get-ItemProperty HKCU:\Software\Programm</code></td><td>Alle Werte eines Schlüssels</td></tr>
+      <tr><td><code>Get-ItemPropertyValue HKCU:\Software\Programm -Name Wertname</code></td><td>Einzelnen Wert lesen</td></tr>
+      <tr><td><code>New-Item HKCU:\Software\Programm -Force</code></td><td>Schlüssel anlegen</td></tr>
+      <tr><td><code>New-ItemProperty HKCU:\Software\Programm -Name Aktiv -PropertyType DWord -Value 1</code></td><td>Wert mit Typ anlegen</td></tr>
+      <tr><td><code>Set-ItemProperty HKCU:\Software\Programm -Name Aktiv -Value 0</code></td><td>Wert ändern</td></tr>
+      <tr><td><code>Remove-ItemProperty HKCU:\Software\Programm -Name Aktiv</code></td><td>Wert löschen</td></tr>
+      <tr><td><code>Remove-Item HKCU:\Software\Programm -Recurse</code></td><td>Schlüssel löschen</td></tr>
+      <tr><td><code>Test-Path HKCU:\Software\Programm</code></td><td>Existiert der Schlüssel?</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="reg-schluessel">
+  <h2>Wichtige Schlüssel</h2>
+  <table>
+    <thead><tr><th>Pfad</th><th>Inhalt</th></tr></thead>
+    <tbody>
+      <tr><td><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code></td><td>Autostart für alle Benutzer</td></tr>
+      <tr><td><code>HKCU\Software\Microsoft\Windows\CurrentVersion\Run</code></td><td>Autostart des aktuellen Benutzers</td></tr>
+      <tr><td><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce</code></td><td>Einmaliger Start beim nächsten Anmelden</td></tr>
+      <tr><td><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall</code></td><td>Installierte Programme (64 Bit)</td></tr>
+      <tr><td><code>HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall</code></td><td>Installierte Programme (32 Bit)</td></tr>
+      <tr><td><code>HKLM\SYSTEM\CurrentControlSet\Services</code></td><td>Dienste und Treiber</td></tr>
+      <tr><td><code>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion</code></td><td>Windows-Version, Build, Produktname</td></tr>
+      <tr><td><code>HKLM\SOFTWARE\Policies</code> / <code>HKCU\Software\Policies</code></td><td>Durch Gruppenrichtlinien gesetzte Werte</td></tr>
+      <tr><td><code>HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server</code></td><td>Remotedesktop-Einstellungen (<code>fDenyTSConnections</code>)</td></tr>
+      <tr><td><code>HKCU\Environment</code> / <code>HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment</code></td><td>Umgebungsvariablen Benutzer / System</td></tr>
+    </tbody>
+  </table>
+</section>

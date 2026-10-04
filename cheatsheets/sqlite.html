@@ -1,0 +1,87 @@
+<section id="sqlite-cli">
+  <h2>Kommandozeile &amp; Meta-Befehle</h2>
+  <p class="note">SQLite speichert eine ganze Datenbank in einer Datei. Meta-Befehle beginnen mit <code>.</code> und brauchen kein Semikolon.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sqlite3 daten.db</code></td><td>Datenbank öffnen (wird bei Bedarf angelegt)</td></tr>
+      <tr><td><code>sqlite3 daten.db "SELECT * FROM t;"</code></td><td>Einzelne Abfrage direkt ausführen</td></tr>
+      <tr><td><code>sqlite3 :memory:</code></td><td>Reine In-Memory-Datenbank</td></tr>
+      <tr><td><code>.help</code></td><td>Alle Meta-Befehle</td></tr>
+      <tr><td><code>.tables</code></td><td>Tabellen auflisten</td></tr>
+      <tr><td><code>.schema tabelle</code></td><td>CREATE-Anweisung einer Tabelle</td></tr>
+      <tr><td><code>.schema</code></td><td>Schema der gesamten Datenbank</td></tr>
+      <tr><td><code>.databases</code></td><td>Angehängte Datenbanken und Dateien</td></tr>
+      <tr><td><code>.mode box</code></td><td>Ausgabe als Tabelle (auch <code>column</code>, <code>csv</code>, <code>json</code>, <code>markdown</code>)</td></tr>
+      <tr><td><code>.headers on</code></td><td>Spaltenüberschriften anzeigen</td></tr>
+      <tr><td><code>.nullvalue NULL</code></td><td>Darstellung von NULL festlegen</td></tr>
+      <tr><td><code>.timer on</code></td><td>Ausführungszeit anzeigen</td></tr>
+      <tr><td><code>.read skript.sql</code></td><td>SQL-Datei ausführen</td></tr>
+      <tr><td><code>.quit</code></td><td>Beenden</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="sqlite-tabellen">
+  <h2>Tabellen &amp; Datentypen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>CREATE TABLE kunden (id INTEGER PRIMARY KEY, name TEXT NOT NULL, email TEXT UNIQUE, erstellt TEXT DEFAULT (datetime('now')));</code></td><td>Tabelle anlegen (<code>INTEGER PRIMARY KEY</code> zählt automatisch hoch)</td></tr>
+      <tr><td><code>CREATE TABLE IF NOT EXISTS t (...);</code></td><td>Nur anlegen, wenn nicht vorhanden</td></tr>
+      <tr><td><code>CREATE TABLE bestellungen (id INTEGER PRIMARY KEY, kunde_id INTEGER REFERENCES kunden(id));</code></td><td>Fremdschlüssel</td></tr>
+      <tr><td><code>PRAGMA foreign_keys = ON;</code></td><td>Fremdschlüssel erzwingen (je Verbindung nötig)</td></tr>
+      <tr><td><code>ALTER TABLE kunden ADD COLUMN telefon TEXT;</code></td><td>Spalte hinzufügen</td></tr>
+      <tr><td><code>ALTER TABLE kunden RENAME COLUMN telefon TO tel;</code></td><td>Spalte umbenennen</td></tr>
+      <tr><td><code>ALTER TABLE kunden RENAME TO kunde;</code></td><td>Tabelle umbenennen</td></tr>
+      <tr><td><code>CREATE INDEX idx_name ON kunden(name);</code></td><td>Index anlegen</td></tr>
+      <tr><td><code>DROP TABLE kunden;</code></td><td>Tabelle löschen</td></tr>
+      <tr class="sub"><th colspan="2">Speicherklassen</th></tr>
+      <tr><td><code>TEXT</code></td><td>Zeichenkette</td></tr>
+      <tr><td><code>INTEGER</code></td><td>Ganzzahl</td></tr>
+      <tr><td><code>REAL</code></td><td>Fließkommazahl</td></tr>
+      <tr><td><code>BLOB</code></td><td>Binärdaten</td></tr>
+      <tr><td><code>NULL</code></td><td>Kein Wert (SQLite ist dynamisch typisiert)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="sqlite-daten">
+  <h2>Abfragen &amp; Daten</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>SELECT * FROM kunden WHERE name LIKE 'M%' ORDER BY name LIMIT 10;</code></td><td>Filtern, sortieren, begrenzen</td></tr>
+      <tr><td><code>SELECT land, COUNT(*) FROM kunden GROUP BY land HAVING COUNT(*) &gt; 5;</code></td><td>Gruppieren und filtern</td></tr>
+      <tr><td><code>SELECT k.name, b.id FROM kunden k JOIN bestellungen b ON b.kunde_id = k.id;</code></td><td>Join</td></tr>
+      <tr><td><code>INSERT INTO kunden (name, email) VALUES ('Max', 'max@example.org');</code></td><td>Zeile einfügen</td></tr>
+      <tr><td><code>INSERT INTO kunden (name) VALUES ('A'), ('B');</code></td><td>Mehrere Zeilen</td></tr>
+      <tr><td><code>INSERT INTO kunden (email, name) VALUES ('m@x', 'Max') ON CONFLICT(email) DO UPDATE SET name = excluded.name;</code></td><td>Upsert</td></tr>
+      <tr><td><code>UPDATE kunden SET name = 'Maria' WHERE id = 1;</code></td><td>Aktualisieren</td></tr>
+      <tr><td><code>DELETE FROM kunden WHERE id = 1;</code></td><td>Löschen</td></tr>
+      <tr><td><code>SELECT json_extract(daten, '$.feld') FROM logs;</code></td><td>Wert aus JSON-Spalte lesen</td></tr>
+      <tr><td><code>EXPLAIN QUERY PLAN SELECT * FROM kunden WHERE name = 'Max';</code></td><td>Prüfen, ob ein Index genutzt wird</td></tr>
+      <tr><td><code>BEGIN; ... COMMIT;</code> / <code>ROLLBACK;</code></td><td>Transaktion</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="sqlite-wartung">
+  <h2>Import, Export &amp; Wartung</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>.import --csv daten.csv kunden</code></td><td>CSV in eine Tabelle importieren</td></tr>
+      <tr><td><code>.once ausgabe.csv</code></td><td>Nächste Ausgabe in Datei schreiben</td></tr>
+      <tr><td><code>.mode csv</code> / <code>.output daten.csv</code></td><td>Ausgabeformat/-ziel für Export setzen</td></tr>
+      <tr><td><code>.dump</code></td><td>Ganze Datenbank als SQL ausgeben (Backup)</td></tr>
+      <tr><td><code>sqlite3 daten.db .dump &gt; backup.sql</code></td><td>SQL-Backup auf der Shell</td></tr>
+      <tr><td><code>sqlite3 neu.db &lt; backup.sql</code></td><td>Backup einspielen</td></tr>
+      <tr><td><code>.backup sicherung.db</code></td><td>Konsistente Binärsicherung (auch bei laufendem Zugriff)</td></tr>
+      <tr><td><code>VACUUM;</code></td><td>Datei verkleinern und aufräumen</td></tr>
+      <tr><td><code>PRAGMA integrity_check;</code></td><td>Datenbank auf Fehler prüfen</td></tr>
+      <tr><td><code>PRAGMA journal_mode = WAL;</code></td><td>Write-Ahead-Logging (bessere Parallelität)</td></tr>
+      <tr><td><code>PRAGMA table_info(kunden);</code></td><td>Spalten einer Tabelle anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>

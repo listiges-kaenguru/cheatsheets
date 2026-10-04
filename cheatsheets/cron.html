@@ -1,0 +1,79 @@
+<section id="cron-syntax">
+  <h2>Crontab-Syntax</h2>
+  <p class="note">Tag und Wochentag werden ODER-verknüpft: <code>0 0 13 * 5</code> läuft am 13. <strong>und</strong> an jedem Freitag.</p>
+  <table>
+    <thead><tr><th>Syntax</th><th>Bedeutung</th></tr></thead>
+    <tbody>
+      <tr><td><code>* * * * * befehl</code></td><td>Minute · Stunde · Tag · Monat · Wochentag · Befehl</td></tr>
+      <tr class="sub"><th colspan="2">Felder</th></tr>
+      <tr><td><code>Minute</code></td><td>0–59</td></tr>
+      <tr><td><code>Stunde</code></td><td>0–23</td></tr>
+      <tr><td><code>Tag</code></td><td>1–31</td></tr>
+      <tr><td><code>Monat</code></td><td>1–12 oder <code>jan</code>–<code>dec</code></td></tr>
+      <tr><td><code>Wochentag</code></td><td>0–7 (0 und 7 = Sonntag) oder <code>sun</code>–<code>sat</code></td></tr>
+      <tr class="sub"><th colspan="2">Operatoren</th></tr>
+      <tr><td><code>*</code></td><td>Jeder Wert</td></tr>
+      <tr><td><code>5</code></td><td>Genau dieser Wert</td></tr>
+      <tr><td><code>1-5</code></td><td>Bereich</td></tr>
+      <tr><td><code>1,3,5</code></td><td>Liste</td></tr>
+      <tr><td><code>*/15</code></td><td>Schrittweite (alle 15)</td></tr>
+      <tr><td><code>0-30/10</code></td><td>Schrittweite innerhalb eines Bereichs (0, 10, 20, 30)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="cron-befehle">
+  <h2>Befehle &amp; Dateien</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>crontab -e</code></td><td>Eigene Crontab bearbeiten</td></tr>
+      <tr><td><code>crontab -l</code></td><td>Eigene Crontab anzeigen</td></tr>
+      <tr><td><code>crontab -r</code></td><td>Eigene Crontab <strong>ohne Rückfrage</strong> löschen (Vorsicht, liegt neben <code>-e</code>)</td></tr>
+      <tr><td><code>crontab -l &gt; crontab.bak</code></td><td>Crontab sichern</td></tr>
+      <tr><td><code>crontab datei</code></td><td>Crontab aus Datei übernehmen</td></tr>
+      <tr><td><code>sudo crontab -u benutzer -e</code></td><td>Crontab eines anderen Benutzers</td></tr>
+      <tr><td><code>/etc/crontab</code> / <code>/etc/cron.d/</code></td><td>Systemweite Einträge – mit zusätzlichem <strong>Benutzerfeld</strong> vor dem Befehl</td></tr>
+      <tr><td><code>/etc/cron.hourly/</code> / <code>/etc/cron.daily/</code></td><td>Skripte stündlich / täglich (ohne Dateiendung, ausführbar)</td></tr>
+      <tr><td><code>/etc/cron.weekly/</code> / <code>/etc/cron.monthly/</code></td><td>Skripte wöchentlich / monatlich</td></tr>
+      <tr><td><code>run-parts --test /etc/cron.daily</code></td><td>Zeigt, welche Skripte ausgeführt würden</td></tr>
+      <tr><td><code>journalctl -u cron</code> / <code>journalctl -u crond</code></td><td>Cron-Logs (Debian/Ubuntu / Fedora/RHEL)</td></tr>
+      <tr><td><code>grep CRON /var/log/syslog</code></td><td>Cron-Logs auf Systemen mit rsyslog</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="cron-hinweise">
+  <h2>Umgebung &amp; Stolperfallen</h2>
+  <table>
+    <thead><tr><th>Eintrag</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>SHELL=/bin/bash</code></td><td>Shell festlegen (Standard ist <code>/bin/sh</code>)</td></tr>
+      <tr><td><code>PATH=/usr/local/bin:/usr/bin:/bin</code></td><td>Cron hat einen sehr kurzen PATH – absolute Pfade verwenden</td></tr>
+      <tr><td><code>MAILTO="admin@example.org"</code></td><td>Ausgaben per Mail senden; <code>MAILTO=""</code> deaktiviert Mails</td></tr>
+      <tr><td><code>CRON_TZ=Europe/Berlin</code></td><td>Zeitzone für die Einträge (cronie)</td></tr>
+      <tr><td><code>date +\%F</code></td><td><code>%</code> hat in Crontabs eine Sonderbedeutung und muss escaped werden</td></tr>
+      <tr><td><code>flock -n /tmp/job.lock befehl</code></td><td>Verhindert, dass ein Job doppelt läuft</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="cron-beispiele">
+  <h2>Beispiele</h2>
+  <table>
+    <thead><tr><th>Eintrag</th><th>Ausführung</th></tr></thead>
+    <tbody>
+      <tr><td><code>*/5 * * * * /pfad/skript.sh</code></td><td>Alle 5 Minuten</td></tr>
+      <tr><td><code>0 * * * * /pfad/skript.sh</code></td><td>Stündlich zur vollen Stunde</td></tr>
+      <tr><td><code>0 2 * * * /pfad/skript.sh</code></td><td>Täglich um 2:00 Uhr</td></tr>
+      <tr><td><code>30 4 * * 0 /pfad/skript.sh</code></td><td>Sonntags um 4:30 Uhr</td></tr>
+      <tr><td><code>0 9-17 * * 1-5 /pfad/skript.sh</code></td><td>Werktags stündlich von 9 bis 17 Uhr</td></tr>
+      <tr><td><code>0 0 1 * * /pfad/skript.sh</code></td><td>Am 1. jedes Monats um Mitternacht</td></tr>
+      <tr><td><code>0 3 1 1,4,7,10 * /pfad/skript.sh</code></td><td>Quartalsweise</td></tr>
+      <tr><td><code>@reboot /pfad/skript.sh</code></td><td>Einmal nach jedem Systemstart</td></tr>
+      <tr><td><code>@hourly</code> / <code>@daily</code> / <code>@weekly</code> / <code>@monthly</code></td><td>Kurzformen (täglich = Mitternacht, wöchentlich = Sonntag 0:00)</td></tr>
+      <tr><td><code>0 2 * * * /pfad/skript.sh &gt;&gt; /var/log/skript.log 2&gt;&amp;1</code></td><td>Ausgabe in Logdatei schreiben</td></tr>
+      <tr><td><code>0 2 * * * /pfad/skript.sh &gt; /dev/null 2&gt;&amp;1</code></td><td>Ausgabe verwerfen</td></tr>
+    </tbody>
+  </table>
+</section>

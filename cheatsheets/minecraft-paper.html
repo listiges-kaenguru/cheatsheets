@@ -1,0 +1,173 @@
+<section id="mc-hilfe">
+  <h2>Hilfe &amp; Namespaces</h2>
+  <p class="note">In der Server-Console Befehle <strong>ohne</strong> führenden <code>/</code> eingeben (z. B. <code>op Steve</code>), im Spiel-Chat <strong>mit</strong> <code>/</code>. Ein Kürzel „InGame“ heißt: nur als Spieler sinnvoll; „Console“: nur in der Console; ohne Kürzel: beides.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>help</code></td><td>Hilfe-Index mit allen Befehlen</td></tr>
+      <tr><td><code>help [n]</code></td><td>Seite n der Hilfe</td></tr>
+      <tr><td><code>help [befehl]</code></td><td>Beschreibung und Syntax eines Befehls, z. B. <code>help build</code></td></tr>
+      <tr><td><code>help FluffyLobby</code></td><td>Alle Befehle von FluffyLobby</td></tr>
+      <tr><td><code>help Paper</code> / <code>help Bukkit</code></td><td>Befehle von Paper bzw. Bukkit</td></tr>
+      <tr><td><code>help Minecraft</code></td><td>Alle Vanilla-Befehle</td></tr>
+      <tr><td><code>minecraft:[befehl]</code></td><td>Vanilla-Befehl erzwingen, falls ein Plugin ihn überschreibt (z. B. <code>minecraft:tp</code>)</td></tr>
+      <tr><td><code>bukkit:[befehl]</code> / <code>paper:[befehl]</code></td><td>Bukkit- bzw. Paper-Variante erzwingen (z. B. <code>bukkit:pl</code>)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mc-start">
+  <h2>Server-Start &amp; Console</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>java -Xms4G -Xmx4G -jar paper.jar --nogui</code></td><td>Server starten (Xms = Xmx, RAM nach Bedarf anpassen)</td></tr>
+      <tr><td><code>-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200</code></td><td>Auszug aus „Aikar's Flags“ (vor <code>-jar</code> einfügen)</td></tr>
+      <tr><td><code>eula=true</code></td><td>In <code>eula.txt</code> setzen, sonst startet der Server nicht</td></tr>
+      <tr><td><code>screen -S minecraft</code> / <code>screen -r minecraft</code></td><td>Server in Screen starten / wieder anhängen (siehe Screen-Cheatsheet)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>d</kbd> <span class="tag">Console</span></td><td>Console verlassen, Server läuft weiter</td></tr>
+      <tr><td><code>stop</code> <span class="tag">Console</span></td><td>Server sauber herunterfahren (speichert alle Welten)</td></tr>
+      <tr><td><code>restart</code> <span class="tag">Console</span></td><td>Neustart (benötigt <code>restart-script</code> in <code>spigot.yml</code>)</td></tr>
+      <tr><td><code>save-all</code> / <code>save-all flush</code></td><td>Welten speichern / speichern und auf Abschluss warten (vor Backups)</td></tr>
+      <tr><td><code>save-off</code> / <code>save-on</code></td><td>Auto-Save aus- / einschalten (z. B. während eines Backups)</td></tr>
+      <tr><td><code>say [nachricht]</code></td><td>Nachricht an alle Spieler senden</td></tr>
+      <tr><td><code>reload</code></td><td>Lädt nur <strong>Datapacks</strong> neu (Vanilla), keine Plugins und keine Server-Configs</td></tr>
+      <tr><td><code>tail -f logs/latest.log</code></td><td>Log live mitlesen (Linux-Shell, nicht Server-Console)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mc-paper">
+  <h2>Paper &amp; Performance</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>version</code> / <code>ver</code> / <code>about</code></td><td>Paper-Version anzeigen und auf Updates prüfen</td></tr>
+      <tr><td><code>version [plugin]</code></td><td>Version eines Plugins, z. B. <code>version FluffyLobby</code></td></tr>
+      <tr><td><code>plugins</code> / <code>pl</code></td><td>Installierte Plugins (grün = aktiv, rot = Fehler)</td></tr>
+      <tr><td><code>tps</code></td><td>Ticks pro Sekunde (1m/5m/15m), Ideal: 20.0</td></tr>
+      <tr><td><code>mspt</code></td><td>Millisekunden pro Tick, unter 50 ms ist gut</td></tr>
+      <tr><td><code>spark tps</code> / <code>spark health</code></td><td>TPS/MSPT/CPU / Health-Report (spark ist in Paper integriert)</td></tr>
+      <tr><td><code>spark profiler start</code> / <code>spark profiler stop</code></td><td>Profiler starten / stoppen (findet Lag-Ursachen, Link zum Bericht)</td></tr>
+      <tr><td><code>paper entity list [filter] [welt]</code></td><td>Entities zählen, z. B. <code>paper entity list minecraft:item</code></td></tr>
+      <tr><td><code>paper chunkinfo [welt]</code> / <code>paper mobcaps [welt]</code></td><td>Geladene Chunks / Mob-Caps einer Welt</td></tr>
+      <tr><td><code>paper heap</code></td><td>Heap-Dump erstellen (Speicheranalyse)</td></tr>
+      <tr><td><code>paper fixlight [radius]</code> <span class="tag">InGame</span></td><td>Lichtfehler um die eigene Position reparieren</td></tr>
+      <tr><td><code>tick freeze</code> / <code>tick unfreeze</code></td><td>Spielwelt einfrieren / fortsetzen (Spieler bewegen sich weiter)</td></tr>
+      <tr><td><code>tick rate [zahl]</code></td><td>Tick-Rate ändern (Standard: 20)</td></tr>
+      <tr><td><code>jfr start</code> / <code>jfr stop</code></td><td>Java-Flight-Recorder-Profil, Ergebnis in <code>debug/</code></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mc-fluffylobby">
+  <h2>FluffyLobby</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>/spawn</code> <span class="tag">InGame</span></td><td>Zum gesetzten Lobby-Spawn teleportieren</td></tr>
+      <tr><td><code>/setspawn</code> <span class="tag">InGame</span></td><td>Eigene Position als Lobby-Spawn setzen</td></tr>
+      <tr><td><code>/build</code> <span class="tag">InGame</span></td><td>Build-Modus für sich an/aus (wechselt Spielmodus, hebt Lobby-Schutz auf)</td></tr>
+      <tr><td><code>/build [spieler]</code></td><td>Build-Modus für einen anderen Spieler umschalten</td></tr>
+      <tr><td><code>/fly</code> <span class="tag">InGame</span></td><td>Flugmodus an/aus</td></tr>
+      <tr><td><code>/vanish</code> <span class="tag">InGame</span></td><td>Für andere Spieler unsichtbar werden</td></tr>
+      <tr><td><code>/clearchat</code></td><td>Chat für alle Spieler leeren</td></tr>
+      <tr><td><code>/fluffylobby help</code> / <code>/fluffylobby reload</code></td><td>Hilfe / Konfiguration neu laden</td></tr>
+      <tr><td><code>/fluffylobby items</code> <span class="tag">InGame</span></td><td>Lobby-Items verwalten</td></tr>
+      <tr><td><code>Permissions</code></td><td>Je nach Version <code>lobby.[befehl]</code> oder <code>fluffylobby.[befehl]</code>, siehe <code>plugin.yml</code> im JAR</td></tr>
+      <tr><td><code>MiniMessage</code></td><td>Formatierung in Nachrichten, z. B. <code>&lt;gold&gt;Willkommen &lt;bold&gt;%player_name%</code></td></tr>
+      <tr><td><code>PlaceholderAPI</code></td><td>Platzhalter wie <code>%player_name%</code> nur mit installiertem PlaceholderAPI</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mc-spieler">
+  <h2>Spielerverwaltung</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>list</code></td><td>Online-Spieler anzeigen</td></tr>
+      <tr><td><code>op [spieler]</code> / <code>deop [spieler]</code></td><td>Operator-Rechte geben / entziehen</td></tr>
+      <tr><td><code>whitelist on</code> / <code>whitelist off</code></td><td>Whitelist aktivieren / deaktivieren</td></tr>
+      <tr><td><code>whitelist add [spieler]</code> / <code>whitelist remove [spieler]</code></td><td>Spieler zur Whitelist hinzufügen / entfernen</td></tr>
+      <tr><td><code>whitelist list</code> / <code>whitelist reload</code></td><td>Whitelist anzeigen / <code>whitelist.json</code> neu einlesen</td></tr>
+      <tr><td><code>kick [spieler] [grund]</code></td><td>Spieler vom Server werfen</td></tr>
+      <tr><td><code>ban [spieler] [grund]</code> / <code>ban-ip [ip|spieler] [grund]</code></td><td>Spieler / IP bannen</td></tr>
+      <tr><td><code>pardon [spieler]</code> / <code>pardon-ip [ip]</code></td><td>Bann / IP-Bann aufheben</td></tr>
+      <tr><td><code>banlist [ips|players]</code></td><td>Gebannte Spieler bzw. IPs anzeigen</td></tr>
+      <tr><td><code>setidletimeout [minuten]</code></td><td>Inaktive Spieler nach X Minuten kicken (0 = aus)</td></tr>
+      <tr><td><code>transfer [host] [port] [spieler]</code></td><td>Spieler auf anderen Server schicken (Ziel braucht <code>accepts-transfers=true</code>)</td></tr>
+      <tr><td><code>spectate [ziel] [spieler]</code></td><td>Im Zuschauermodus die Sicht eines Entities übernehmen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mc-chat">
+  <h2>Chat &amp; Anzeigen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>msg [spieler] [nachricht]</code></td><td>Private Nachricht (Aliase: <code>tell</code>, <code>w</code>)</td></tr>
+      <tr><td><code>me [aktion]</code></td><td>Aktionsnachricht im Chat, z. B. <code>* Steve winkt</code></td></tr>
+      <tr><td><code>tellraw @a {"text":"Hallo","color":"gold"}</code></td><td>Formatierte JSON-Nachricht</td></tr>
+      <tr><td><code>title @a title {"text":"Willkommen"}</code></td><td>Großen Titel anzeigen</td></tr>
+      <tr><td><code>title @a actionbar {"text":"Info"}</code></td><td>Text über der Hotbar anzeigen</td></tr>
+      <tr><td><code>bossbar add [id] {"text":"Lobby"}</code></td><td>Bossbar erstellen</td></tr>
+      <tr><td><code>bossbar set [id] players @a</code> / <code>bossbar remove [id]</code></td><td>Bossbar einblenden / entfernen</td></tr>
+      <tr><td><code>scoreboard objectives add [name] dummy</code></td><td>Scoreboard-Ziel erstellen</td></tr>
+      <tr><td><code>scoreboard objectives setdisplay sidebar [name]</code></td><td>Scoreboard in der Seitenleiste anzeigen</td></tr>
+      <tr><td><code>team add [name]</code> / <code>team modify [name] color [farbe]</code></td><td>Team erstellen / Teamfarbe setzen</td></tr>
+      <tr><td><code>playsound [sound] master @a</code></td><td>Sound für alle abspielen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mc-welt">
+  <h2>Welt &amp; Gameplay</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>gamemode [survival|creative|adventure|spectator] [spieler]</code></td><td>Spielmodus ändern (in der Console Spieler angeben)</td></tr>
+      <tr><td><code>defaultgamemode [modus]</code></td><td>Standard-Spielmodus für neue Spieler (Lobby: <code>adventure</code>)</td></tr>
+      <tr><td><code>difficulty [peaceful|easy|normal|hard]</code></td><td>Schwierigkeitsgrad (Lobby: <code>peaceful</code>)</td></tr>
+      <tr><td><code>time set [day|noon|night|zahl]</code> / <code>weather [clear|rain|thunder] [dauer]</code></td><td>Uhrzeit / Wetter setzen</td></tr>
+      <tr><td><code>gamerule doDaylightCycle false</code></td><td>Tageszeit einfrieren (typisch für Lobbys)</td></tr>
+      <tr><td><code>gamerule doWeatherCycle false</code> / <code>gamerule doMobSpawning false</code></td><td>Wetterwechsel / Mob-Spawning aus</td></tr>
+      <tr><td><code>gamerule fallDamage false</code> / <code>gamerule announceAdvancements false</code></td><td>Fallschaden aus / Advancement-Meldungen aus</td></tr>
+      <tr><td><code>tp [spieler] [ziel]</code> / <code>tp [spieler] [x] [y] [z]</code></td><td>Zu Spieler / zu Koordinaten teleportieren</td></tr>
+      <tr><td><code>give [spieler] [item] [anzahl]</code></td><td>Item geben, z. B. <code>give Steve minecraft:compass 1</code></td></tr>
+      <tr><td><code>clear [spieler] [item]</code></td><td>Inventar leeren</td></tr>
+      <tr><td><code>effect give [spieler] [effekt] [sek] [stärke]</code> / <code>effect clear [spieler]</code></td><td>Effekt geben / entfernen (<code>infinite</code> als Dauer möglich)</td></tr>
+      <tr><td><code>summon [entity] [x y z]</code></td><td>Entity erzeugen, z. B. <code>summon minecraft:armor_stand</code></td></tr>
+      <tr><td><code>kill @e[type=!player]</code></td><td>Alle Entities außer Spielern entfernen</td></tr>
+      <tr><td><code>setworldspawn [x y z]</code> / <code>spawnpoint [spieler] [x y z]</code></td><td>Welt-Spawn / persönlichen Spawn setzen</td></tr>
+      <tr><td><code>setblock [x y z] [block]</code> / <code>fill [x1 y1 z1] [x2 y2 z2] [block]</code></td><td>Block setzen / Bereich füllen</td></tr>
+      <tr><td><code>clone [von1] [von2] [ziel]</code></td><td>Bereich kopieren</td></tr>
+      <tr><td><code>worldborder set [durchmesser]</code> / <code>worldborder center [x] [z]</code></td><td>Weltgrenze / Mittelpunkt setzen</td></tr>
+      <tr><td><code>seed</code></td><td>Welt-Seed anzeigen</td></tr>
+      <tr><td><code>locate structure [struktur]</code> <span class="tag">InGame</span></td><td>Nächste Struktur finden</td></tr>
+      <tr><td><code>datapack list</code></td><td>Aktive und verfügbare Datapacks anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mc-dateien">
+  <h2>Wichtige Dateien &amp; Ordner</h2>
+  <table>
+    <thead><tr><th>Datei / Ordner</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>server.properties</code></td><td>Grundeinstellungen: Port, MOTD, max. Spieler, Online-Mode, Whitelist</td></tr>
+      <tr><td><code>eula.txt</code></td><td>Minecraft-EULA akzeptieren (<code>eula=true</code>)</td></tr>
+      <tr><td><code>bukkit.yml</code> / <code>spigot.yml</code></td><td>Bukkit- und Spigot-Einstellungen (z. B. <code>restart-script</code>)</td></tr>
+      <tr><td><code>config/paper-global.yml</code></td><td>Globale Paper-Einstellungen (u. a. Velocity-Forwarding)</td></tr>
+      <tr><td><code>config/paper-world-defaults.yml</code> / <code>[welt]/paper-world.yml</code></td><td>Paper-Standardwerte / Einstellungen je Welt</td></tr>
+      <tr><td><code>plugins/</code></td><td>Plugin-JARs hier ablegen, Configs in Unterordnern</td></tr>
+      <tr><td><code>ops.json</code> / <code>whitelist.json</code></td><td>Operatoren und Whitelist</td></tr>
+      <tr><td><code>banned-players.json</code> / <code>banned-ips.json</code></td><td>Bannlisten</td></tr>
+      <tr><td><code>logs/latest.log</code> / <code>debug/</code></td><td>Aktuelles Log / Ausgaben von <code>jfr</code> und <code>paper dumpplugins</code></td></tr>
+      <tr><td><code>online-mode=false</code></td><td>In <code>server.properties</code>, wenn der Server hinter BungeeCord/Velocity läuft</td></tr>
+      <tr><td><code>accepts-transfers=true</code></td><td>In <code>server.properties</code>: nimmt Spieler per <code>transfer</code> an</td></tr>
+      <tr><td><code>spawn-protection=0</code></td><td>Vanilla-Spawnschutz aus, wenn FluffyLobby den Build-Modus übernimmt</td></tr>
+    </tbody>
+  </table>
+</section>

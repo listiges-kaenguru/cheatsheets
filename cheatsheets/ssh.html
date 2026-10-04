@@ -1,0 +1,110 @@
+<section id="ssh-verbindung">
+  <h2>Verbinden</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ssh benutzer@host</code></td><td>Verbinden</td></tr>
+      <tr><td><code>ssh -p 2222 benutzer@host</code></td><td>Anderer Port</td></tr>
+      <tr><td><code>ssh -i ~/.ssh/id_ed25519 benutzer@host</code></td><td>Bestimmten Schlüssel verwenden</td></tr>
+      <tr><td><code>ssh -J sprunghost benutzer@ziel</code></td><td>Über Jump-Host verbinden</td></tr>
+      <tr><td><code>ssh benutzer@host 'befehl'</code></td><td>Befehl remote ausführen</td></tr>
+      <tr><td><code>ssh -t benutzer@host 'sudo htop'</code></td><td>Terminal erzwingen (für interaktive Befehle)</td></tr>
+      <tr><td><code>ssh -v</code> / <code>ssh -vvv</code></td><td>Debug-Ausgabe bei Verbindungsproblemen</td></tr>
+      <tr><td><code>ssh -C benutzer@host</code></td><td>Kompression (langsame Leitungen)</td></tr>
+      <tr><td><code>ssh -X benutzer@host</code></td><td>X11-Weiterleitung (grafische Programme)</td></tr>
+      <tr><td><code>ssh-keygen -R host</code></td><td>Veralteten Host-Schlüssel aus known_hosts entfernen</td></tr>
+      <tr><td><code>ssh-keyscan host</code></td><td>Host-Schlüssel eines Servers abrufen</td></tr>
+      <tr><td><kbd>Enter</kbd> <kbd>~</kbd> <kbd>.</kbd></td><td>Hängende Verbindung sofort trennen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ssh-keys">
+  <h2>Schlüssel &amp; Agent</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ssh-keygen -t ed25519 -C "kommentar"</code></td><td>Ed25519-Schlüssel erzeugen (empfohlen)</td></tr>
+      <tr><td><code>ssh-keygen -t rsa -b 4096</code></td><td>RSA-Schlüssel für ältere Systeme</td></tr>
+      <tr><td><code>ssh-keygen -t ed25519-sk</code></td><td>Schlüssel auf FIDO2-Sicherheitsstick</td></tr>
+      <tr><td><code>ssh-keygen -p -f ~/.ssh/id_ed25519</code></td><td>Passphrase ändern</td></tr>
+      <tr><td><code>ssh-keygen -lf ~/.ssh/id_ed25519.pub</code></td><td>Fingerabdruck anzeigen</td></tr>
+      <tr><td><code>ssh-keygen -y -f ~/.ssh/id_ed25519</code></td><td>Öffentlichen Schlüssel aus privatem erzeugen</td></tr>
+      <tr><td><code>ssh-copy-id benutzer@host</code></td><td>Öffentlichen Schlüssel auf Server übertragen</td></tr>
+      <tr><td><code>ssh-copy-id -i ~/.ssh/id_ed25519.pub benutzer@host</code></td><td>Bestimmten Schlüssel übertragen</td></tr>
+      <tr><td><code>eval "$(ssh-agent -s)"</code></td><td>SSH-Agent starten</td></tr>
+      <tr><td><code>ssh-add</code> / <code>ssh-add -t 1h ~/.ssh/id_ed25519</code></td><td>Schlüssel zum Agent hinzufügen (optional befristet)</td></tr>
+      <tr><td><code>ssh-add -l</code> / <code>ssh-add -D</code></td><td>Geladene Schlüssel anzeigen / alle entfernen</td></tr>
+      <tr><td><code>chmod 700 ~/.ssh &amp;&amp; chmod 600 ~/.ssh/authorized_keys</code></td><td>Richtige Rechte (sonst verweigert sshd die Schlüssel)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ssh-tunnel">
+  <h2>Tunnel &amp; Port-Weiterleitung</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ssh -L 8080:localhost:80 benutzer@host</code></td><td>Lokal: localhost:8080 → Port 80 auf dem Server</td></tr>
+      <tr><td><code>ssh -L 5432:db.intern:5432 benutzer@sprunghost</code></td><td>Internen Datenbankserver über Sprunghost erreichen</td></tr>
+      <tr><td><code>ssh -R 8080:localhost:3000 benutzer@host</code></td><td>Remote: Server-Port 8080 → lokaler Port 3000</td></tr>
+      <tr><td><code>ssh -D 1080 benutzer@host</code></td><td>SOCKS-Proxy auf localhost:1080</td></tr>
+      <tr><td><code>ssh -N -L 8080:localhost:80 benutzer@host</code></td><td>Nur Tunnel, keine Shell</td></tr>
+      <tr><td><code>ssh -f -N -L 8080:localhost:80 benutzer@host</code></td><td>Tunnel im Hintergrund</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ssh-dateien">
+  <h2>Dateien übertragen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>scp datei benutzer@host:/pfad/</code></td><td>Datei hochladen (nutzt seit OpenSSH 9.0 intern SFTP)</td></tr>
+      <tr><td><code>scp benutzer@host:/pfad/datei .</code></td><td>Datei herunterladen</td></tr>
+      <tr><td><code>scp -r ordner benutzer@host:/pfad/</code></td><td>Ordner rekursiv kopieren</td></tr>
+      <tr><td><code>scp -P 2222 datei benutzer@host:/pfad/</code></td><td>Anderer Port (großes <code>-P</code>)</td></tr>
+      <tr><td><code>sftp benutzer@host</code></td><td>Interaktive SFTP-Sitzung</td></tr>
+      <tr><td><code>rsync -avP ordner/ benutzer@host:/pfad/</code></td><td>Synchronisieren über SSH (siehe rsync)</td></tr>
+      <tr><td><code>sshfs benutzer@host:/pfad /mnt/remote</code></td><td>Entferntes Verzeichnis einhängen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ssh-config">
+  <h2>Client-Konfiguration (~/.ssh/config)</h2>
+  <table>
+    <thead><tr><th>Eintrag</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Host web</code></td><td>Alias: danach reicht <code>ssh web</code></td></tr>
+      <tr><td><code>  HostName 203.0.113.10</code></td><td>Adresse des Servers</td></tr>
+      <tr><td><code>  User admin</code></td><td>Benutzername</td></tr>
+      <tr><td><code>  Port 2222</code></td><td>Port</td></tr>
+      <tr><td><code>  IdentityFile ~/.ssh/id_ed25519</code></td><td>Zu verwendender Schlüssel</td></tr>
+      <tr><td><code>  IdentitiesOnly yes</code></td><td>Nur diesen Schlüssel anbieten</td></tr>
+      <tr><td><code>  ProxyJump sprunghost</code></td><td>Über Sprunghost verbinden</td></tr>
+      <tr><td><code>  ServerAliveInterval 60</code></td><td>Keep-Alive alle 60 s</td></tr>
+      <tr><td><code>  LocalForward 8080 localhost:80</code></td><td>Tunnel automatisch aufbauen</td></tr>
+      <tr><td><code>  ForwardAgent no</code></td><td>Agent-Weiterleitung nur bei vertrauenswürdigen Servern aktivieren</td></tr>
+      <tr><td><code>Host *</code></td><td>Standardwerte für alle Hosts (ans Ende der Datei)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ssh-server">
+  <h2>Server (sshd) absichern</h2>
+  <table>
+    <thead><tr><th>Eintrag / Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>/etc/ssh/sshd_config.d/*.conf</code></td><td>Eigene Einstellungen hier ablegen (erster Treffer gilt)</td></tr>
+      <tr><td><code>PermitRootLogin no</code></td><td>Keine Root-Anmeldung</td></tr>
+      <tr><td><code>PasswordAuthentication no</code></td><td>Nur Schlüssel-Anmeldung (vorher Schlüssel testen!)</td></tr>
+      <tr><td><code>KbdInteractiveAuthentication no</code></td><td>Keine Tastatur-interaktive Anmeldung</td></tr>
+      <tr><td><code>AllowUsers admin deploy</code></td><td>Nur bestimmte Benutzer zulassen</td></tr>
+      <tr><td><code>MaxAuthTries 3</code></td><td>Anmeldeversuche pro Verbindung begrenzen</td></tr>
+      <tr><td><code>sudo sshd -t</code></td><td>Konfiguration prüfen, <strong>bevor</strong> der Dienst neu gestartet wird</td></tr>
+      <tr><td><code>sudo systemctl reload sshd</code></td><td>Konfiguration übernehmen (Debian/Ubuntu: <code>ssh</code>)</td></tr>
+      <tr><td><code>sudo sshd -T | grep -i passwordauth</code></td><td>Tatsächlich wirksame Einstellung anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>

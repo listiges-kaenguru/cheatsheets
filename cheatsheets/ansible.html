@@ -1,0 +1,95 @@
+<section id="ansible-grundlagen">
+  <h2>Grundlagen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ansible --version</code></td><td>Version und Konfigurationspfade</td></tr>
+      <tr><td><code>ansible all -m ping -i inventar.ini</code></td><td>Verbindung zu allen Hosts testen</td></tr>
+      <tr><td><code>ansible all -m ping --list-hosts</code></td><td>Betroffene Hosts anzeigen, ohne auszuführen</td></tr>
+      <tr><td><code>ansible-doc modul</code></td><td>Dokumentation und Beispiele zu einem Modul</td></tr>
+      <tr><td><code>ansible-doc -l</code></td><td>Alle verfügbaren Module auflisten</td></tr>
+      <tr><td><code>ansible-config dump --only-changed</code></td><td>Von der Vorgabe abweichende Einstellungen</td></tr>
+      <tr><td><code>ansible-galaxy collection install community.general</code></td><td>Collection installieren</td></tr>
+      <tr><td><code>ansible-galaxy role install autor.rolle</code></td><td>Rolle installieren</td></tr>
+      <tr><td><code>ansible-galaxy collection list</code></td><td>Installierte Collections</td></tr>
+      <tr><td><code>ansible-vault create geheim.yml</code></td><td>Verschlüsselte Datei anlegen</td></tr>
+      <tr><td><code>ansible-vault edit geheim.yml</code> / <code>ansible-vault view geheim.yml</code></td><td>Bearbeiten / anzeigen</td></tr>
+      <tr><td><code>ansible-vault encrypt datei.yml</code> / <code>ansible-vault decrypt datei.yml</code></td><td>Ver-/entschlüsseln</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ansible-inventar">
+  <h2>Inventar &amp; Konfiguration</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ansible-inventory -i inventar.ini --graph</code></td><td>Gruppenhierarchie anzeigen</td></tr>
+      <tr><td><code>ansible-inventory -i inventar.ini --list</code></td><td>Inventar als JSON</td></tr>
+      <tr><td><code>/etc/ansible/hosts</code></td><td>Standard-Inventar (statisch)</td></tr>
+      <tr><td><code>ansible.cfg</code></td><td>Projekt-Konfiguration (im aktuellen Verzeichnis bevorzugt)</td></tr>
+      <tr class="sub"><th colspan="2">Beispiel inventar.ini</th></tr>
+      <tr><td><code>[web]</code></td><td>Gruppe „web“</td></tr>
+      <tr><td><code>web1.example.org</code></td><td>Host in der Gruppe</td></tr>
+      <tr><td><code>web2 ansible_host=10.0.0.12 ansible_port=2222</code></td><td>Host mit Adresse und Port</td></tr>
+      <tr><td><code>[web:vars]</code></td><td>Variablen für die ganze Gruppe</td></tr>
+      <tr><td><code>ansible_user=deploy</code></td><td>Verbindungsbenutzer</td></tr>
+      <tr><td><code>[alle:children]</code></td><td>Gruppe aus anderen Gruppen zusammensetzen</td></tr>
+      <tr><td><code>group_vars/web.yml</code> / <code>host_vars/web1.yml</code></td><td>Variablen je Gruppe / Host (empfohlen)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ansible-adhoc">
+  <h2>Ad-hoc-Befehle</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ansible web -a "uptime"</code></td><td>Befehl ausführen (Modul <code>command</code>, Standard)</td></tr>
+      <tr><td><code>ansible web -m shell -a "ps aux | grep nginx"</code></td><td>Shell mit Pipes/Umleitungen</td></tr>
+      <tr><td><code>ansible web -m ansible.builtin.copy -a "src=./app.conf dest=/etc/app.conf" -b</code></td><td>Datei kopieren (<code>-b</code> = mit sudo)</td></tr>
+      <tr><td><code>ansible web -m ansible.builtin.package -a "name=nginx state=present" -b</code></td><td>Paket installieren (distributionsübergreifend)</td></tr>
+      <tr><td><code>ansible web -m ansible.builtin.service -a "name=nginx state=restarted" -b</code></td><td>Dienst neu starten</td></tr>
+      <tr><td><code>ansible web -m ansible.builtin.systemd -a "name=nginx enabled=yes" -b</code></td><td>Dienst beim Boot aktivieren</td></tr>
+      <tr><td><code>ansible web -m ansible.builtin.user -a "name=deploy state=present" -b</code></td><td>Benutzer anlegen</td></tr>
+      <tr><td><code>ansible web -m ansible.builtin.setup</code></td><td>Fakten (Systeminfos) eines Hosts sammeln</td></tr>
+      <tr><td><code>ansible web -m ansible.builtin.setup -a "filter=ansible_distribution*"</code></td><td>Bestimmte Fakten filtern</td></tr>
+      <tr><td><code>ansible web -a "uptime" --limit web1 -b -K</code></td><td>Auf einen Host beschränken, sudo-Passwort abfragen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ansible-playbooks">
+  <h2>Playbooks &amp; Rollen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ansible-playbook site.yml</code></td><td>Playbook ausführen</td></tr>
+      <tr><td><code>ansible-playbook site.yml --check --diff</code></td><td>Probelauf mit Anzeige der Änderungen (nicht alle Module unterstützen es)</td></tr>
+      <tr><td><code>ansible-playbook site.yml --syntax-check</code></td><td>Nur Syntax prüfen</td></tr>
+      <tr><td><code>ansible-playbook site.yml --list-tasks</code> / <code>--list-hosts</code></td><td>Aufgaben / Hosts anzeigen</td></tr>
+      <tr><td><code>ansible-playbook site.yml -l web --tags konfig</code></td><td>Auf Gruppe und Tags beschränken</td></tr>
+      <tr><td><code>ansible-playbook site.yml --skip-tags download</code></td><td>Bestimmte Tags überspringen</td></tr>
+      <tr><td><code>ansible-playbook site.yml --start-at-task "Nginx installieren"</code></td><td>An bestimmter Aufgabe beginnen</td></tr>
+      <tr><td><code>ansible-playbook site.yml -e "version=1.2.3"</code></td><td>Zusätzliche Variablen übergeben</td></tr>
+      <tr><td><code>ansible-playbook site.yml --ask-vault-pass</code></td><td>Vault-Passwort abfragen</td></tr>
+      <tr><td><code>ansible-playbook site.yml -b -K</code></td><td>Mit sudo (Privilegienerhöhung), Passwort abfragen</td></tr>
+      <tr><td><code>ansible-galaxy init rollenname</code></td><td>Verzeichnisstruktur einer Rolle anlegen</td></tr>
+      <tr><td><code>ansible-lint site.yml</code></td><td>Playbook auf gute Praktiken prüfen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ansible-debug">
+  <h2>Fehlersuche</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>ansible-playbook site.yml -v</code></td><td>Ausführlicher (bis <code>-vvvv</code> für Verbindungsdetails)</td></tr>
+      <tr><td><code>ansible web -m ansible.builtin.debug -a "var=ansible_default_ipv4"</code></td><td>Variable ausgeben</td></tr>
+      <tr><td><code>ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook site.yml</code></td><td>Lesbare Ausgabe langer Befehle</td></tr>
+      <tr><td><code>ansible-playbook site.yml --step</code></td><td>Vor jeder Aufgabe nachfragen</td></tr>
+      <tr><td><code>ansible all -m ping -vvvv</code></td><td>Verbindungsprobleme diagnostizieren</td></tr>
+    </tbody>
+  </table>
+</section>

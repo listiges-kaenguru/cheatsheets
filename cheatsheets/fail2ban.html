@@ -1,0 +1,85 @@
+<section id="f2b-grundlagen">
+  <h2>Status &amp; Dienst</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sudo systemctl enable --now fail2ban</code></td><td>Dienst aktivieren und starten</td></tr>
+      <tr><td><code>sudo fail2ban-client status</code></td><td>Liste der aktiven Jails</td></tr>
+      <tr><td><code>sudo fail2ban-client status sshd</code></td><td>Status eines Jails mit gesperrten IPs</td></tr>
+      <tr><td><code>sudo fail2ban-client banned</code></td><td>Gesperrte IPs aller Jails</td></tr>
+      <tr><td><code>sudo fail2ban-client ping</code></td><td>Läuft der Server?</td></tr>
+      <tr><td><code>sudo fail2ban-client reload</code></td><td>Konfiguration neu laden</td></tr>
+      <tr><td><code>sudo fail2ban-client reload sshd</code></td><td>Nur ein Jail neu laden</td></tr>
+      <tr><td><code>sudo fail2ban-client -t</code></td><td>Konfiguration testen</td></tr>
+      <tr><td><code>sudo fail2ban-client -d</code></td><td>Eingelesene Konfiguration ausgeben (Fehlersuche)</td></tr>
+      <tr><td><code>sudo fail2ban-client version</code></td><td>Version anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="f2b-jails">
+  <h2>Sperren verwalten</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sudo fail2ban-client set sshd banip 203.0.113.7</code></td><td>IP in einem Jail sperren</td></tr>
+      <tr><td><code>sudo fail2ban-client set sshd unbanip 203.0.113.7</code></td><td>IP in einem Jail entsperren</td></tr>
+      <tr><td><code>sudo fail2ban-client unban 203.0.113.7</code></td><td>IP in allen Jails entsperren</td></tr>
+      <tr><td><code>sudo fail2ban-client unban --all</code></td><td>Alle Sperren aufheben</td></tr>
+      <tr><td><code>sudo fail2ban-client set sshd addignoreip 192.168.1.0/24</code></td><td>Netz zur Laufzeit von Sperren ausnehmen</td></tr>
+      <tr><td><code>sudo fail2ban-client get sshd bantime</code></td><td>Einstellung eines Jails abfragen</td></tr>
+      <tr><td><code>sudo fail2ban-client stop sshd</code> / <code>sudo fail2ban-client start sshd</code></td><td>Einzelnes Jail stoppen / starten</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="f2b-dateien">
+  <h2>Dateien</h2>
+  <table>
+    <thead><tr><th>Datei / Pfad</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>/etc/fail2ban/jail.conf</code></td><td>Standardwerte – nicht bearbeiten, wird bei Updates überschrieben</td></tr>
+      <tr><td><code>/etc/fail2ban/jail.local</code></td><td>Eigene Einstellungen (überschreibt jail.conf)</td></tr>
+      <tr><td><code>/etc/fail2ban/jail.d/*.local</code></td><td>Eigene Jails als einzelne Dateien</td></tr>
+      <tr><td><code>/etc/fail2ban/filter.d/</code></td><td>Filter (reguläre Ausdrücke für Logzeilen)</td></tr>
+      <tr><td><code>/etc/fail2ban/action.d/</code></td><td>Aktionen (z. B. nftables, firewalld, Mail)</td></tr>
+      <tr><td><code>/var/log/fail2ban.log</code></td><td>Protokoll von Fail2Ban</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="f2b-optionen">
+  <h2>Konfiguration (jail.local)</h2>
+  <table>
+    <thead><tr><th>Option</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>[DEFAULT]</code></td><td>Gilt für alle Jails</td></tr>
+      <tr><td><code>[sshd]</code></td><td>Abschnitt für ein bestimmtes Jail</td></tr>
+      <tr><td><code>enabled = true</code></td><td>Jail aktivieren</td></tr>
+      <tr><td><code>backend = systemd</code></td><td>Logs aus dem Journal lesen (nötig, wenn keine Logdateien existieren)</td></tr>
+      <tr><td><code>port = ssh</code></td><td>Zu sperrende Ports</td></tr>
+      <tr><td><code>logpath = /var/log/nginx/error.log</code></td><td>Zu überwachende Logdatei</td></tr>
+      <tr><td><code>maxretry = 5</code></td><td>Fehlversuche bis zur Sperre</td></tr>
+      <tr><td><code>findtime = 10m</code></td><td>Zeitraum, in dem die Fehlversuche zählen</td></tr>
+      <tr><td><code>bantime = 1h</code></td><td>Sperrdauer (<code>-1</code> = dauerhaft)</td></tr>
+      <tr><td><code>bantime.increment = true</code></td><td>Sperrdauer bei Wiederholungstätern steigern</td></tr>
+      <tr><td><code>ignoreip = 127.0.0.1/8 ::1 192.168.1.0/24</code></td><td>Nie sperren (eigenes Netz eintragen!)</td></tr>
+      <tr><td><code>banaction = nftables-multiport</code></td><td>Sperrmethode (auch <code>firewallcmd-rich-rules</code>, <code>iptables-multiport</code>)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="f2b-debug">
+  <h2>Fehlersuche</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sudo fail2ban-regex /var/log/auth.log /etc/fail2ban/filter.d/sshd.conf</code></td><td>Filter gegen Logdatei testen</td></tr>
+      <tr><td><code>sudo fail2ban-regex systemd-journal sshd</code></td><td>Filter gegen das Journal testen</td></tr>
+      <tr><td><code>sudo tail -f /var/log/fail2ban.log</code></td><td>Protokoll live verfolgen</td></tr>
+      <tr><td><code>sudo journalctl -u fail2ban -f</code></td><td>Dienstmeldungen live verfolgen</td></tr>
+      <tr><td><code>sudo fail2ban-client set loglevel DEBUG</code></td><td>Ausführlichere Protokollierung</td></tr>
+      <tr><td><code>sudo nft list ruleset | grep -A5 f2b</code></td><td>Tatsächlich gesetzte Firewallregeln prüfen</td></tr>
+    </tbody>
+  </table>
+</section>

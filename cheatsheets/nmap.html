@@ -1,0 +1,75 @@
+<section id="nmap-ziele">
+  <h2>Hosts finden &amp; Ziele</h2>
+  <p class="warn">Scans nur in eigenen Netzen oder mit schriftlicher Erlaubnis durchführen. Unerlaubtes Scannen kann strafbar sein.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>nmap 192.168.1.10</code></td><td>Die 1000 häufigsten TCP-Ports scannen</td></tr>
+      <tr><td><code>nmap 192.168.1.0/24</code></td><td>Ganzes Subnetz</td></tr>
+      <tr><td><code>nmap 192.168.1.1-50</code> / <code>nmap host1 host2</code></td><td>Bereich / mehrere Ziele</td></tr>
+      <tr><td><code>nmap -iL ziele.txt</code></td><td>Ziele aus Datei</td></tr>
+      <tr><td><code>nmap 192.168.1.0/24 --exclude 192.168.1.1</code></td><td>Ziele ausnehmen</td></tr>
+      <tr><td><code>nmap -sn 192.168.1.0/24</code></td><td>Nur Host-Erkennung (Ping-Scan), keine Ports</td></tr>
+      <tr><td><code>nmap -Pn host</code></td><td>Host-Erkennung überspringen (wenn Ping blockiert wird)</td></tr>
+      <tr><td><code>nmap -n host</code></td><td>Keine DNS-Auflösung (schneller)</td></tr>
+      <tr><td><code>nmap -6 2001:db8::1</code></td><td>IPv6-Ziel</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="nmap-ports">
+  <h2>Ports &amp; Scan-Techniken</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>nmap -p 22,80,443 host</code></td><td>Bestimmte Ports</td></tr>
+      <tr><td><code>nmap -p 1-1024 host</code></td><td>Portbereich</td></tr>
+      <tr><td><code>nmap -p- host</code></td><td>Alle 65 535 TCP-Ports</td></tr>
+      <tr><td><code>nmap -F host</code></td><td>Schnell: nur die 100 häufigsten Ports</td></tr>
+      <tr><td><code>nmap --top-ports 20 host</code></td><td>Die 20 häufigsten Ports</td></tr>
+      <tr><td><code>sudo nmap -sS host</code></td><td>SYN-Scan (Standard mit root-Rechten, unauffälliger)</td></tr>
+      <tr><td><code>nmap -sT host</code></td><td>TCP-Connect-Scan (ohne root)</td></tr>
+      <tr><td><code>sudo nmap -sU -p 53,123,161 host</code></td><td>UDP-Ports (langsam)</td></tr>
+      <tr><td><code>nmap --open host</code></td><td>Nur offene Ports anzeigen</td></tr>
+      <tr><td><code>nmap --reason host</code></td><td>Begründung für den Portstatus</td></tr>
+      <tr><td><code>nmap -T4 host</code></td><td>Schnelleres Timing (<code>-T0</code> sehr langsam … <code>-T5</code> aggressiv)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="nmap-erkennung">
+  <h2>Dienste, Betriebssystem &amp; Skripte</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>nmap -sV host</code></td><td>Dienst- und Versionserkennung</td></tr>
+      <tr><td><code>sudo nmap -O host</code></td><td>Betriebssystemerkennung</td></tr>
+      <tr><td><code>sudo nmap -A host</code></td><td>Aggressiv: <code>-sV</code>, <code>-O</code>, <code>-sC</code> und Traceroute</td></tr>
+      <tr><td><code>nmap -sC host</code></td><td>Standardskripte (NSE) ausführen</td></tr>
+      <tr><td><code>nmap --script ssl-enum-ciphers -p 443 host</code></td><td>TLS-Versionen und Cipher prüfen</td></tr>
+      <tr><td><code>nmap --script ssl-cert -p 443 host</code></td><td>Zertifikat anzeigen</td></tr>
+      <tr><td><code>nmap --script http-title,http-headers -p 80,443 host</code></td><td>Webserver-Infos</td></tr>
+      <tr><td><code>nmap --script smb-os-discovery -p 445 host</code></td><td>SMB-Informationen</td></tr>
+      <tr><td><code>nmap --script vuln host</code></td><td>Skripte der Kategorie „vuln“ (bekannte Schwachstellen)</td></tr>
+      <tr><td><code>nmap --script-help ssl-enum-ciphers</code></td><td>Hilfe zu einem Skript</td></tr>
+      <tr><td><code>sudo nmap --script-updatedb</code></td><td>Skriptdatenbank aktualisieren</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="nmap-ausgabe">
+  <h2>Ausgabe</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>nmap -v</code> / <code>nmap -vv</code></td><td>Ausführlicher</td></tr>
+      <tr><td><code>nmap -oN scan.txt host</code></td><td>Normale Ausgabe in Datei</td></tr>
+      <tr><td><code>nmap -oX scan.xml host</code></td><td>XML (für Weiterverarbeitung)</td></tr>
+      <tr><td><code>nmap -oG scan.gnmap host</code></td><td>Grep-freundliches Format</td></tr>
+      <tr><td><code>nmap -oA scan host</code></td><td>Alle drei Formate auf einmal</td></tr>
+      <tr><td><code>nmap --resume scan.gnmap</code></td><td>Abgebrochenen Scan fortsetzen</td></tr>
+      <tr><td><code>nmap --packet-trace -p 80 host</code></td><td>Gesendete/empfangene Pakete anzeigen</td></tr>
+      <tr><td><code>ncat -lvnp 4444</code></td><td>ncat (aus dem Nmap-Paket): auf Port lauschen</td></tr>
+    </tbody>
+  </table>
+</section>

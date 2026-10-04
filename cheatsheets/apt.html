@@ -1,0 +1,75 @@
+<section id="apt-grundlagen">
+  <h2>Installieren &amp; Aktualisieren</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sudo apt update</code></td><td>Paketlisten aktualisieren</td></tr>
+      <tr><td><code>sudo apt upgrade</code></td><td>Installierte Pakete aktualisieren (ohne Pakete zu entfernen)</td></tr>
+      <tr><td><code>sudo apt full-upgrade</code></td><td>Aktualisieren, auch wenn Pakete entfernt/neu installiert werden müssen</td></tr>
+      <tr><td><code>sudo apt install paket</code></td><td>Paket installieren</td></tr>
+      <tr><td><code>sudo apt install ./paket.deb</code></td><td>Lokale .deb-Datei inkl. Abhängigkeiten installieren</td></tr>
+      <tr><td><code>sudo apt install paket=1.2.3-1</code></td><td>Bestimmte Version installieren</td></tr>
+      <tr><td><code>sudo apt install --no-install-recommends paket</code></td><td>Ohne empfohlene Zusatzpakete</td></tr>
+      <tr><td><code>sudo apt install --only-upgrade paket</code></td><td>Nur aktualisieren, falls schon installiert</td></tr>
+      <tr><td><code>sudo apt reinstall paket</code></td><td>Paket neu installieren</td></tr>
+      <tr><td><code>sudo apt remove paket</code></td><td>Paket entfernen, Konfiguration bleibt</td></tr>
+      <tr><td><code>sudo apt purge paket</code></td><td>Paket inkl. Konfigurationsdateien entfernen</td></tr>
+      <tr><td><code>sudo apt autoremove --purge</code></td><td>Nicht mehr benötigte Abhängigkeiten entfernen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="apt-info">
+  <h2>Pakete suchen &amp; Informationen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>apt search begriff</code></td><td>In Namen und Beschreibungen suchen</td></tr>
+      <tr><td><code>apt show paket</code></td><td>Details zu einem Paket</td></tr>
+      <tr><td><code>apt policy paket</code></td><td>Installierte und verfügbare Versionen mit Quelle</td></tr>
+      <tr><td><code>apt list --installed</code></td><td>Installierte Pakete</td></tr>
+      <tr><td><code>apt list --upgradable</code></td><td>Pakete mit verfügbaren Updates</td></tr>
+      <tr><td><code>apt-cache depends paket</code> / <code>apt-cache rdepends paket</code></td><td>Abhängigkeiten / wer hängt davon ab</td></tr>
+      <tr><td><code>apt-mark showmanual</code></td><td>Manuell installierte Pakete</td></tr>
+      <tr><td><code>dpkg -l | grep name</code></td><td>Installierte Pakete filtern</td></tr>
+      <tr><td><code>dpkg -L paket</code></td><td>Dateien eines installierten Pakets</td></tr>
+      <tr><td><code>dpkg -S /pfad/zur/datei</code></td><td>Zu welchem Paket gehört eine Datei?</td></tr>
+      <tr><td><code>apt-file search dateiname</code></td><td>Paket finden, das eine Datei enthält (auch nicht installiert; Paket <code>apt-file</code>)</td></tr>
+      <tr><td><code>zless /usr/share/doc/paket/changelog.Debian.gz</code></td><td>Changelog eines Pakets</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="apt-quellen">
+  <h2>Paketquellen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>/etc/apt/sources.list.d/*.sources</code></td><td>Paketquellen im deb822-Format (Standard ab Debian 13 und Ubuntu 24.04)</td></tr>
+      <tr><td><code>/etc/apt/sources.list</code></td><td>Klassisches Einzeilenformat (älter)</td></tr>
+      <tr><td><code>sudo apt modernize-sources</code></td><td>Alte Quellen ins deb822-Format umwandeln (ab APT 3.0)</td></tr>
+      <tr><td><code>/etc/apt/keyrings/</code></td><td>Ablage für Signaturschlüssel von Fremdquellen (per <code>Signed-By:</code> einbinden)</td></tr>
+      <tr><td><code>sudo add-apt-repository ppa:name/ppa</code></td><td>PPA hinzufügen (Ubuntu)</td></tr>
+      <tr><td><code>apt-key</code></td><td>Veraltet und in APT 3.0 entfernt – Schlüssel stattdessen unter /etc/apt/keyrings ablegen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="apt-wartung">
+  <h2>Wartung &amp; Fehlerbehebung</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sudo apt-mark hold paket</code> / <code>sudo apt-mark unhold paket</code></td><td>Paket von Updates ausnehmen / wieder freigeben</td></tr>
+      <tr><td><code>apt-mark showhold</code></td><td>Gesperrte Pakete anzeigen</td></tr>
+      <tr><td><code>sudo apt --fix-broken install</code></td><td>Kaputte Abhängigkeiten reparieren</td></tr>
+      <tr><td><code>sudo dpkg --configure -a</code></td><td>Abgebrochene Installationen fertig konfigurieren</td></tr>
+      <tr><td><code>sudo apt clean</code></td><td>Heruntergeladene Paketdateien löschen</td></tr>
+      <tr><td><code>sudo apt autoclean</code></td><td>Nur veraltete Paketdateien löschen</td></tr>
+      <tr><td><code>sudo dpkg-reconfigure paket</code></td><td>Paket erneut konfigurieren (z. B. <code>tzdata</code>, <code>locales</code>)</td></tr>
+      <tr><td><code>/var/log/apt/history.log</code></td><td>Verlauf aller Installationen und Updates</td></tr>
+      <tr><td><code>sudo unattended-upgrades --dry-run --debug</code></td><td>Automatische Sicherheitsupdates testen</td></tr>
+      <tr><td><code>[ -f /var/run/reboot-required ] &amp;&amp; echo Neustart nötig</code></td><td>Prüfen, ob ein Neustart erforderlich ist</td></tr>
+    </tbody>
+  </table>
+</section>

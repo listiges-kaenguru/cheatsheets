@@ -1,0 +1,71 @@
+<section id="tar">
+  <h2>tar</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>tar -cvf archiv.tar dateien</code></td><td>Archiv erstellen</td></tr>
+      <tr><td><code>tar -czvf archiv.tar.gz verzeichnis/</code></td><td>Mit gzip komprimieren</td></tr>
+      <tr><td><code>tar -cjvf archiv.tar.bz2 verzeichnis/</code></td><td>Mit bzip2 komprimieren</td></tr>
+      <tr><td><code>tar -cJvf archiv.tar.xz verzeichnis/</code></td><td>Mit xz komprimieren (klein, langsam)</td></tr>
+      <tr><td><code>tar --zstd -cvf archiv.tar.zst verzeichnis/</code></td><td>Mit zstd komprimieren (schnell, gut)</td></tr>
+      <tr><td><code>tar -caf archiv.tar.xz verzeichnis/</code></td><td>Kompression anhand der Endung wählen (GNU tar)</td></tr>
+      <tr><td><code>tar -xvf archiv.tar.gz</code></td><td>Entpacken (Kompression wird automatisch erkannt)</td></tr>
+      <tr><td><code>tar -xvf archiv.tar.gz -C /ziel/</code></td><td>In bestimmtes Verzeichnis entpacken</td></tr>
+      <tr><td><code>tar -xvf archiv.tar.gz pfad/datei.txt</code></td><td>Einzelne Datei entpacken</td></tr>
+      <tr><td><code>tar -xvf archiv.tar.gz --strip-components=1</code></td><td>Oberste Verzeichnisebene weglassen</td></tr>
+      <tr><td><code>tar -tvf archiv.tar.gz</code></td><td>Inhalt anzeigen</td></tr>
+      <tr><td><code>tar -rvf archiv.tar neue-datei</code></td><td>Datei anhängen (nur unkomprimiert)</td></tr>
+      <tr><td><code>tar -czf archiv.tar.gz --exclude='*.log' verzeichnis/</code></td><td>Mit Ausschlüssen</td></tr>
+      <tr><td><code>tar -czf - verzeichnis/ | ssh host 'tar -xzf - -C /ziel'</code></td><td>Verzeichnis per SSH übertragen</td></tr>
+      <tr class="sub"><th colspan="2">Optionen</th></tr>
+      <tr><td><code>-c</code> / <code>-x</code> / <code>-t</code></td><td>Erstellen / entpacken / auflisten</td></tr>
+      <tr><td><code>-f datei</code></td><td>Archivdatei (immer als letzte Kurzoption)</td></tr>
+      <tr><td><code>-v</code></td><td>Ausführlich</td></tr>
+      <tr><td><code>-z</code> / <code>-j</code> / <code>-J</code></td><td>gzip / bzip2 / xz</td></tr>
+      <tr><td><code>-C verzeichnis</code></td><td>Vorher in Verzeichnis wechseln</td></tr>
+      <tr><td><code>-p</code></td><td>Rechte beim Entpacken erhalten (als root Standard)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="zip">
+  <h2>zip &amp; unzip</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>zip archiv.zip datei1 datei2</code></td><td>Dateien packen</td></tr>
+      <tr><td><code>zip -r archiv.zip verzeichnis/</code></td><td>Verzeichnis rekursiv packen</td></tr>
+      <tr><td><code>zip -r archiv.zip verzeichnis/ -x '*.log'</code></td><td>Mit Ausschlüssen</td></tr>
+      <tr><td><code>zip -9 -r archiv.zip verzeichnis/</code></td><td>Maximale Kompression</td></tr>
+      <tr><td><code>zip -u archiv.zip datei</code></td><td>Datei hinzufügen oder aktualisieren</td></tr>
+      <tr><td><code>zip -d archiv.zip datei.txt</code></td><td>Datei aus Archiv entfernen</td></tr>
+      <tr><td><code>unzip archiv.zip</code></td><td>Entpacken</td></tr>
+      <tr><td><code>unzip archiv.zip -d /ziel/</code></td><td>In Verzeichnis entpacken</td></tr>
+      <tr><td><code>unzip -l archiv.zip</code></td><td>Inhalt anzeigen</td></tr>
+      <tr><td><code>unzip -t archiv.zip</code></td><td>Archiv testen</td></tr>
+      <tr><td><code>unzip -o archiv.zip</code></td><td>Ohne Nachfrage überschreiben</td></tr>
+      <tr><td><code>unzip archiv.zip 'ordner/*'</code></td><td>Nur Teile entpacken</td></tr>
+      <tr><td><code>zip -e archiv.zip dateien</code></td><td>Mit Passwort (schwache ZipCrypto-Verschlüsselung – für Vertrauliches 7z nutzen)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="archive-andere">
+  <h2>gzip, xz, zstd &amp; 7-Zip</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>gzip datei</code> / <code>gunzip datei.gz</code></td><td>Einzelne Datei komprimieren / entpacken</td></tr>
+      <tr><td><code>gzip -k datei</code></td><td>Original behalten</td></tr>
+      <tr><td><code>zcat datei.gz</code> / <code>zless datei.gz</code></td><td>Komprimierte Datei lesen</td></tr>
+      <tr><td><code>xz -T0 datei</code> / <code>unxz datei.xz</code></td><td>Mit allen Kernen komprimieren / entpacken</td></tr>
+      <tr><td><code>zstd datei</code> / <code>unzstd datei.zst</code></td><td>zstd komprimieren / entpacken</td></tr>
+      <tr><td><code>bzip2 datei</code> / <code>bunzip2 datei.bz2</code></td><td>bzip2 komprimieren / entpacken</td></tr>
+      <tr><td><code>7z a archiv.7z dateien</code></td><td>7-Zip-Archiv erstellen</td></tr>
+      <tr><td><code>7z a -p -mhe=on archiv.7z dateien</code></td><td>AES-256-verschlüsselt, auch Dateinamen verborgen</td></tr>
+      <tr><td><code>7z x archiv.7z</code></td><td>Mit Verzeichnisstruktur entpacken</td></tr>
+      <tr><td><code>7z l archiv.7z</code></td><td>Inhalt anzeigen</td></tr>
+      <tr><td><code>7z x archiv.rar</code></td><td>RAR entpacken (7-Zip unterstützt RAR zum Lesen)</td></tr>
+    </tbody>
+  </table>
+</section>

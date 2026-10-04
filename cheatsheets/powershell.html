@@ -1,0 +1,155 @@
+<section id="ps-grundlagen">
+  <h2>Grundlagen &amp; Hilfe</h2>
+  <p class="note">Die Beispiele gelten für PowerShell 7 (<code>pwsh</code>) und größtenteils auch für Windows PowerShell 5.1.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>$PSVersionTable</code></td><td>Version anzeigen</td></tr>
+      <tr><td><code>Get-Help Get-Process -Examples</code></td><td>Beispiele zu einem Cmdlet</td></tr>
+      <tr><td><code>Get-Help about_Operators</code></td><td>Konzeptthemen lesen</td></tr>
+      <tr><td><code>Update-Help</code></td><td>Hilfedateien herunterladen (als Administrator)</td></tr>
+      <tr><td><code>Get-Command *service*</code></td><td>Befehle nach Muster suchen</td></tr>
+      <tr><td><code>Get-Command -Module ActiveDirectory</code></td><td>Befehle eines Moduls</td></tr>
+      <tr><td><code>Get-Process | Get-Member</code></td><td>Eigenschaften und Methoden eines Objekts</td></tr>
+      <tr><td><code>Get-Alias</code> / <code>Get-Alias -Definition Get-ChildItem</code></td><td>Aliase anzeigen / Aliase eines Cmdlets</td></tr>
+      <tr><td><code>Get-History</code> / <code>Invoke-History 5</code></td><td>Befehlsverlauf / Eintrag erneut ausführen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>r</kbd></td><td>Rückwärtssuche im Verlauf (PSReadLine)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Space</kbd></td><td>Alle Vervollständigungen anzeigen</td></tr>
+      <tr><td><code>$PROFILE</code></td><td>Pfad des persönlichen Profilskripts</td></tr>
+      <tr><td><code>Get-ExecutionPolicy -List</code></td><td>Ausführungsrichtlinien anzeigen</td></tr>
+      <tr><td><code>Set-ExecutionPolicy RemoteSigned -Scope CurrentUser</code></td><td>Lokale Skripte erlauben, heruntergeladene nur signiert</td></tr>
+      <tr><td><code>Unblock-File .\skript.ps1</code></td><td>Heruntergeladene Datei freigeben</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ps-dateisystem">
+  <h2>Dateisystem</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Get-Location</code> / <code>pwd</code></td><td>Aktuelles Verzeichnis</td></tr>
+      <tr><td><code>Set-Location C:\pfad</code> / <code>cd</code></td><td>Verzeichnis wechseln</td></tr>
+      <tr><td><code>Get-ChildItem</code> / <code>ls</code> / <code>dir</code></td><td>Inhalt auflisten</td></tr>
+      <tr><td><code>Get-ChildItem -Recurse -Filter *.log</code></td><td>Rekursiv nach Muster suchen</td></tr>
+      <tr><td><code>Get-ChildItem -Force</code></td><td>Inkl. versteckter Dateien</td></tr>
+      <tr><td><code>New-Item -ItemType Directory -Path ordner</code></td><td>Ordner anlegen</td></tr>
+      <tr><td><code>New-Item -ItemType File -Path datei.txt</code></td><td>Datei anlegen</td></tr>
+      <tr><td><code>Copy-Item quelle ziel -Recurse</code></td><td>Kopieren</td></tr>
+      <tr><td><code>Move-Item quelle ziel</code></td><td>Verschieben</td></tr>
+      <tr><td><code>Rename-Item alt neu</code></td><td>Umbenennen</td></tr>
+      <tr><td><code>Remove-Item pfad -Recurse -Force</code></td><td>Löschen (mit <code>-WhatIf</code> vorher testen)</td></tr>
+      <tr><td><code>Test-Path pfad</code></td><td>Existiert der Pfad?</td></tr>
+      <tr><td><code>Get-Content datei -Tail 20 -Wait</code></td><td>Dateiende live verfolgen (wie <code>tail -f</code>)</td></tr>
+      <tr><td><code>Set-Content datei "Text"</code> / <code>Add-Content datei "Text"</code></td><td>Datei schreiben / anhängen</td></tr>
+      <tr><td><code>Select-String -Path *.log -Pattern "Fehler"</code></td><td>In Dateien suchen (wie grep)</td></tr>
+      <tr><td><code>Get-FileHash datei -Algorithm SHA256</code></td><td>Prüfsumme</td></tr>
+      <tr><td><code>Compress-Archive ordner archiv.zip</code> / <code>Expand-Archive archiv.zip ziel</code></td><td>ZIP erstellen / entpacken</td></tr>
+      <tr><td><code>Get-Acl pfad | Format-List</code></td><td>Berechtigungen anzeigen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ps-variablen">
+  <h2>Variablen &amp; Operatoren</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>$name = "Wert"</code></td><td>Variable setzen</td></tr>
+      <tr><td><code>[int]$zahl = 42</code></td><td>Typisierte Variable</td></tr>
+      <tr><td><code>$liste = @(1, 2, 3)</code></td><td>Array</td></tr>
+      <tr><td><code>$hash = @{ Name = "A"; Wert = 1 }</code></td><td>Hashtable</td></tr>
+      <tr><td><code>[PSCustomObject]@{ Name = "A"; Wert = 1 }</code></td><td>Eigenes Objekt</td></tr>
+      <tr><td><code>"Hallo $name, heute ist $(Get-Date -Format d)"</code></td><td>Variablen und Ausdrücke in Strings (nur doppelte Anführungszeichen)</td></tr>
+      <tr><td><code>$env:PATH</code> / <code>$env:USERNAME</code></td><td>Umgebungsvariablen</td></tr>
+      <tr><td><code>$null</code> / <code>$true</code> / <code>$false</code></td><td>Spezielle Werte</td></tr>
+      <tr><td><code>-eq</code> / <code>-ne</code> / <code>-gt</code> / <code>-ge</code> / <code>-lt</code> / <code>-le</code></td><td>Vergleich (ohne Groß-/Kleinschreibung; <code>-ceq</code> beachtet sie)</td></tr>
+      <tr><td><code>-like "*.txt"</code> / <code>-match "^\d+$"</code></td><td>Wildcard- / Regex-Vergleich</td></tr>
+      <tr><td><code>-contains</code> / <code>-in</code></td><td>Enthält Liste Wert? / Ist Wert in Liste?</td></tr>
+      <tr><td><code>-and</code> / <code>-or</code> / <code>-not</code></td><td>Logische Operatoren</td></tr>
+      <tr><td><code>$a ?? "Standard"</code></td><td>Null-Koaleszenz (PowerShell 7)</td></tr>
+      <tr><td><code>bedingung ? "ja" : "nein"</code></td><td>Ternärer Operator (PowerShell 7)</td></tr>
+      <tr><td><code>-replace "alt", "neu"</code> / <code>-split ","</code> / <code>-join ";"</code></td><td>Ersetzen (Regex) / Teilen / Verbinden</td></tr>
+      <tr><td><code>if ($x -gt 5) { … } elseif (…) { … } else { … }</code></td><td>Verzweigung</td></tr>
+      <tr><td><code>foreach ($i in $liste) { … }</code></td><td>Schleife</td></tr>
+      <tr><td><code>switch ($wert) { 1 { … } default { … } }</code></td><td>Mehrfachverzweigung</td></tr>
+      <tr><td><code>try { … } catch { $_.Exception.Message } finally { … }</code></td><td>Fehlerbehandlung</td></tr>
+      <tr><td><code>function Get-Foo { param([string]$Name) … }</code></td><td>Funktion mit Parameter</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ps-pipeline">
+  <h2>Pipeline &amp; Ausgabe</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Get-Process | Where-Object CPU -gt 100</code></td><td>Filtern</td></tr>
+      <tr><td><code>Get-Process | Sort-Object CPU -Descending | Select-Object -First 5</code></td><td>Sortieren und die ersten 5</td></tr>
+      <tr><td><code>Get-Service | Select-Object Name, Status</code></td><td>Eigenschaften auswählen</td></tr>
+      <tr><td><code>Get-ChildItem | ForEach-Object { $_.Name.ToUpper() }</code></td><td>Für jedes Objekt ausführen</td></tr>
+      <tr><td><code>1..10 | ForEach-Object -Parallel { $_ * 2 }</code></td><td>Parallel ausführen (PowerShell 7)</td></tr>
+      <tr><td><code>Get-ChildItem | Measure-Object Length -Sum</code></td><td>Summe, Anzahl, Durchschnitt</td></tr>
+      <tr><td><code>Get-Process | Group-Object Company</code></td><td>Gruppieren</td></tr>
+      <tr><td><code>Get-Process | Format-Table -AutoSize</code> / <code>Format-List *</code></td><td>Als Tabelle / Liste mit allen Eigenschaften</td></tr>
+      <tr><td><code>Get-Process | Out-GridView</code></td><td>Interaktive Tabelle (Windows)</td></tr>
+      <tr><td><code>Get-Service | Export-Csv dienste.csv -NoTypeInformation</code></td><td>Als CSV exportieren</td></tr>
+      <tr><td><code>Import-Csv datei.csv</code></td><td>CSV einlesen</td></tr>
+      <tr><td><code>Get-Process | ConvertTo-Json -Depth 3</code></td><td>In JSON umwandeln</td></tr>
+      <tr><td><code>Get-Content daten.json -Raw | ConvertFrom-Json</code></td><td>JSON einlesen</td></tr>
+      <tr><td><code>befehl | Out-File datei.txt -Encoding utf8</code></td><td>Ausgabe in Datei</td></tr>
+      <tr><td><code>befehl | Tee-Object datei.txt</code></td><td>Ausgabe anzeigen und speichern</td></tr>
+      <tr><td><code>befehl | Set-Clipboard</code></td><td>In die Zwischenablage</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ps-system">
+  <h2>System, Dienste &amp; Netzwerk</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Get-Process</code> / <code>Stop-Process -Name notepad</code></td><td>Prozesse anzeigen / beenden</td></tr>
+      <tr><td><code>Start-Process pwsh -Verb RunAs</code></td><td>Programm als Administrator starten</td></tr>
+      <tr><td><code>Get-Service</code> / <code>Get-Service -Name wuauserv</code></td><td>Dienste anzeigen</td></tr>
+      <tr><td><code>Start-Service</code> / <code>Stop-Service</code> / <code>Restart-Service -Name dienst</code></td><td>Dienst steuern</td></tr>
+      <tr><td><code>Set-Service -Name dienst -StartupType Automatic</code></td><td>Starttyp setzen</td></tr>
+      <tr><td><code>Get-ComputerInfo</code></td><td>Ausführliche Systeminformationen</td></tr>
+      <tr><td><code>Get-CimInstance Win32_OperatingSystem</code></td><td>WMI/CIM abfragen (ersetzt <code>Get-WmiObject</code>)</td></tr>
+      <tr><td><code>Get-CimInstance Win32_LogicalDisk | Select-Object DeviceID, Size, FreeSpace</code></td><td>Laufwerke und freier Platz</td></tr>
+      <tr><td><code>Get-Volume</code></td><td>Volumes (Storage-Modul)</td></tr>
+      <tr><td><code>Get-WinEvent -LogName System -MaxEvents 20</code></td><td>Neueste Ereignisse (ersetzt <code>Get-EventLog</code>)</td></tr>
+      <tr><td><code>Get-WinEvent -FilterHashtable @{LogName='System'; Level=2} -MaxEvents 20</code></td><td>Nur Fehler</td></tr>
+      <tr><td><code>Get-HotFix</code></td><td>Installierte Updates</td></tr>
+      <tr><td><code>Get-LocalUser</code> / <code>Get-LocalGroupMember Administratoren</code></td><td>Lokale Benutzer / Gruppenmitglieder</td></tr>
+      <tr><td><code>Get-NetIPAddress -AddressFamily IPv4</code></td><td>IP-Adressen</td></tr>
+      <tr><td><code>Get-NetIPConfiguration</code></td><td>Adapter mit Gateway und DNS</td></tr>
+      <tr><td><code>Test-Connection host -Count 2</code></td><td>Ping</td></tr>
+      <tr><td><code>Test-NetConnection host -Port 443</code></td><td>TCP-Port prüfen</td></tr>
+      <tr><td><code>Resolve-DnsName example.org</code></td><td>DNS-Abfrage</td></tr>
+      <tr><td><code>Get-NetTCPConnection -State Listen</code></td><td>Offene Ports</td></tr>
+      <tr><td><code>Invoke-RestMethod https://api.example.org/daten</code></td><td>REST-API abfragen (JSON wird zu Objekten)</td></tr>
+      <tr><td><code>Invoke-WebRequest https://example.org/datei -OutFile datei</code></td><td>Datei herunterladen</td></tr>
+      <tr><td><code>Restart-Computer</code> / <code>Stop-Computer</code></td><td>Neustart / Herunterfahren</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ps-remoting">
+  <h2>Remoting &amp; Module</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>Enter-PSSession -ComputerName server</code></td><td>Interaktive Remote-Sitzung</td></tr>
+      <tr><td><code>Invoke-Command -ComputerName s1, s2 -ScriptBlock { Get-Service }</code></td><td>Befehl auf mehreren Rechnern</td></tr>
+      <tr><td><code>$s = New-PSSession -ComputerName server</code></td><td>Wiederverwendbare Sitzung</td></tr>
+      <tr><td><code>Enable-PSRemoting -Force</code></td><td>Remoting aktivieren (Server)</td></tr>
+      <tr><td><code>Get-Credential</code></td><td>Anmeldedaten sicher abfragen</td></tr>
+      <tr><td><code>Get-Module -ListAvailable</code></td><td>Verfügbare Module</td></tr>
+      <tr><td><code>Install-Module Name -Scope CurrentUser</code></td><td>Modul aus der PowerShell Gallery installieren</td></tr>
+      <tr><td><code>Update-Module</code> / <code>Import-Module Name</code></td><td>Module aktualisieren / laden</td></tr>
+      <tr><td><code>Start-Job { … }</code> / <code>Receive-Job -Id 1</code></td><td>Hintergrundauftrag starten / Ergebnis abholen</td></tr>
+      <tr><td><code>Start-Transcript -Path log.txt</code></td><td>Sitzung protokollieren</td></tr>
+    </tbody>
+  </table>
+</section>

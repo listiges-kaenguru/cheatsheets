@@ -1,0 +1,104 @@
+<section id="psql-verbindung">
+  <h2>Verbindung &amp; Meta-Befehle</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>psql -U benutzer -d datenbank -h localhost</code></td><td>Verbinden</td></tr>
+      <tr><td><code>sudo -u postgres psql</code></td><td>Als Systembenutzer postgres anmelden (lokal)</td></tr>
+      <tr><td><code>psql "postgresql://benutzer:pw@host:5432/db?sslmode=require"</code></td><td>Verbindung per URL mit TLS</td></tr>
+      <tr><td><code>\l</code></td><td>Datenbanken auflisten</td></tr>
+      <tr><td><code>\c datenbank</code></td><td>Datenbank wechseln</td></tr>
+      <tr><td><code>\dt</code></td><td>Tabellen anzeigen</td></tr>
+      <tr><td><code>\d tabelle</code></td><td>Struktur einer Tabelle</td></tr>
+      <tr><td><code>\d+ tabelle</code></td><td>Struktur mit Größe und Beschreibung</td></tr>
+      <tr><td><code>\dn</code> / <code>\du</code></td><td>Schemas / Rollen anzeigen</td></tr>
+      <tr><td><code>\di</code> / <code>\dv</code> / <code>\df</code></td><td>Indizes / Views / Funktionen</td></tr>
+      <tr><td><code>\dp tabelle</code></td><td>Zugriffsrechte einer Tabelle</td></tr>
+      <tr><td><code>\x</code></td><td>Erweiterte Anzeige umschalten (breite Zeilen)</td></tr>
+      <tr><td><code>\timing</code></td><td>Ausführungszeit anzeigen</td></tr>
+      <tr><td><code>\e</code></td><td>Letzte Abfrage im Editor bearbeiten</td></tr>
+      <tr><td><code>\i datei.sql</code></td><td>SQL-Datei ausführen</td></tr>
+      <tr><td><code>\copy tabelle TO 'daten.csv' CSV HEADER</code></td><td>Tabelle als CSV exportieren (clientseitig)</td></tr>
+      <tr><td><code>\copy tabelle FROM 'daten.csv' CSV HEADER</code></td><td>CSV importieren</td></tr>
+      <tr><td><code>\conninfo</code></td><td>Aktuelle Verbindungsinfos</td></tr>
+      <tr><td><code>\?</code> / <code>\h SELECT</code></td><td>Hilfe zu psql-Befehlen / zu SQL</td></tr>
+      <tr><td><code>\q</code></td><td>Beenden</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="psql-ddl">
+  <h2>Datenbanken &amp; Tabellen</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>CREATE DATABASE shop;</code></td><td>Datenbank anlegen</td></tr>
+      <tr><td><code>CREATE TABLE kunden (id BIGSERIAL PRIMARY KEY, name TEXT NOT NULL, email TEXT UNIQUE, erstellt TIMESTAMPTZ DEFAULT now());</code></td><td>Tabelle anlegen</td></tr>
+      <tr><td><code>ALTER TABLE kunden ADD COLUMN telefon TEXT;</code></td><td>Spalte hinzufügen</td></tr>
+      <tr><td><code>ALTER TABLE kunden ALTER COLUMN telefon TYPE VARCHAR(40);</code></td><td>Spaltentyp ändern</td></tr>
+      <tr><td><code>ALTER TABLE kunden RENAME COLUMN telefon TO tel;</code></td><td>Spalte umbenennen</td></tr>
+      <tr><td><code>CREATE INDEX idx_name ON kunden (name);</code></td><td>Index anlegen</td></tr>
+      <tr><td><code>CREATE INDEX CONCURRENTLY idx_name ON kunden (name);</code></td><td>Index ohne Schreibsperre anlegen</td></tr>
+      <tr><td><code>CREATE UNIQUE INDEX ON kunden (email);</code></td><td>Eindeutiger Index</td></tr>
+      <tr><td><code>DROP TABLE kunden;</code></td><td>Tabelle löschen</td></tr>
+      <tr><td><code>TRUNCATE kunden RESTART IDENTITY CASCADE;</code></td><td>Leeren und Sequenzen zurücksetzen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="psql-dml">
+  <h2>Abfragen &amp; Daten</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>SELECT * FROM kunden WHERE name ILIKE 'm%' ORDER BY name LIMIT 10;</code></td><td>Suche ohne Groß-/Kleinschreibung (ILIKE)</td></tr>
+      <tr><td><code>SELECT land, COUNT(*) FROM kunden GROUP BY land HAVING COUNT(*) &gt; 5;</code></td><td>Gruppieren und filtern</td></tr>
+      <tr><td><code>INSERT INTO kunden (name, email) VALUES ('Max', 'max@example.org') RETURNING id;</code></td><td>Einfügen und erzeugte ID zurückgeben</td></tr>
+      <tr><td><code>INSERT INTO kunden (email, name) VALUES ('max@example.org', 'Max') ON CONFLICT (email) DO UPDATE SET name = EXCLUDED.name;</code></td><td>Upsert</td></tr>
+      <tr><td><code>UPDATE kunden SET name = 'Maria' WHERE id = 1;</code></td><td>Aktualisieren</td></tr>
+      <tr><td><code>DELETE FROM kunden WHERE id = 1;</code></td><td>Löschen</td></tr>
+      <tr><td><code>SELECT daten-&gt;&gt;'feld' FROM logs;</code></td><td>Wert aus JSONB-Spalte lesen</td></tr>
+      <tr><td><code>EXPLAIN ANALYZE SELECT * FROM kunden WHERE name = 'Max';</code></td><td>Ausführungsplan mit echten Laufzeiten</td></tr>
+      <tr><td><code>BEGIN; … COMMIT;</code> / <code>ROLLBACK;</code></td><td>Transaktion</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="psql-rollen">
+  <h2>Rollen &amp; Rechte</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>CREATE ROLE app LOGIN PASSWORD 'Passwort';</code></td><td>Anmeldbare Rolle (Benutzer) anlegen</td></tr>
+      <tr><td><code>CREATE ROLE leser;</code></td><td>Gruppenrolle ohne Login</td></tr>
+      <tr><td><code>GRANT leser TO app;</code></td><td>Rolle einer anderen zuweisen</td></tr>
+      <tr><td><code>GRANT CONNECT ON DATABASE shop TO app;</code></td><td>Verbindungsrecht</td></tr>
+      <tr><td><code>GRANT USAGE ON SCHEMA public TO app;</code></td><td>Schema nutzen dürfen</td></tr>
+      <tr><td><code>GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO app;</code></td><td>Rechte auf alle Tabellen</td></tr>
+      <tr><td><code>ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO leser;</code></td><td>Rechte auch für künftige Tabellen</td></tr>
+      <tr><td><code>ALTER ROLE app WITH PASSWORD 'NeuesPasswort';</code></td><td>Passwort ändern</td></tr>
+      <tr><td><code>REVOKE INSERT ON kunden FROM app;</code></td><td>Recht entziehen</td></tr>
+      <tr><td><code>DROP ROLE app;</code></td><td>Rolle löschen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="psql-admin">
+  <h2>Administration &amp; Backup</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>pg_dump -U benutzer -Fc shop &gt; shop.dump</code></td><td>Eine Datenbank sichern (komprimiertes Custom-Format)</td></tr>
+      <tr><td><code>pg_dump -U benutzer shop &gt; shop.sql</code></td><td>Als reines SQL sichern</td></tr>
+      <tr><td><code>pg_dumpall -U postgres --globals-only &gt; rollen.sql</code></td><td>Rollen und Rechte sichern</td></tr>
+      <tr><td><code>pg_restore -U benutzer -d shop --clean shop.dump</code></td><td>Custom-Dump wiederherstellen</td></tr>
+      <tr><td><code>psql -U benutzer -d shop -f shop.sql</code></td><td>SQL-Dump einspielen</td></tr>
+      <tr><td><code>createdb shop</code> / <code>dropdb shop</code></td><td>Datenbank auf der Shell anlegen / löschen</td></tr>
+      <tr><td><code>VACUUM (VERBOSE, ANALYZE) kunden;</code></td><td>Aufräumen und Statistiken aktualisieren</td></tr>
+      <tr><td><code>REINDEX TABLE kunden;</code></td><td>Indizes neu aufbauen</td></tr>
+      <tr><td><code>SELECT pg_size_pretty(pg_database_size('shop'));</code></td><td>Größe der Datenbank</td></tr>
+      <tr><td><code>SELECT * FROM pg_stat_activity;</code></td><td>Aktive Verbindungen und Abfragen</td></tr>
+      <tr><td><code>SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = 'idle in transaction';</code></td><td>Hängende Sitzungen beenden</td></tr>
+    </tbody>
+  </table>
+</section>

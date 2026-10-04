@@ -1,0 +1,64 @@
+<section id="screen-sitzungen">
+  <h2>Sitzungen</h2>
+  <p class="note">Alle Tastenkürzel beginnen mit dem Präfix <kbd>Ctrl</kbd>+<kbd>a</kbd>, danach wird die zweite Taste gedrückt (Präfix loslassen).</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>screen</code></td><td>Neue Sitzung starten</td></tr>
+      <tr><td><code>screen -S name</code></td><td>Benannte Sitzung starten</td></tr>
+      <tr><td><code>screen -ls</code></td><td>Sitzungen auflisten</td></tr>
+      <tr><td><code>screen -r name</code></td><td>Getrennte Sitzung fortsetzen (Name oder PID)</td></tr>
+      <tr><td><code>screen -dr name</code></td><td>Sitzung woanders trennen und hier fortsetzen</td></tr>
+      <tr><td><code>screen -x name</code></td><td>An bereits verbundene Sitzung zusätzlich anhängen (Mehrfachanzeige)</td></tr>
+      <tr><td><code>screen -d name</code></td><td>Sitzung von außen trennen</td></tr>
+      <tr><td><code>screen -dmS name befehl</code></td><td>Sitzung im Hintergrund mit Befehl starten</td></tr>
+      <tr><td><code>screen -S name -X quit</code></td><td>Sitzung von außen beenden</td></tr>
+      <tr><td><code>screen -S name -X stuff "befehl\n"</code></td><td>Befehl in eine laufende Sitzung schicken</td></tr>
+      <tr><td><code>screen -L -S name</code></td><td>Sitzung mit Protokoll in <code>screenlog.0</code> starten</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>d</kbd></td><td>Sitzung trennen (Detach), Programme laufen weiter</td></tr>
+      <tr><td><code>exit</code></td><td>Aktuelles Fenster bzw. letzte Shell beenden</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="screen-fenster">
+  <h2>Fenster &amp; Bereiche</h2>
+  <table>
+    <thead><tr><th>Tastenkürzel</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>c</kbd></td><td>Neues Fenster</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>n</kbd> / <kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>p</kbd></td><td>Nächstes / vorheriges Fenster</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>&quot;</kbd></td><td>Fensterliste</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>0</kbd></td><td>Zu Fenster 0 wechseln (0–9)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>Ctrl</kbd>+<kbd>a</kbd></td><td>Zum zuletzt genutzten Fenster</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>A</kbd></td><td>Fenster umbenennen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>k</kbd></td><td>Aktuelles Fenster beenden</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>S</kbd></td><td>Horizontal teilen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>|</kbd></td><td>Vertikal teilen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>Tab</kbd></td><td>Zum nächsten Bereich wechseln</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>X</kbd></td><td>Aktuellen Bereich schließen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>Q</kbd></td><td>Alle Bereiche außer dem aktuellen schließen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="screen-extras">
+  <h2>Kopiermodus &amp; Extras</h2>
+  <table>
+    <thead><tr><th>Tastenkürzel</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>[</kbd> / <kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>Esc</kbd></td><td>Kopier-/Scrollmodus (Pfeiltasten, Bild ↑/↓; Leertaste markiert Anfang/Ende)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>]</kbd></td><td>Kopierten Text einfügen</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>H</kbd></td><td>Protokollierung des Fensters ein/aus</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>?</kbd></td><td>Hilfe mit allen Tastenkürzeln</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>:</kbd></td><td>Befehlszeile für Screen-Befehle</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>x</kbd></td><td>Sitzung sperren</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>a</kbd> <kbd>t</kbd></td><td>Uhrzeit und Systemlast anzeigen</td></tr>
+      <tr><td><code>:multiuser on</code></td><td>Mehrbenutzermodus aktivieren</td></tr>
+      <tr><td><code>:acladd benutzer</code></td><td>Benutzer Zugriff auf die Sitzung geben</td></tr>
+      <tr><td><code>~/.screenrc</code></td><td>Persönliche Konfigurationsdatei</td></tr>
+      <tr><td><code>defscrollback 10000</code></td><td>.screenrc: Scrollpuffer auf 10 000 Zeilen</td></tr>
+      <tr><td><code>startup_message off</code></td><td>.screenrc: Startmeldung abschalten</td></tr>
+    </tbody>
+  </table>
+</section>

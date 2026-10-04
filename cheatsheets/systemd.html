@@ -1,0 +1,124 @@
+<section id="systemd-services">
+  <h2>Dienste steuern</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>systemctl status dienst</code></td><td>Status mit den letzten Logzeilen</td></tr>
+      <tr><td><code>sudo systemctl start dienst</code> / <code>sudo systemctl stop dienst</code></td><td>Dienst starten / stoppen</td></tr>
+      <tr><td><code>sudo systemctl restart dienst</code></td><td>Dienst neu starten</td></tr>
+      <tr><td><code>sudo systemctl reload dienst</code></td><td>Konfiguration neu laden (wenn vom Dienst unterstützt)</td></tr>
+      <tr><td><code>sudo systemctl reload-or-restart dienst</code></td><td>Neu laden, sonst neu starten</td></tr>
+      <tr><td><code>sudo systemctl enable --now dienst</code></td><td>Beim Booten aktivieren und sofort starten</td></tr>
+      <tr><td><code>sudo systemctl disable --now dienst</code></td><td>Deaktivieren und sofort stoppen</td></tr>
+      <tr><td><code>systemctl is-active dienst</code> / <code>systemctl is-enabled dienst</code></td><td>Läuft er? / Startet er beim Booten? (für Skripte)</td></tr>
+      <tr><td><code>sudo systemctl mask dienst</code> / <code>sudo systemctl unmask dienst</code></td><td>Start komplett verhindern / wieder erlauben</td></tr>
+      <tr><td><code>sudo systemctl kill -s HUP dienst</code></td><td>Signal an alle Prozesse des Dienstes senden</td></tr>
+      <tr><td><code>systemctl --failed</code></td><td>Fehlgeschlagene Units</td></tr>
+      <tr><td><code>sudo systemctl reset-failed</code></td><td>Fehlerstatus zurücksetzen</td></tr>
+      <tr><td><code>systemctl list-units --type=service --state=running</code></td><td>Laufende Dienste</td></tr>
+      <tr><td><code>systemctl list-unit-files --state=enabled</code></td><td>Aktivierte Units</td></tr>
+      <tr><td><code>systemctl list-timers --all</code></td><td>Timer mit nächster Ausführung</td></tr>
+      <tr><td><code>systemctl --user status dienst</code></td><td>Benutzerdienste (ohne root)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="systemd-units">
+  <h2>Unit-Dateien</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>/etc/systemd/system/</code></td><td>Eigene und überschriebene Units (höchste Priorität)</td></tr>
+      <tr><td><code>/usr/lib/systemd/system/</code></td><td>Units aus Paketen (nicht direkt bearbeiten)</td></tr>
+      <tr><td><code>~/.config/systemd/user/</code></td><td>Benutzer-Units</td></tr>
+      <tr><td><code>systemctl cat dienst</code></td><td>Unit inkl. Overrides anzeigen</td></tr>
+      <tr><td><code>sudo systemctl edit dienst</code></td><td>Drop-in-Override anlegen (bleibt bei Updates erhalten)</td></tr>
+      <tr><td><code>sudo systemctl edit --full dienst</code></td><td>Komplette Kopie der Unit bearbeiten</td></tr>
+      <tr><td><code>sudo systemctl daemon-reload</code></td><td>Geänderte Unit-Dateien einlesen</td></tr>
+      <tr><td><code>systemctl show dienst -p MainPID,Restart</code></td><td>Einzelne Eigenschaften anzeigen</td></tr>
+      <tr><td><code>systemd-analyze verify datei.service</code></td><td>Unit-Datei auf Fehler prüfen</td></tr>
+      <tr><td><code>systemd-analyze security dienst</code></td><td>Härtung eines Dienstes bewerten</td></tr>
+      <tr class="sub"><th colspan="2">Beispiel: /etc/systemd/system/meineapp.service</th></tr>
+      <tr><td><code>[Unit]</code></td><td>Allgemeiner Abschnitt</td></tr>
+      <tr><td><code>Description=Meine Anwendung</code></td><td>Beschreibung</td></tr>
+      <tr><td><code>After=network-online.target</code> / <code>Wants=network-online.target</code></td><td>Erst nach bestehender Netzwerkverbindung starten</td></tr>
+      <tr><td><code>[Service]</code></td><td>Dienst-Abschnitt</td></tr>
+      <tr><td><code>Type=simple</code></td><td>Typ: <code>simple</code>, <code>exec</code>, <code>forking</code>, <code>oneshot</code>, <code>notify</code></td></tr>
+      <tr><td><code>ExecStart=/usr/local/bin/meineapp</code></td><td>Startbefehl (absoluter Pfad)</td></tr>
+      <tr><td><code>User=meineapp</code> / <code>Group=meineapp</code></td><td>Unter eigenem, unprivilegiertem Benutzer ausführen</td></tr>
+      <tr><td><code>WorkingDirectory=/opt/meineapp</code></td><td>Arbeitsverzeichnis</td></tr>
+      <tr><td><code>EnvironmentFile=/etc/meineapp.env</code></td><td>Umgebungsvariablen aus Datei</td></tr>
+      <tr><td><code>Restart=on-failure</code> / <code>RestartSec=5</code></td><td>Bei Fehler nach 5 s neu starten</td></tr>
+      <tr><td><code>NoNewPrivileges=yes</code> / <code>ProtectSystem=strict</code> / <code>PrivateTmp=yes</code></td><td>Einfache Härtung</td></tr>
+      <tr><td><code>[Install]</code></td><td>Installations-Abschnitt</td></tr>
+      <tr><td><code>WantedBy=multi-user.target</code></td><td>Beim normalen Systemstart aktivieren</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="systemd-timer">
+  <h2>Timer (Cron-Alternative)</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr class="sub"><th colspan="2">Beispiel: /etc/systemd/system/backup.timer (startet backup.service)</th></tr>
+      <tr><td><code>[Timer]</code></td><td>Timer-Abschnitt</td></tr>
+      <tr><td><code>OnCalendar=*-*-* 02:00:00</code></td><td>Täglich um 2 Uhr</td></tr>
+      <tr><td><code>OnCalendar=Mon..Fri 08:00</code></td><td>Werktags um 8 Uhr</td></tr>
+      <tr><td><code>OnBootSec=5min</code> / <code>OnUnitActiveSec=1h</code></td><td>5 min nach Boot / stündlich danach</td></tr>
+      <tr><td><code>Persistent=true</code></td><td>Verpasste Läufe nachholen</td></tr>
+      <tr><td><code>RandomizedDelaySec=10min</code></td><td>Zufällige Verzögerung</td></tr>
+      <tr><td><code>[Install]</code> / <code>WantedBy=timers.target</code></td><td>Timer aktivierbar machen</td></tr>
+      <tr><td><code>sudo systemctl enable --now backup.timer</code></td><td>Timer aktivieren</td></tr>
+      <tr><td><code>systemd-analyze calendar 'Mon..Fri 08:00'</code></td><td>Zeitausdruck prüfen, nächste Termine anzeigen</td></tr>
+      <tr><td><code>systemd-run --on-active=30m befehl</code></td><td>Einmalig in 30 Minuten ausführen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="systemd-journal">
+  <h2>Logs (journalctl)</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>journalctl -u dienst</code></td><td>Logs eines Dienstes</td></tr>
+      <tr><td><code>journalctl -u dienst -f</code></td><td>Live verfolgen</td></tr>
+      <tr><td><code>journalctl -xeu dienst</code></td><td>Letzte Einträge mit Erklärungen (bei Startfehlern)</td></tr>
+      <tr><td><code>journalctl -n 100</code></td><td>Letzte 100 Einträge</td></tr>
+      <tr><td><code>journalctl -b</code> / <code>journalctl -b -1</code></td><td>Aktueller / vorheriger Boot</td></tr>
+      <tr><td><code>journalctl --list-boots</code></td><td>Verfügbare Boots</td></tr>
+      <tr><td><code>journalctl --since "1 hour ago"</code></td><td>Letzte Stunde</td></tr>
+      <tr><td><code>journalctl --since "2026-01-01 08:00" --until "2026-01-01 12:00"</code></td><td>Zeitraum</td></tr>
+      <tr><td><code>journalctl -p err -b</code></td><td>Nur Fehler und schwerer im aktuellen Boot</td></tr>
+      <tr><td><code>journalctl -k</code></td><td>Kernel-Meldungen</td></tr>
+      <tr><td><code>journalctl _PID=1234</code></td><td>Nach Prozess-ID filtern</td></tr>
+      <tr><td><code>journalctl -g 'muster'</code></td><td>Nachrichten per Regex durchsuchen</td></tr>
+      <tr><td><code>journalctl -o json-pretty</code></td><td>Ausgabe als JSON</td></tr>
+      <tr><td><code>journalctl --disk-usage</code></td><td>Speicherbedarf der Logs</td></tr>
+      <tr><td><code>sudo journalctl --vacuum-time=14d</code> / <code>sudo journalctl --vacuum-size=500M</code></td><td>Alte Logs löschen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="systemd-system">
+  <h2>System</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>sudo systemctl reboot</code> / <code>sudo systemctl poweroff</code></td><td>Neustart / Herunterfahren</td></tr>
+      <tr><td><code>systemctl suspend</code> / <code>systemctl hibernate</code></td><td>Bereitschaft / Ruhezustand</td></tr>
+      <tr><td><code>systemctl get-default</code></td><td>Standard-Target anzeigen</td></tr>
+      <tr><td><code>sudo systemctl set-default multi-user.target</code></td><td>Standardmäßig ohne grafische Oberfläche starten</td></tr>
+      <tr><td><code>sudo systemctl isolate rescue.target</code></td><td>In den Rettungsmodus wechseln</td></tr>
+      <tr><td><code>systemctl list-dependencies dienst</code></td><td>Abhängigkeiten anzeigen</td></tr>
+      <tr><td><code>systemd-analyze</code> / <code>systemd-analyze blame</code></td><td>Bootzeit / langsamste Units</td></tr>
+      <tr><td><code>systemd-analyze critical-chain</code></td><td>Kritischer Pfad beim Booten</td></tr>
+      <tr><td><code>hostnamectl set-hostname name</code></td><td>Hostname setzen</td></tr>
+      <tr><td><code>timedatectl</code> / <code>sudo timedatectl set-timezone Europe/Berlin</code></td><td>Zeit/NTP anzeigen / Zeitzone setzen</td></tr>
+      <tr><td><code>localectl set-keymap de</code></td><td>Tastaturlayout der Konsole setzen</td></tr>
+      <tr><td><code>loginctl list-sessions</code></td><td>Angemeldete Sitzungen</td></tr>
+      <tr><td><code>sudo loginctl enable-linger benutzer</code></td><td>Benutzerdienste ohne Anmeldung laufen lassen</td></tr>
+      <tr><td><code>resolvectl status</code></td><td>DNS-Konfiguration (systemd-resolved)</td></tr>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,51 @@
+<section id="choco-grundlagen">
+  <h2>Grundlagen</h2>
+  <p class="note">Chocolatey-Befehle in einer PowerShell <strong>als Administrator</strong> ausführen. Beschreibung gilt für Chocolatey 2.x.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>choco --version</code></td><td>Installierte Version anzeigen</td></tr>
+      <tr><td><code>choco -?</code> / <code>choco install -?</code></td><td>Hilfe allgemein / zu einem Befehl</td></tr>
+      <tr><td><code>choco search begriff</code></td><td>Im Community-Repository suchen</td></tr>
+      <tr><td><code>choco info paket</code></td><td>Details zu einem Paket</td></tr>
+      <tr><td><code>choco list</code></td><td>Lokal installierte Pakete (in 2.x nur noch lokal)</td></tr>
+      <tr><td><code>choco outdated</code></td><td>Pakete mit verfügbaren Updates</td></tr>
+      <tr><td><code>choco upgrade chocolatey</code></td><td>Chocolatey selbst aktualisieren</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="choco-pakete">
+  <h2>Pakete verwalten</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>choco install paket -y</code></td><td>Paket ohne Rückfrage installieren</td></tr>
+      <tr><td><code>choco install paket1 paket2 -y</code></td><td>Mehrere Pakete installieren</td></tr>
+      <tr><td><code>choco install paket --version=1.2.3 -y</code></td><td>Bestimmte Version installieren</td></tr>
+      <tr><td><code>choco install paket -y --params "'/Option:Wert'"</code></td><td>Paketparameter übergeben</td></tr>
+      <tr><td><code>choco upgrade paket -y</code></td><td>Paket aktualisieren</td></tr>
+      <tr><td><code>choco upgrade all -y</code></td><td>Alle Pakete aktualisieren</td></tr>
+      <tr><td><code>choco uninstall paket -y</code></td><td>Paket entfernen</td></tr>
+      <tr><td><code>choco pin add -n=paket</code></td><td>Paket von <code>upgrade all</code> ausnehmen</td></tr>
+      <tr><td><code>choco pin list</code> / <code>choco pin remove -n=paket</code></td><td>Gesperrte Pakete anzeigen / Sperre aufheben</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="choco-erweitert">
+  <h2>Quellen, Konfiguration &amp; Export</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>choco source list</code></td><td>Paketquellen anzeigen</td></tr>
+      <tr><td><code>choco source add -n=intern -s="https://repo.example/nuget"</code></td><td>Eigene Paketquelle hinzufügen</td></tr>
+      <tr><td><code>choco source disable -n=chocolatey</code></td><td>Quelle deaktivieren</td></tr>
+      <tr><td><code>choco feature enable -n=allowGlobalConfirmation</code></td><td><code>-y</code> dauerhaft voraussetzen</td></tr>
+      <tr><td><code>choco config list</code></td><td>Konfiguration anzeigen</td></tr>
+      <tr><td><code>choco export -o=pakete.config</code></td><td>Installierte Pakete in Datei exportieren</td></tr>
+      <tr><td><code>choco install pakete.config -y</code></td><td>Pakete aus Exportdatei installieren</td></tr>
+      <tr><td><code>C:\ProgramData\chocolatey\logs\chocolatey.log</code></td><td>Protokolldatei</td></tr>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,123 @@
+<section id="keytool-grundlagen">
+  <h2>Grundlagen &amp; Anzeigen</h2>
+  <p class="note"><code>keytool</code> gehört zum JDK (<code>$JAVA_HOME/bin</code>). Seit Java 9 ist <strong>PKCS12</strong> der Standard-Keystore-Typ; JKS gilt als veraltet. Einträge werden über ihren <code>-alias</code> angesprochen. Fehlt <code>-storepass</code>, fragt keytool interaktiv nach dem Passwort.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>keytool -help</code> / <code>keytool -genkeypair -help</code></td><td>Übersicht aller Befehle / Optionen eines Befehls</td></tr>
+      <tr><td><code>keytool -list -keystore keystore.p12</code></td><td>Einträge auflisten (Alias, Typ, Fingerabdruck)</td></tr>
+      <tr><td><code>keytool -list -v -keystore keystore.p12</code></td><td>Ausführlich: Aussteller, Gültigkeit, Erweiterungen, Kette</td></tr>
+      <tr><td><code>keytool -list -v -keystore keystore.p12 -alias server</code></td><td>Nur einen Eintrag anzeigen</td></tr>
+      <tr><td><code>keytool -list -rfc -keystore keystore.p12 -alias server</code></td><td>Zertifikat(skette) als PEM ausgeben</td></tr>
+      <tr><td><code>keytool -printcert -file server.crt</code></td><td>Zertifikatsdatei anzeigen (PEM oder DER)</td></tr>
+      <tr><td><code>keytool -printcert -sslserver example.org:443</code></td><td>Zertifikatskette eines TLS-Servers anzeigen</td></tr>
+      <tr><td><code>keytool -printcert -sslserver example.org:443 -rfc &gt; chain.pem</code></td><td>Serverkette als PEM speichern</td></tr>
+      <tr><td><code>keytool -printcertreq -file server.csr</code></td><td>Zertifikatsanforderung (CSR) anzeigen</td></tr>
+      <tr><td><code>keytool -printcrl -file ca.crl</code></td><td>Sperrliste (CRL) anzeigen</td></tr>
+      <tr><td><code>keytool -J-Duser.language=en -list -keystore keystore.p12</code></td><td>Ausgabe auf Englisch (hilfreich beim Suchen nach Fehlermeldungen)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="keytool-erzeugen">
+  <h2>Schlüsselpaare &amp; CSRs</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>keytool -genkeypair -alias server -keyalg RSA -keysize 3072 -validity 365 -keystore keystore.p12 -dname "CN=example.org, O=Firma, C=DE" -ext "SAN=dns:example.org,dns:www.example.org"</code></td><td>RSA-Schlüsselpaar mit selbstsigniertem Zertifikat und SAN erzeugen</td></tr>
+      <tr><td><code>keytool -genkeypair -alias server -keyalg EC -groupname secp256r1 -keystore keystore.p12</code></td><td>EC-Schlüssel (P-256) erzeugen, fragt Namen interaktiv ab</td></tr>
+      <tr><td><code>keytool -genkeypair -alias server -keyalg Ed25519 -keystore keystore.p12</code></td><td>Ed25519-Schlüssel (ab Java 15)</td></tr>
+      <tr><td><code>-ext "SAN=dns:example.org,ip:192.0.2.10"</code></td><td>Subject Alternative Names (DNS-Namen, IP-Adressen)</td></tr>
+      <tr><td><code>-ext KU=digitalSignature,keyEncipherment -ext EKU=serverAuth</code></td><td>Schlüssel- und erweiterte Verwendung festlegen</td></tr>
+      <tr><td><code>-ext BC:c=ca:true</code></td><td>Als CA-Zertifikat markieren (Basic Constraints, kritisch)</td></tr>
+      <tr><td><code>-sigalg SHA256withRSA</code> / <code>-startdate 2026/10/01</code></td><td>Signaturalgorithmus / Beginn der Gültigkeit festlegen</td></tr>
+      <tr><td><code>keytool -certreq -alias server -keystore keystore.p12 -file server.csr -ext "SAN=dns:example.org"</code></td><td>CSR für einen vorhandenen Schlüssel erzeugen (SAN erneut angeben!)</td></tr>
+      <tr><td><code>keytool -gencert -alias ca -keystore ca.p12 -infile server.csr -outfile server.crt -rfc -validity 365 -ext "SAN=dns:example.org"</code></td><td>CSR mit einer CA aus dem Keystore signieren</td></tr>
+      <tr><td><code>keytool -genseckey -alias aeskey -keyalg AES -keysize 256 -keystore secrets.p12</code></td><td>Symmetrischen AES-Schlüssel ablegen</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Erweiterungen aus <code>-genkeypair</code> werden <strong>nicht</strong> automatisch in einen CSR übernommen – <code>-ext</code> bei <code>-certreq</code> wiederholen.</p>
+</section>
+
+<section id="keytool-import-export">
+  <h2>Importieren &amp; Exportieren</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>keytool -importcert -alias server -file server-chain.crt -keystore keystore.p12</code></td><td>Signierte Antwort der CA installieren – gleicher Alias wie der Schlüssel, ersetzt das selbstsignierte Zertifikat</td></tr>
+      <tr><td><code>keytool -importcert -trustcacerts -alias server -file server.crt -keystore keystore.p12</code></td><td>Beim Aufbau der Kette auch den Java-Truststore (<code>cacerts</code>) nutzen</td></tr>
+      <tr><td><code>keytool -importcert -alias intermediate -file intermediate.crt -keystore keystore.p12</code></td><td>Zwischenzertifikat vorab als vertrauenswürdig importieren</td></tr>
+      <tr><td><code>keytool -exportcert -alias server -keystore keystore.p12 -rfc -file server.crt</code></td><td>Zertifikat als PEM exportieren (ohne <code>-rfc</code>: DER)</td></tr>
+      <tr><td><code>keytool -importkeystore -srckeystore quelle.p12 -srcstoretype PKCS12 -destkeystore ziel.p12 -srcalias server</code></td><td>Einzelnen Eintrag in einen anderen Keystore kopieren</td></tr>
+      <tr><td><code>keytool -importpass -alias dbpass -keystore secrets.p12</code></td><td>Passwort als geheimen Eintrag speichern (fragt interaktiv)</td></tr>
+    </tbody>
+  </table>
+  <p class="warn">keytool kann private Schlüssel weder aus PEM-Dateien importieren noch als PEM exportieren. Dafür den Umweg über PKCS12 und OpenSSL nehmen (siehe <a href="#keytool-konvertieren">Formate konvertieren</a>).</p>
+</section>
+
+<section id="keytool-truststore">
+  <h2>Truststore &amp; cacerts</h2>
+  <p class="note">Java vertraut standardmäßig den CAs aus <code>$JAVA_HOME/lib/security/cacerts</code> (Standardpasswort <code>changeit</code>). Unter Fedora/RHEL und Debian/Ubuntu wird diese Datei aus dem System-CA-Store erzeugt – dort CAs besser systemweit hinzufügen.</p>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>keytool -list -cacerts</code></td><td>Einträge des Java-Truststores anzeigen (ab Java 9)</td></tr>
+      <tr><td><code>keytool -list -cacerts -alias firma-root</code></td><td>Prüfen, ob eine bestimmte CA enthalten ist</td></tr>
+      <tr><td><code>sudo keytool -importcert -cacerts -alias firma-root -file root-ca.crt</code></td><td>Eigene Root-CA in den Java-Truststore aufnehmen</td></tr>
+      <tr><td><code>sudo keytool -delete -cacerts -alias firma-root</code></td><td>CA aus dem Java-Truststore entfernen</td></tr>
+      <tr><td><code>keytool -importcert -alias firma-root -file root-ca.crt -keystore truststore.p12 -storepass geheim -noprompt</code></td><td>Eigenen Truststore anlegen bzw. erweitern (ohne Rückfrage)</td></tr>
+      <tr><td><code>sudo trust anchor root-ca.crt</code></td><td>Fedora/RHEL: CA systemweit (inkl. Java) hinzufügen</td></tr>
+      <tr><td><code>sudo cp root-ca.crt /usr/local/share/ca-certificates/ &amp;&amp; sudo update-ca-certificates</code></td><td>Debian/Ubuntu: CA systemweit (inkl. Java) hinzufügen</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="keytool-verwalten">
+  <h2>Einträge &amp; Passwörter verwalten</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>keytool -delete -alias server -keystore keystore.p12</code></td><td>Eintrag löschen</td></tr>
+      <tr><td><code>keytool -changealias -alias alt -destalias neu -keystore keystore.p12</code></td><td>Alias umbenennen</td></tr>
+      <tr><td><code>keytool -storepasswd -keystore keystore.p12</code></td><td>Keystore-Passwort ändern</td></tr>
+      <tr><td><code>keytool -keypasswd -alias server -keystore keystore.jks</code></td><td>Schlüsselpasswort ändern (nur JKS/JCEKS)</td></tr>
+      <tr><td><code>-storepass:env KS_PASS</code> / <code>-storepass:file pass.txt</code></td><td>Passwort aus Umgebungsvariable / Datei lesen (nicht in der Shell-Historie)</td></tr>
+      <tr><td><code>-storetype PKCS12</code> / <code>-storetype JKS</code></td><td>Keystore-Typ explizit angeben</td></tr>
+      <tr><td><code>-noprompt</code></td><td>Rückfragen unterdrücken (für Skripte)</td></tr>
+      <tr><td><code>-v</code></td><td>Ausführliche Ausgabe</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Bei PKCS12 haben Keystore und private Schlüssel dasselbe Passwort; <code>-keypass</code> wird dort ignoriert bzw. muss gleich <code>-storepass</code> sein.</p>
+</section>
+
+<section id="keytool-konvertieren">
+  <h2>Formate konvertieren</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>keytool -importkeystore -srckeystore keystore.jks -srcstoretype JKS -destkeystore keystore.p12 -deststoretype PKCS12</code></td><td>JKS nach PKCS12 migrieren</td></tr>
+      <tr><td><code>keytool -importkeystore -srckeystore keystore.p12 -srcstoretype PKCS12 -destkeystore keystore.jks -deststoretype JKS</code></td><td>PKCS12 nach JKS (nur für alte Software)</td></tr>
+      <tr><td><code>openssl pkcs12 -export -in server.crt -inkey server.key -certfile chain.crt -name server -out server.p12</code></td><td>PEM-Schlüssel + Zertifikat zu PKCS12 bündeln (danach direkt nutzbar oder per <code>-importkeystore</code> übernehmen)</td></tr>
+      <tr><td><code>keytool -importkeystore -srckeystore server.p12 -srcstoretype PKCS12 -destkeystore keystore.p12</code></td><td>Gebündelten Schlüssel in bestehenden Keystore übernehmen</td></tr>
+      <tr><td><code>openssl pkcs12 -in keystore.p12 -nocerts -noenc -out server.key</code></td><td>Privaten Schlüssel als PEM aus PKCS12 extrahieren (OpenSSL 3; älter: <code>-nodes</code>)</td></tr>
+      <tr><td><code>openssl pkcs12 -in keystore.p12 -nokeys -out chain.pem</code></td><td>Zertifikate als PEM aus PKCS12 extrahieren</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="keytool-java">
+  <h2>Verwendung in Java &amp; Fehlersuche</h2>
+  <table>
+    <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+    <tbody>
+      <tr><td><code>-Djavax.net.ssl.trustStore=truststore.p12 -Djavax.net.ssl.trustStorePassword=geheim</code></td><td>Eigenen Truststore für eine Anwendung setzen</td></tr>
+      <tr><td><code>-Djavax.net.ssl.keyStore=keystore.p12 -Djavax.net.ssl.keyStorePassword=geheim</code></td><td>Keystore mit Client-/Serverschlüssel setzen</td></tr>
+      <tr><td><code>-Djavax.net.ssl.trustStoreType=PKCS12</code></td><td>Typ angeben, falls nicht automatisch erkannt</td></tr>
+      <tr><td><code>-Djavax.net.debug=ssl:handshake</code></td><td>TLS-Handshake protokollieren (<code>all</code> für alles)</td></tr>
+      <tr><td><code>PKIX path building failed</code></td><td>Serverzertifikat bzw. dessen CA fehlt im Truststore – CA importieren</td></tr>
+      <tr><td><code>Keystore was tampered with, or password was incorrect</code></td><td>Falsches Keystore-Passwort</td></tr>
+      <tr><td><code>Failed to establish chain from reply</code></td><td>Zwischen-/Root-Zertifikat fehlt – vorher importieren oder komplette Kette einspielen</td></tr>
+      <tr><td><code>Certificate reply and certificate in keystore are identical</code></td><td>Antwort wurde bereits installiert</td></tr>
+    </tbody>
+  </table>
+</section>
