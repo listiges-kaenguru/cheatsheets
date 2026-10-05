@@ -150,6 +150,12 @@ kbd {
   margin-right: auto;
 }
 
+.version {
+  font-size: .8rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
 .icon-btn {
   display: inline-grid;
   place-items: center;
