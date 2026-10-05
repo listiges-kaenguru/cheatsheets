@@ -9,7 +9,10 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="Kompakte Cheatsheets für Linux, Windows, Netzwerk, Datenbanken, Container und mehr.">
   <title>Cheatsheets</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232557d6'/%3E%3Cpath d='M9 11l5 5-5 5M16 22h7' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#2557d6">
   <script src="assets/theme.js"></script>
   <link rel="stylesheet" href="assets/style.css">
   <script src="assets/app.js" defer></script>
@@ -22,8 +25,11 @@
             aria-controls="sidebar" aria-expanded="false" aria-label="Navigation öffnen">
       <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
-    <a class="brand" href="./" data-home>Cheatsheets</a>
-    <span class="version" title="Version 1.0.1">v1.0.1</span>
+    <a class="brand" href="./" data-home>
+      <svg class="logo" aria-hidden="true" viewBox="0 0 32 32" width="24" height="24"><path class="logo-sheet" d="M6 0h16l10 10v16a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6z"/><path class="logo-fold" d="M22 0v6a4 4 0 0 0 4 4h6z"/><path class="logo-glyph" d="M8 12.5l5.5 4.5L8 21.5M16 21.5h8"/></svg>
+      Cheatsheets
+    </a>
+    <span class="version" title="Version 1.1.0">v1.1.0</span>
     <button type="button" class="icon-btn" id="theme-toggle" aria-label="Dunkles Farbschema aktivieren">
       <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
       <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>

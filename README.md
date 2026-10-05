@@ -12,10 +12,12 @@ komplett statisch.
 ├── assets/
 │   ├── style.css             # Layout & Farbschema (hell/dunkel)
 │   ├── theme.js              # Farbschema früh setzen (kein Aufflackern)
-│   └── app.js                # Laden, Navigation, Filter, Kopieren, Theme
+│   ├── app.js                # Laden, Navigation, Filter, Kopieren, Theme
+│   └── icons/                # Favicon & App-Icons (SVG + PNG)
 ├── cheatsheets/
 │   ├── config.json           # Kategorien, Titel, Beschreibungen, Abschnitte
 │   └── *.html                # Ein Fragment (nur <section>/<table>) je Cheatsheet
+├── manifest.webmanifest      # Web-App-Manifest (Name, Farben, Icons)
 ├── CHANGELOG.md              # Änderungsprotokoll
 ├── CONTRIBUTING.md           # Anleitung für Beitragende
 └── LICENSE                   # GNU GPL v3

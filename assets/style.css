@@ -61,6 +61,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* hidden muss auch gegen eigene display-Regeln (z. B. mobile Kartenansicht) gewinnen */
+[hidden] { display: none !important; }
+
 html {
   scroll-padding-top: calc(var(--topbar-h) + 12px);
   -webkit-text-size-adjust: 100%;
@@ -148,6 +151,20 @@ kbd {
   color: var(--text);
   text-decoration: none;
   margin-right: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.logo { flex: none; }
+.logo-sheet { fill: var(--accent); }
+.logo-fold { fill: var(--accent-soft); }
+.logo-glyph {
+  fill: none;
+  stroke: var(--bg);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .version {
@@ -335,7 +352,6 @@ main:focus { outline: none; }
 /* ---------- Abschnitte & Tabellen ---------- */
 
 .sheet section { margin-bottom: 2rem; }
-.sheet section[hidden] { display: none; }
 
 .sheet h2 {
   margin: 0 0 .6rem;
