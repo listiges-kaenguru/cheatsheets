@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .sheet { fill: #2557d6; }
+    .fold  { fill: #7ea6ff; }
+    .glyph { stroke: #fff; }
+    @media (prefers-color-scheme: dark) {
+      .sheet { fill: #7ea6ff; }
+      .fold  { fill: #c9d9ff; }
+      .glyph { stroke: #15181d; }
+    }
+  </style>
+  <path class="sheet" d="M6 0h16l10 10v16a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6z"/>
+  <path class="fold" d="M22 0v6a4 4 0 0 0 4 4h6z"/>
+  <path class="glyph" d="M8 12.5l5.5 4.5L8 21.5M16 21.5h8" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -8,6 +8,20 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unveröffentlicht]
 
+## [1.1.0] – 2026-10-05
+
+### Hinzugefügt
+
+- Eigenes SVG-Iconset unter `assets/icons/`: Favicon (passt sich dem hellen
+  bzw. dunklen Systemschema an) und maskierbares App-Icon, dazu PNG-Varianten
+  für `apple-touch-icon` und das Manifest.
+- Web-App-Manifest (`manifest.webmanifest`) und Logo in der Navigationsleiste.
+
+### Behoben
+
+- Filter innerhalb eines Cheatsheets blendete in der mobilen Kartenansicht
+  keine Zeilen aus (nur der Zähler änderte sich).
+
 ## [1.0.1] – 2026-10-05
 
 ### Hinzugefügt
@@ -44,6 +58,7 @@ Erste öffentliche Version auf GitHub.
 - Code aufgeteilt in `assets/style.css`, `assets/theme.js` und `assets/app.js`
   (ersetzt `cheatsheet-manager.js`).
 
-[Unveröffentlicht]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.0.1...HEAD
+[Unveröffentlicht]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/listiges-kaenguru/cheatsheets/releases/tag/v1.0.0
