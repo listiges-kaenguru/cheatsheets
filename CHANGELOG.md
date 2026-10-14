@@ -8,6 +8,13 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unveröffentlicht]
 
+## [1.2.0] – 2026-10-14
+
+### Hinzugefügt
+
+- Seite „Impressum & Datenschutz“ (`impressum.html`), verlinkt unten in der
+  Seitenleiste.
+
 ## [1.1.0] – 2026-10-05
 
 ### Hinzugefügt
@@ -58,7 +65,8 @@ Erste öffentliche Version auf GitHub.
 - Code aufgeteilt in `assets/style.css`, `assets/theme.js` und `assets/app.js`
   (ersetzt `cheatsheet-manager.js`).
 
-[Unveröffentlicht]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.1.0...HEAD
+[Unveröffentlicht]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/listiges-kaenguru/cheatsheets/releases/tag/v1.0.0
