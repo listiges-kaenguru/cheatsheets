@@ -13,6 +13,12 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 - Die Seite liegt jetzt unter <https://cheatsheets.schmaralde.de/>. Impressum &
   Datenschutz nennen die neue Adresse.
 
+### Behoben
+
+- Nach einer Aktualisierung zeigte der Browser oft noch die alte Version, bis die
+  Seite neu geladen wurde (teils nur mit STRG+F5). Die neue `.htaccess` lässt den
+  Browser jede Datei kurz beim Server prüfen (`Cache-Control: no-cache`).
+
 ## [1.2.0] – 2026-10-14
 
 ### Hinzugefügt

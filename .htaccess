@@ -1,0 +1,6 @@
+# Browser sollen jede Datei vor der Verwendung beim Server prüfen (ETag/Last-Modified).
+# Ist sie unverändert, antwortet der Server nur mit „304 Not Modified“; nach dem Hochladen
+# einer neuen Version ist sie damit sofort sichtbar, ohne F5 oder STRG+F5.
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-cache"
+</IfModule>
