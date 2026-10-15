@@ -8,6 +8,11 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unveröffentlicht]
 
+### Geändert
+
+- Die Seite liegt jetzt unter <https://cheatsheets.schmaralde.de/>. Impressum &
+  Datenschutz nennen die neue Adresse.
+
 ## [1.2.0] – 2026-10-14
 
 ### Hinzugefügt
