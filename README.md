@@ -4,6 +4,8 @@ Eine schlichte, schnelle und barrierearme Sammlung von Cheatsheets für Linux,
 Windows, Netzwerk, Datenbanken, Container und mehr. Ohne externe Abhängigkeiten,
 komplett statisch.
 
+Online: <https://cheatsheets.schmaralde.de/>
+
 ## Aufbau
 
 ```
