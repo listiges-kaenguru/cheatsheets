@@ -185,6 +185,8 @@ kbd {
   cursor: pointer;
 }
 .icon-btn:hover { background: var(--bg-soft); }
+.herz-btn { color: #e11d48; }
+:root[data-theme="dark"] .herz-btn { color: #fb7185; }
 
 .icon-sun { display: none; }
 :root[data-theme="dark"] .icon-sun { display: block; }

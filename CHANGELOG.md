@@ -10,6 +10,8 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ### Hinzugefügt
 
+- Herz-Knopf „Projekte unterstützen“ oben in der Kopfzeile, führt zu
+  <https://schmaralde.de/spenden/>.
 - Link „Weitere Projekte“ zur Projektübersicht <https://schmaralde.de/> unten in
   der Seitenleiste.
 
