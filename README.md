@@ -21,6 +21,8 @@ Online: <https://cheatsheets.schmaralde.de/>
 │   └── *.html                # Ein Fragment (nur <section>/<table>) je Cheatsheet
 ├── manifest.webmanifest      # Web-App-Manifest (Name, Farben, Icons)
 ├── CHANGELOG.md              # Änderungsprotokoll
+├── IDEEN.md                  # Offene Punkte und Ideen
+├── CLAUDE.md                 # Hinweise für Claude Code
 ├── CONTRIBUTING.md           # Anleitung für Beitragende
 └── LICENSE                   # GNU GPL v3
 ```
