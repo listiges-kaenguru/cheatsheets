@@ -19,4 +19,5 @@ Statische Sammlung von Cheatsheets (Vanilla JS, kein Build), live unter <https:/
 - Keine externen Ressourcen (CDNs, Webfonts, Tracker), strikte CSP.
 - Gefährliche Befehle mit `<p class="warn">` kennzeichnen, Befehle möglichst vorher ausprobieren.
 - Neue Entwicklungsdateien in `.gitattributes` als `export-ignore` eintragen (Release-ZIP nur mit Benötigtem).
-- Testen: `python3 -m http.server 8000`, im Browser hell/dunkel, 1366 und 390 px, keine Konsolenfehler.
+- Testen: `~/projects/testumgebung/pt test` (Syntax, JSON, lokale Links), dann `python3 -m http.server 8000` und im Browser
+  hell/dunkel, 1366 und 390 px, keine Konsolenfehler.
