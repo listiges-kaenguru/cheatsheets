@@ -26,6 +26,10 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
   Seite neu geladen wurde (teils nur mit STRG+F5). Die neue `.htaccess` lässt den
   Browser jede Datei kurz beim Server prüfen (`Cache-Control: no-cache`).
 
+### Intern
+
+- Automatische Prüfung (Syntax, JSON, lokale Links) in der gemeinsamen Testumgebung (`~/projects/testumgebung/pt test`).
+
 ## [1.2.0] – 2026-10-14
 
 ### Hinzugefügt
