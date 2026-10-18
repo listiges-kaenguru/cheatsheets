@@ -28,6 +28,8 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ### Intern
 
+- Browsertest `tests/browser.mjs` (läuft mit `pt test`): präparierte `?s=`- und `#`-Parameter, Suche mit
+  Sonderzeichen; kein eingeschleuster Code, keine Anfragen an fremde Server.
 - Automatische Prüfung (Syntax, JSON, lokale Links) in der gemeinsamen Testumgebung (`~/projects/testumgebung/pt test`).
 
 ## [1.2.0] – 2026-10-14
