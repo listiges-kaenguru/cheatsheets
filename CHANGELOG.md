@@ -22,6 +22,8 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ### Behoben
 
+- Ein kaputter Anker in der Adresse (z. B. `?s=apt#%`) löst keinen Skriptfehler mehr aus; die Seite springt dann
+  einfach nicht.
 - Nach einer Aktualisierung zeigte der Browser oft noch die alte Version, bis die
   Seite neu geladen wurde (teils nur mit STRG+F5). Die neue `.htaccess` lässt den
   Browser jede Datei kurz beim Server prüfen (`Cache-Control: no-cache`).

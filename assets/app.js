@@ -318,7 +318,10 @@ class CheatsheetApp {
 
   scrollToHash() {
     if (!location.hash) return;
-    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    const raw = location.hash.slice(1);
+    let id = raw;
+    try { id = decodeURIComponent(raw); } catch { /* kaputte Kodierung (z. B. #%): Anker roh nehmen */ }
+    const target = document.getElementById(id);
     if (target) target.scrollIntoView();
   }
 
