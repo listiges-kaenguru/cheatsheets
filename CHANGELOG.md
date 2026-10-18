@@ -32,6 +32,8 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 - Browsertest `tests/browser.mjs` (läuft mit `pt test`): präparierte `?s=`- und `#`-Parameter, Suche mit
   Sonderzeichen; kein eingeschleuster Code, keine Anfragen an fremde Server.
+- Browsertest gibt geprüfte Werte maskiert aus: Das Nullbyte aus dem `?s=%00`-Fall landete roh in der Ausgabe, und
+  `grep` hielt sie für binär.
 - Automatische Prüfung (Syntax, JSON, lokale Links) in der gemeinsamen Testumgebung (`~/projects/testumgebung/pt test`).
 
 ## [1.2.0] – 2026-10-14

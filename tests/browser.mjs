@@ -37,8 +37,10 @@ check('Sheet über ?s= lädt', (await page.title()).length > 0 && (await page.$$
 for (const s of [encodeURIComponent(XSS), '..%2F..%2Fimpressum', 'javascript:alert(1)', '%00', 'apt%22%3E%3Cimg%20src%3Dx%3E', 'x'.repeat(5000), '__proto__', 'constructor']) {
   await oeffne(`?s=${s}`);
   const titel = await page.textContent('#content h1');
-  check(`?s=${decodeURIComponent(s).slice(0, 30)}: Übersicht statt Fehler`, titel === 'Cheatsheets' && errors.length === 0, `${titel} ${errors.join(' | ')}`);
-  check(`?s=${decodeURIComponent(s).slice(0, 30)}: kein eingeschleuster Code`, await sauber());
+  // Wert maskiert ausgeben: ein Nullbyte in der Ausgabe ließe grep die ganze Ausgabe für binär halten
+  const wert = JSON.stringify(decodeURIComponent(s).slice(0, 30));
+  check(`?s=${wert}: Übersicht statt Fehler`, titel === 'Cheatsheets' && errors.length === 0, `${titel} ${errors.join(' | ')}`);
+  check(`?s=${wert}: kein eingeschleuster Code`, await sauber());
 }
 for (const h of [encodeURIComponent(XSS), '%E0%A4%A', '%', '%%', 'x'.repeat(5000), '"><img src=x onerror=alert(1)>']) {
   await oeffne(`?s=apt#${h}`);
