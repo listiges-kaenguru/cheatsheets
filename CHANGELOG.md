@@ -8,6 +8,8 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unveröffentlicht]
 
+## [1.3.0] – 2026-10-19
+
 ### Hinzugefügt
 
 - Herz-Knopf „Projekte unterstützen“ oben in der Kopfzeile, führt zu
@@ -93,7 +95,8 @@ Erste öffentliche Version auf GitHub.
 - Code aufgeteilt in `assets/style.css`, `assets/theme.js` und `assets/app.js`
   (ersetzt `cheatsheet-manager.js`).
 
-[Unveröffentlicht]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.2.0...HEAD
+[Unveröffentlicht]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/listiges-kaenguru/cheatsheets/compare/v1.0.0...v1.0.1
