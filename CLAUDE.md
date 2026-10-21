@@ -1,7 +1,7 @@
 # Cheatsheets – Hinweise für Claude
 
 Statische Sammlung von Cheatsheets (Vanilla JS, kein Build), live unter <https://cheatsheets.schmaralde.de/>
-(ALL-INKL, Upload macht der Nutzer selbst).
+(statisches Hosting, Upload von Hand).
 
 ## Orientierung
 
@@ -19,5 +19,6 @@ Statische Sammlung von Cheatsheets (Vanilla JS, kein Build), live unter <https:/
 - Keine externen Ressourcen (CDNs, Webfonts, Tracker), strikte CSP.
 - Gefährliche Befehle mit `<p class="warn">` kennzeichnen, Befehle möglichst vorher ausprobieren.
 - Neue Entwicklungsdateien in `.gitattributes` als `export-ignore` eintragen (Release-ZIP nur mit Benötigtem).
-- Testen: `~/projects/testumgebung/pt test` (Syntax, JSON, lokale Links), dann `python3 -m http.server 8000` und im Browser
+- Testen in einem Container: Syntax, JSON, lokale Links und `tests/run.sh` (Browsertest mit Playwright, `PW` zeigt
+  auf dessen `package.json`), dann `python3 -m http.server 8000` und im Browser
   hell/dunkel, 1366 und 390 px, keine Konsolenfehler.

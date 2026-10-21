@@ -8,6 +8,10 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unveröffentlicht]
 
+### Intern
+
+- Hinweise für Mitwirkende (`CLAUDE.md`, CHANGELOG) allgemein formuliert, ohne lokale Pfade, Hoster-Namen und eigene Werkzeuge.
+
 ## [1.3.0] – 2026-10-19
 
 ### Hinzugefügt
@@ -32,11 +36,11 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ### Intern
 
-- Browsertest `tests/browser.mjs` (läuft mit `pt test`): präparierte `?s=`- und `#`-Parameter, Suche mit
+- Browsertest `tests/browser.mjs` (läuft mit `tests/run.sh`): präparierte `?s=`- und `#`-Parameter, Suche mit
   Sonderzeichen; kein eingeschleuster Code, keine Anfragen an fremde Server.
 - Browsertest gibt geprüfte Werte maskiert aus: Das Nullbyte aus dem `?s=%00`-Fall landete roh in der Ausgabe, und
   `grep` hielt sie für binär.
-- Automatische Prüfung (Syntax, JSON, lokale Links) in der gemeinsamen Testumgebung (`~/projects/testumgebung/pt test`).
+- Automatische Prüfung (Syntax, JSON, lokale Links) in einem Container.
 
 ## [1.2.0] – 2026-10-14
 
