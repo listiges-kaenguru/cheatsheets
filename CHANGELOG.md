@@ -11,6 +11,7 @@ die Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 ### Intern
 
 - Hinweise für Mitwirkende (`CLAUDE.md`, CHANGELOG) allgemein formuliert, ohne lokale Pfade, Hoster-Namen und eigene Werkzeuge.
+- Testskripte nennen in Meldungen und Kommentaren keinen lokalen Pfad mehr, sondern verweisen auf einen Container mit den Testwerkzeugen und die README.
 
 ## [1.3.0] – 2026-10-19
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Browsertest der Seite (präparierte URL-Parameter, Suche). Läuft in der Testumgebung: ~/projects/testumgebung/pt test
+# Browsertest der Seite (präparierte URL-Parameter, Suche). Braucht Node, Playwright und Chromium (Pfad in $PW)
 set -uo pipefail
 cd "$(dirname "$0")/.."
 PORT="${TEST_PORT:-8090}"
